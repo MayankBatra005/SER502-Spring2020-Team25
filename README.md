@@ -1,5 +1,7 @@
 # SER502-Spring2020-Team-25
 
+## Language Name: Sparky
+
 ## Course Information
 - **Instructor**: Ajay Bansal
 - **TA**: Sarthak Tiwari
