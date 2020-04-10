@@ -13,9 +13,7 @@
 - Sayali Suryakant Tanawade
 
 ## System on which your compiler and runtime are built (GNUstep, Linux, Unix, Windows or Mac OS)
-- Windows
-- Linux
-- MacOS
+- Windows OS
 
 ## Tools used
 - ANTLR
