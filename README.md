@@ -11,7 +11,15 @@
 - Sayali Suryakant Tanawade
 
 ## System on which your compiler and runtime are built (GNUstep, Linux, Unix, Windows or Mac OS)
+- Windows
+- Linux
+- MacOS
+
 ## Tools used
+- ANTLR
+- Eclipse
+- Git
+
 ## Directions/instructions to install your language
 ## Directions/instructions to build and run your language (compiler/runtime).
 ## ONE LINE of bash script that builds the compiler and ONE LINE that runs the runtime.
