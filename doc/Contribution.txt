@@ -1,0 +1,35 @@
+Contributions for SER502 Project Milestone 1:
+Team Number: 25
+
+Members:
+Mayank Batra (MayankBatra005)
+Rahul Jain (jainrahul1369)
+Rishika Bera (rishikabera)
+Sayali Suryakant Tanawade (SayaliTanawade)
+
+Week 1: April 02 - April 09
+Mayank
+	- Participation in designing grammar.
+	- Writing grammar and creating documentation for milestone 1.
+Rahul
+	- Participation in designing grammar.
+	- Knowledge aquisition: Environment, Lexer and Parser
+	- Creating sample programs once grammar is finalized.
+Rishika
+	- Participation in designing grammar.
+	- Writing grammar.
+Sayali
+	- Participation in designing grammar.
+	- Knowledge aquisition: Environment, Lexer and Parser
+	- Creating contribution.txt
+
+Plan for next weeks:
+Week 2: April 10 - April 17
+We will start:
+	- Implementing intermidiate code generation logic.
+	- Update grammar if minor changes are required.
+	- Implement creating tokens.
+	- Test intermidiate code and token generation.
+	- Implement runtime environment.
+
+
