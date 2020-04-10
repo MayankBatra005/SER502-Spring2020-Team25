@@ -2,7 +2,7 @@ grammar Sparky;
 
 
 //prog : LIVE declare* ball DIE;
-prog: LIVE declare* ball DIE;
+prog: declare* ball;
 ball : expression* ;
 
 declare:  datatype STUFF EQUALTO assignedstuff SEMICOLON
