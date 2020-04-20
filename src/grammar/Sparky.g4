@@ -237,13 +237,8 @@ WS
 : [ \t\r\n\f]+ -> skip
 ;
 
-
-LIVE
-: L I V E
-;
-DIE
-: D I E
-;
+LIVE: 'Live';
+DIE: 'Die';
 FI
 : F I
 ;
