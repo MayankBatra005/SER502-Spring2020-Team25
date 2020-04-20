@@ -1,9 +1,8 @@
 grammar Sparky;
 
+program: LIVE  ball DIE;
+ball: expression* | declare* expression;
 
-//prog : LIVE declare* ball DIE;
-prog: declare* ball;
-ball : expression* ;
 
 declare
 :
