@@ -3,7 +3,7 @@
 ## Language Name: Sparky
 
 ## Course Information
-- **Instructor**: Ajay Bansal
+- **Instructor**: Dr. Ajay Bansal
 - **TA**: Sarthak Tiwari
 
 ## Teammates
