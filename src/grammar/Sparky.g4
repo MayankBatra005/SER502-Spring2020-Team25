@@ -142,6 +142,29 @@ IF
 ELSE
 :'else'
 ;
+// Correcting code for while 
+
+statement
+	:	statementWithoutTrailingSubstatement
+	|	labeledStatement
+	|	ifThenStatement
+	|	ifThenElseStatement
+	|	whileStatement
+	|	forStatement
+	;
+
+whileStatement
+	:	'while' '(' expression ')' statement
+	;
+
+expression
+	:	lambdaExpression
+	|	assignmentExpression
+	;
+
+
+WHILE : 'while';
+// Test while 
 WHILE
 : 'while'
 ;
