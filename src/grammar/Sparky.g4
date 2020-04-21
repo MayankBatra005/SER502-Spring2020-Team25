@@ -4,15 +4,10 @@ program: LIVE  ball DIE;
 ball: expression* | declare* expression;
 
 
-declare
-:
-datatype STUFF EQUALTO assignedstuff SEMICOLON
-|  datatype STUFF SEMICOLON
-;
 declare:
 (datatype STUFF EQUALTO NUMBER SEMICOLON)|
 (datatype STUFF SEMICOLON)|
-(HAINA STUFF EQUALTO YUPNUP SEMICOLON)|
+(HAINA EQUALTO BOOLEANVALUE SEMICOLON)|
 (HAINA STUFF SEMICOLON);
 		
 
@@ -57,10 +52,8 @@ ifte
       |term DIV term2 | NUMBER | STUFF; */
 // removing left recursion by alpha-beta rule.
 
-term 
-: NUMBER term1 
-| STUFF term1
-;
+term: NUMBER | STUFF | STUFF op=(MUL | DIV) term | NUMBER  op=(MUL | DIV) term;
+expr: term | term op=(PLUS | MINUS) expr;
 
 term1
 : MUL term2 term1 
@@ -77,23 +70,19 @@ term2
 : LSmoothBrace yesnostatement RSmoothBrace
 ;
 
-in_loop
-: LCurlyBrace expression SEMICOLON RCurlyBrace
-;			 
+in_loop: LCurlyBrace ball RCurlyBrace| expression;				 
 
 
 assignedstuff
 : NUMBER
 | BOOLEANVALUE
 ;
-
 assignment
-: STUFF EQUALTO expression
-;
-
+ : STUFF EQUALTO expr SEMICOLON
+ ;
 //YESNOSTATEMENT
 yesnostatement
-: YUPNUP
+: BOOLEANVALUE
 | expression YESNOOPERATOR expression
 ;
 
@@ -109,10 +98,6 @@ datatype
 
 HAINA: 'haina';
 haina:'bool';
-
-YUPNUP: 'yup' | 'nup'; 
-yup:'true';
-nup:'false';
 
 
 INTEGER
@@ -144,14 +129,14 @@ STUFF
 
 //BOOLEANVALUE
 BOOLEANVALUE
-: YUP
-|NOPE
+: 'yup'
+|'nope'
 ;
 
-YUP
+yup
 : 'true'
 ;
-NOPE
+nope
 : 'false'
 ;
 
