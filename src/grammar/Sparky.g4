@@ -40,6 +40,16 @@ e1
 
 loopum : loop_for|loop_while;
 
+loop_for: 'for' LSmoothBrace for_declare? ';' for_expression? ';' for_expr? RSmoothBrace in_loop;
+for_expr: STUFF EQUALTO expr;
+for_expression :expr YESNOOPERATOR expr;
+for_declare:datatype STUFF EQUALTO NUMBER;
+
+
+loop_while
+ : WHILE yesnostatement in_loop
+ ;
+
 loopum1 
 :IF term2 THEN  in_loop (ELSE  term2)? FI 
 |  WHILE  term2 LOOP in_loop  POOL
@@ -64,9 +74,7 @@ term1
 |
 ;
 
-loop_while
- : WHILE yesnostatement in_loop
- ;
+
  
 
 term2
