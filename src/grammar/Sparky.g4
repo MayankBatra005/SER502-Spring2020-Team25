@@ -26,7 +26,8 @@ assignment e1
 expression
  : assignment
  | ifte
- | loopum;
+ | loopum
+  |ternary_operator;
 e1
 : PLUS term SEMICOLON e1
 | MINUS term SEMICOLON e1 
@@ -46,7 +47,7 @@ ifte
  : IF yesnostatement in_loop ('warna' in_loop)? FI
  ;
 
-               
+ ternary_operator: IF yesnostatement '?' in_loop ':' in_loop;              
 
 /*term: term MUL term2
       |term DIV term2 | NUMBER | STUFF; */
