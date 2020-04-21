@@ -43,6 +43,10 @@ loopum
 |  WHILE  term2 LOOP in_loop  POOL
 ;
 
+ifte
+ : IF yesnostatement in_loop ('warna' in_loop)? FI
+ ;
+
                
 
 /*term: term MUL term2
@@ -147,8 +151,9 @@ NOPE
 IF 
 : 'if'
 ;
-ELSE
-:'else'
+warna 
+:
+'else'
 ;
 // Correcting code for while 
 
