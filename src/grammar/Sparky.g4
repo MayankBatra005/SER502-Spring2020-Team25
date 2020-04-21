@@ -1,15 +1,19 @@
 grammar Sparky;
 
+program: LIVE  ball DIE;
+ball: expression* | declare* expression;
 
-//prog : LIVE declare* ball DIE;
-prog: declare* ball;
-ball : expression* ;
 
 declare
 :
 datatype STUFF EQUALTO assignedstuff SEMICOLON
 |  datatype STUFF SEMICOLON
 ;
+declare:
+(datatype STUFF EQUALTO NUMBER SEMICOLON)|
+(datatype STUFF SEMICOLON)|
+(HAINA STUFF EQUALTO YUPNUP SEMICOLON)|
+(HAINA STUFF SEMICOLON);
 		
 
 /*
@@ -42,6 +46,10 @@ loopum1
 :IF term2 THEN  in_loop (ELSE  term2)? FI 
 |  WHILE  term2 LOOP in_loop  POOL
 ;
+
+ifte
+ : IF yesnostatement in_loop ('warna' in_loop)? FI
+ ;
 
                
 
@@ -81,13 +89,13 @@ assignment
 
 //YESNOSTATEMENT
 yesnostatement
-: BOOLEANVALUE
+: YUPNUP
 | expression YESNOOPERATOR expression
 ;
 
 //primitive types
 datatype
-: YUPNUP 
+:  
 | INTEGER 
 | STRING 
 | DOUBLE 
@@ -95,9 +103,13 @@ datatype
 | CHAR
 ;
 
-YUPNUP
-: 'boolean'
-;
+HAINA: 'haina';
+haina:'bool';
+
+YUPNUP: 'yup' | 'nup'; 
+yup:'true';
+nup:'false';
+
 
 INTEGER
 : 'int'
@@ -143,32 +155,11 @@ NOPE
 IF 
 : 'if'
 ;
-ELSE
-:'else'
+warna 
+:
+'else'
 ;
-// Correcting code for while 
 
-statement
-	:	statementWithoutTrailingSubstatement
-	|	labeledStatement
-	|	ifThenStatement
-	|	ifThenElseStatement
-	|	whileStatement
-	|	forStatement
-	;
-
-whileStatement
-	:	'while' '(' expression ')' statement
-	;
-
-expression
-	:	lambdaExpression
-	|	assignmentExpression
-	;
-
-
-WHILE : 'while';
-// Test while 
 WHILE
 : 'while'
 ;
@@ -198,6 +189,7 @@ SEMICOLON
 COMMA        
 :  ','
 ;
+
 
 //Operators
 YESNOOPERATOR
@@ -242,10 +234,10 @@ WS
 : [ \t\r\n\f]+ -> skip
 ;
 
-
 LIVE: 'Live';
 DIE: 'Die';
 FI: 'fi';
+
 LOOP 
 : L O O P
 ; 
