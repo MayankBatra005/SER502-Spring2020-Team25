@@ -18,12 +18,16 @@ expression: loopum SEMICOLON| expression PLUS term SEMICOLON
 */
 // removing left recursion by alpha-beta rule.
 
-expression 
+expression1 
 : 
 assignment e1 
 | loopum SEMICOLON e1 
 | term  SEMICOLON e1
 ;
+expression
+ : assignment
+ | ifte
+ | loopum;
 e1
 : PLUS term SEMICOLON e1
 | MINUS term SEMICOLON e1 
@@ -32,9 +36,9 @@ e1
 ;
 
 
+loopum : loop_for|loop_while;
 
-
-loopum 
+loopum1 
 :IF term2 THEN  in_loop (ELSE  term2)? FI 
 |  WHILE  term2 LOOP in_loop  POOL
 ;
@@ -239,18 +243,9 @@ WS
 ;
 
 
-LIVE
-: L I V E
-;
-DIE
-: D I E
-;
-FI
-: F I
-;
-THEN 
-: T H E N
-;
+LIVE: 'Live';
+DIE: 'Die';
+FI: 'fi';
 LOOP 
 : L O O P
 ; 
