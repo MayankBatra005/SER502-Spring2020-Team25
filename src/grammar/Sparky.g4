@@ -68,6 +68,10 @@ term1
 |
 ;
 
+loop_while
+ : WHILE yesnostatement in_loop
+ ;
+ 
 
 term2
 : LSmoothBrace yesnostatement RSmoothBrace
