@@ -9,6 +9,11 @@ declare
 datatype STUFF EQUALTO assignedstuff SEMICOLON
 |  datatype STUFF SEMICOLON
 ;
+declare:
+(datatype STUFF EQUALTO NUMBER SEMICOLON)|
+(datatype STUFF SEMICOLON)|
+(HAINA STUFF EQUALTO YUPNUP SEMICOLON)|
+(HAINA STUFF SEMICOLON);
 		
 
 /*
@@ -76,13 +81,13 @@ assignment
 
 //YESNOSTATEMENT
 yesnostatement
-: BOOLEANVALUE
+: YUPNUP
 | expression YESNOOPERATOR expression
 ;
 
 //primitive types
 datatype
-: YUPNUP 
+:  
 | INTEGER 
 | STRING 
 | DOUBLE 
@@ -90,9 +95,13 @@ datatype
 | CHAR
 ;
 
-YUPNUP
-: 'boolean'
-;
+HAINA: 'haina';
+haina:'bool';
+
+YUPNUP: 'yup' | 'nup'; 
+yup:'true';
+nup:'false';
+
 
 INTEGER
 : 'int'
@@ -193,6 +202,7 @@ SEMICOLON
 COMMA        
 :  ','
 ;
+
 
 //Operators
 YESNOOPERATOR
