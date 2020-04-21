@@ -27,7 +27,9 @@ expression
  : assignment
  | ifte
  | loopum
-  |ternary_operator;
+  |ternary_operator
+  |print;
+  
 e1
 : PLUS term SEMICOLON e1
 | MINUS term SEMICOLON e1 
@@ -100,6 +102,7 @@ datatype
 HAINA: 'haina';
 haina:'bool';
 
+print:'print('expr')' SEMICOLON;
 
 INTEGER
 : 'int'
