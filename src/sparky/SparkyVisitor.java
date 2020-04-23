@@ -12,11 +12,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface SparkyVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link SparkyParser#prog}.
+	 * Visit a parse tree produced by {@link SparkyParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProg(SparkyParser.ProgContext ctx);
+	T visitProgram(SparkyParser.ProgramContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SparkyParser#ball}.
 	 * @param ctx the parse tree
@@ -36,11 +36,17 @@ public interface SparkyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(SparkyParser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SparkyParser#e1}.
+	 * Visit a parse tree produced by {@link SparkyParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitE1(SparkyParser.E1Context ctx);
+	T visitAssignment(SparkyParser.AssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#ifte}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfte(SparkyParser.IfteContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SparkyParser#loopum}.
 	 * @param ctx the parse tree
@@ -48,23 +54,17 @@ public interface SparkyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLoopum(SparkyParser.LoopumContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SparkyParser#term}.
+	 * Visit a parse tree produced by {@link SparkyParser#loop_for}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTerm(SparkyParser.TermContext ctx);
+	T visitLoop_for(SparkyParser.Loop_forContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SparkyParser#term1}.
+	 * Visit a parse tree produced by {@link SparkyParser#loop_while}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTerm1(SparkyParser.Term1Context ctx);
-	/**
-	 * Visit a parse tree produced by {@link SparkyParser#term2}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTerm2(SparkyParser.Term2Context ctx);
+	T visitLoop_while(SparkyParser.Loop_whileContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SparkyParser#in_loop}.
 	 * @param ctx the parse tree
@@ -72,17 +72,35 @@ public interface SparkyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIn_loop(SparkyParser.In_loopContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SparkyParser#assignedstuff}.
+	 * Visit a parse tree produced by {@link SparkyParser#for_expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignedstuff(SparkyParser.AssignedstuffContext ctx);
+	T visitFor_expr(SparkyParser.For_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SparkyParser#assignment}.
+	 * Visit a parse tree produced by {@link SparkyParser#for_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignment(SparkyParser.AssignmentContext ctx);
+	T visitFor_expression(SparkyParser.For_expressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#for_declare}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFor_declare(SparkyParser.For_declareContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTerm(SparkyParser.TermContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpr(SparkyParser.ExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SparkyParser#yesnostatement}.
 	 * @param ctx the parse tree
@@ -90,9 +108,45 @@ public interface SparkyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitYesnostatement(SparkyParser.YesnostatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SparkyParser#ternary_operator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTernary_operator(SparkyParser.Ternary_operatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#print}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrint(SparkyParser.PrintContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#warna}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWarna(SparkyParser.WarnaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#haina}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHaina(SparkyParser.HainaContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SparkyParser#datatype}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitDatatype(SparkyParser.DatatypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#yup}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitYup(SparkyParser.YupContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#nope}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNope(SparkyParser.NopeContext ctx);
 }

@@ -16,13 +16,13 @@ public class SparkyBaseListener implements SparkyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProg(SparkyParser.ProgContext ctx) { }
+	@Override public void enterProgram(SparkyParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProg(SparkyParser.ProgContext ctx) { }
+	@Override public void exitProgram(SparkyParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -64,13 +64,25 @@ public class SparkyBaseListener implements SparkyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterE1(SparkyParser.E1Context ctx) { }
+	@Override public void enterAssignment(SparkyParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitE1(SparkyParser.E1Context ctx) { }
+	@Override public void exitAssignment(SparkyParser.AssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfte(SparkyParser.IfteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfte(SparkyParser.IfteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -88,37 +100,25 @@ public class SparkyBaseListener implements SparkyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm(SparkyParser.TermContext ctx) { }
+	@Override public void enterLoop_for(SparkyParser.Loop_forContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm(SparkyParser.TermContext ctx) { }
+	@Override public void exitLoop_for(SparkyParser.Loop_forContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm1(SparkyParser.Term1Context ctx) { }
+	@Override public void enterLoop_while(SparkyParser.Loop_whileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm1(SparkyParser.Term1Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTerm2(SparkyParser.Term2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTerm2(SparkyParser.Term2Context ctx) { }
+	@Override public void exitLoop_while(SparkyParser.Loop_whileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -136,25 +136,61 @@ public class SparkyBaseListener implements SparkyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignedstuff(SparkyParser.AssignedstuffContext ctx) { }
+	@Override public void enterFor_expr(SparkyParser.For_exprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignedstuff(SparkyParser.AssignedstuffContext ctx) { }
+	@Override public void exitFor_expr(SparkyParser.For_exprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment(SparkyParser.AssignmentContext ctx) { }
+	@Override public void enterFor_expression(SparkyParser.For_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment(SparkyParser.AssignmentContext ctx) { }
+	@Override public void exitFor_expression(SparkyParser.For_expressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFor_declare(SparkyParser.For_declareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFor_declare(SparkyParser.For_declareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTerm(SparkyParser.TermContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTerm(SparkyParser.TermContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpr(SparkyParser.ExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpr(SparkyParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -172,6 +208,54 @@ public class SparkyBaseListener implements SparkyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTernary_operator(SparkyParser.Ternary_operatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTernary_operator(SparkyParser.Ternary_operatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrint(SparkyParser.PrintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrint(SparkyParser.PrintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWarna(SparkyParser.WarnaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWarna(SparkyParser.WarnaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHaina(SparkyParser.HainaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHaina(SparkyParser.HainaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDatatype(SparkyParser.DatatypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -179,6 +263,30 @@ public class SparkyBaseListener implements SparkyListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDatatype(SparkyParser.DatatypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterYup(SparkyParser.YupContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitYup(SparkyParser.YupContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNope(SparkyParser.NopeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNope(SparkyParser.NopeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
