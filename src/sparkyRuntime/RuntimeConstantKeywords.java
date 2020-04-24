@@ -31,7 +31,7 @@ public interface RuntimeConstantKeywords {
 	public static final String IFTE_END = "IFTE_END";
 	public static final String CHECK_CONDITION = "CHECK_CONDITION";
 	public static final String CONDITION_FALSE = "CONDITION_FALSE";
-	public static final String JUMP_ELSE = "JUMP_ELSE";
+	public static final String JUMP = "JUMP";
 	
 
 }

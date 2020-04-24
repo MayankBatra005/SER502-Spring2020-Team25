@@ -92,7 +92,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 	@Override public Object visitIfte(SparkyParser.IfteContext ctx) {
 		help.addOutput(RuntimeConstantKeywords.IFTE_START);
 		help.addOutput(RuntimeConstantKeywords.CHECK_CONDITION + " " + ctx.yesnostatement().getText());
-		help.addOutput(RuntimeConstantKeywords.CONDITION_FALSE + " " + RuntimeConstantKeywords.JUMP_ELSE);
+		help.addOutput(RuntimeConstantKeywords.CONDITION_FALSE + " " + RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.ELSE_START);
 
 		help.addOutput(RuntimeConstantKeywords.IF_START);
 		visit(ctx.in_loop(0));
