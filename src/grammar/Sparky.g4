@@ -1,7 +1,7 @@
 grammar Sparky;
 
 program: LIVE ball DIE;
-ball: expression* | declare* expression;
+ball: expression* | declare* expression*;
 
 
 declare:
@@ -105,6 +105,7 @@ datatype
 | DOUBLE 
 | DECIMAL 
 | CHAR
+| HAINA
 ;
 
 HAINA: 'haina';
