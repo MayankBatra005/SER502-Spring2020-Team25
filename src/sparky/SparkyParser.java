@@ -19,24 +19,24 @@ public class SparkyParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		LIVE=10, DIE=11, FI=12, YESNOOPERATOR=13, EQUALTO=14, ASSEQ=15, LESS_THAN=16, 
-		MORE_THAN=17, LESS_THAN_EQ=18, MORE_THAN_EQ=19, PLUS=20, MINUS=21, MUL=22, 
-		DIV=23, SEMICOLON=24, LSmoothBrace=25, RSmoothBrace=26, LCurlyBrace=27, 
-		RCurlyBrace=28, HAINA=29, INTEGER=30, STRING=31, DOUBLE=32, DECIMAL=33, 
-		CHAR=34, IF=35, WHILE=36, STUFF=37, NUMBER=38, WS=39, BOOLEANVALUE=40;
+		T__9=10, T__10=11, LIVE=12, DIE=13, FI=14, YESNOOPERATOR=15, EQUALTO=16, 
+		ASSEQ=17, LESS_THAN=18, MORE_THAN=19, LESS_THAN_EQ=20, MORE_THAN_EQ=21, 
+		PLUS=22, MINUS=23, MUL=24, DIV=25, SEMICOLON=26, LSmoothBrace=27, RSmoothBrace=28, 
+		LCurlyBrace=29, RCurlyBrace=30, HAINA=31, INTEGER=32, STRING=33, DOUBLE=34, 
+		DECIMAL=35, CHAR=36, IF=37, WHILE=38, STUFF=39, NUMBER=40, WS=41;
 	public static final int
 		RULE_program = 0, RULE_ball = 1, RULE_declare = 2, RULE_expression = 3, 
 		RULE_assignment = 4, RULE_ifte = 5, RULE_loopum = 6, RULE_loop_for = 7, 
 		RULE_loop_while = 8, RULE_in_loop = 9, RULE_for_expr = 10, RULE_for_expression = 11, 
 		RULE_for_declare = 12, RULE_term = 13, RULE_expr = 14, RULE_yesnostatement = 15, 
 		RULE_ternary_operator = 16, RULE_print = 17, RULE_warna = 18, RULE_haina = 19, 
-		RULE_datatype = 20, RULE_yup = 21, RULE_nope = 22;
+		RULE_datatype = 20, RULE_booleanvalue = 21, RULE_yup = 22, RULE_nope = 23;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "ball", "declare", "expression", "assignment", "ifte", "loopum", 
 			"loop_for", "loop_while", "in_loop", "for_expr", "for_expression", "for_declare", 
 			"term", "expr", "yesnostatement", "ternary_operator", "print", "warna", 
-			"haina", "datatype", "yup", "nope"
+			"haina", "datatype", "booleanvalue", "yup", "nope"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -44,21 +44,21 @@ public class SparkyParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'warna'", "'for'", "'?'", "':'", "'print('", "'else'", "'bool'", 
-			"'true'", "'false'", "'Live'", "'Die'", "'fi'", null, "'='", "'=='", 
-			"'<'", "'>'", "'<='", "'>='", "'+'", "'-'", "'*'", "'/'", "';'", "'('", 
-			"')'", "'{'", "'}'", "'haina'", "'int'", "'string'", "'double'", "'float'", 
-			"'char'", "'if'", "'while'"
+			"'yup'", "'nope'", "'true'", "'false'", "'Live'", "'Die'", "'fi'", null, 
+			"'='", "'=='", "'<'", "'>'", "'<='", "'>='", "'+'", "'-'", "'*'", "'/'", 
+			"';'", "'('", "')'", "'{'", "'}'", "'haina'", "'int'", "'string'", "'double'", 
+			"'float'", "'char'", "'if'", "'while'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, null, "LIVE", "DIE", 
-			"FI", "YESNOOPERATOR", "EQUALTO", "ASSEQ", "LESS_THAN", "MORE_THAN", 
-			"LESS_THAN_EQ", "MORE_THAN_EQ", "PLUS", "MINUS", "MUL", "DIV", "SEMICOLON", 
-			"LSmoothBrace", "RSmoothBrace", "LCurlyBrace", "RCurlyBrace", "HAINA", 
-			"INTEGER", "STRING", "DOUBLE", "DECIMAL", "CHAR", "IF", "WHILE", "STUFF", 
-			"NUMBER", "WS", "BOOLEANVALUE"
+			null, null, null, null, null, null, null, null, null, null, null, null, 
+			"LIVE", "DIE", "FI", "YESNOOPERATOR", "EQUALTO", "ASSEQ", "LESS_THAN", 
+			"MORE_THAN", "LESS_THAN_EQ", "MORE_THAN_EQ", "PLUS", "MINUS", "MUL", 
+			"DIV", "SEMICOLON", "LSmoothBrace", "RSmoothBrace", "LCurlyBrace", "RCurlyBrace", 
+			"HAINA", "INTEGER", "STRING", "DOUBLE", "DECIMAL", "CHAR", "IF", "WHILE", 
+			"STUFF", "NUMBER", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -143,11 +143,11 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(46);
-			match(LIVE);
-			setState(47);
-			ball();
 			setState(48);
+			match(LIVE);
+			setState(49);
+			ball();
+			setState(50);
 			match(DIE);
 			}
 		}
@@ -199,23 +199,23 @@ public class SparkyParser extends Parser {
 		enterRule(_localctx, 2, RULE_ball);
 		int _la;
 		try {
-			setState(63);
+			setState(70);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(53);
+				setState(55);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__4) | (1L << IF) | (1L << WHILE) | (1L << STUFF))) != 0)) {
 					{
 					{
-					setState(50);
+					setState(52);
 					expression();
 					}
 					}
-					setState(55);
+					setState(57);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -224,22 +224,34 @@ public class SparkyParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(59);
+				setState(61);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << HAINA) | (1L << INTEGER) | (1L << STRING) | (1L << DOUBLE) | (1L << DECIMAL) | (1L << CHAR))) != 0)) {
 					{
 					{
-					setState(56);
+					setState(58);
 					declare();
 					}
 					}
-					setState(61);
+					setState(63);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(62);
-				expression();
+				setState(67);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__4) | (1L << IF) | (1L << WHILE) | (1L << STUFF))) != 0)) {
+					{
+					{
+					setState(64);
+					expression();
+					}
+					}
+					setState(69);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
 				}
 				break;
 			}
@@ -264,7 +276,9 @@ public class SparkyParser extends Parser {
 		public TerminalNode NUMBER() { return getToken(SparkyParser.NUMBER, 0); }
 		public TerminalNode SEMICOLON() { return getToken(SparkyParser.SEMICOLON, 0); }
 		public TerminalNode HAINA() { return getToken(SparkyParser.HAINA, 0); }
-		public TerminalNode BOOLEANVALUE() { return getToken(SparkyParser.BOOLEANVALUE, 0); }
+		public BooleanvalueContext booleanvalue() {
+			return getRuleContext(BooleanvalueContext.class,0);
+		}
 		public DeclareContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -288,22 +302,22 @@ public class SparkyParser extends Parser {
 		DeclareContext _localctx = new DeclareContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_declare);
 		try {
-			setState(83);
+			setState(91);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
 				{
-				setState(65);
+				setState(72);
 				datatype();
-				setState(66);
+				setState(73);
 				match(STUFF);
-				setState(67);
+				setState(74);
 				match(EQUALTO);
-				setState(68);
+				setState(75);
 				match(NUMBER);
-				setState(69);
+				setState(76);
 				match(SEMICOLON);
 				}
 				}
@@ -312,11 +326,11 @@ public class SparkyParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				{
-				setState(71);
+				setState(78);
 				datatype();
-				setState(72);
+				setState(79);
 				match(STUFF);
-				setState(73);
+				setState(80);
 				match(SEMICOLON);
 				}
 				}
@@ -325,15 +339,15 @@ public class SparkyParser extends Parser {
 				enterOuterAlt(_localctx, 3);
 				{
 				{
-				setState(75);
+				setState(82);
 				match(HAINA);
-				setState(76);
+				setState(83);
 				match(STUFF);
-				setState(77);
+				setState(84);
 				match(EQUALTO);
-				setState(78);
-				match(BOOLEANVALUE);
-				setState(79);
+				setState(85);
+				booleanvalue();
+				setState(86);
 				match(SEMICOLON);
 				}
 				}
@@ -342,11 +356,11 @@ public class SparkyParser extends Parser {
 				enterOuterAlt(_localctx, 4);
 				{
 				{
-				setState(80);
+				setState(88);
 				match(HAINA);
-				setState(81);
+				setState(89);
 				match(STUFF);
-				setState(82);
+				setState(90);
 				match(SEMICOLON);
 				}
 				}
@@ -403,41 +417,41 @@ public class SparkyParser extends Parser {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_expression);
 		try {
-			setState(90);
+			setState(98);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(85);
+				setState(93);
 				assignment();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(86);
+				setState(94);
 				ifte();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(87);
+				setState(95);
 				loopum();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(88);
+				setState(96);
 				ternary_operator();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(89);
+				setState(97);
 				print();
 				}
 				break;
@@ -461,6 +475,9 @@ public class SparkyParser extends Parser {
 			return getRuleContext(ExprContext.class,0);
 		}
 		public TerminalNode SEMICOLON() { return getToken(SparkyParser.SEMICOLON, 0); }
+		public YesnostatementContext yesnostatement() {
+			return getRuleContext(YesnostatementContext.class,0);
+		}
 		public AssignmentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -484,16 +501,35 @@ public class SparkyParser extends Parser {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_assignment);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(92);
-			match(STUFF);
-			setState(93);
-			match(EQUALTO);
-			setState(94);
-			expr();
-			setState(95);
-			match(SEMICOLON);
+			setState(110);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(100);
+				match(STUFF);
+				setState(101);
+				match(EQUALTO);
+				setState(102);
+				expr();
+				setState(103);
+				match(SEMICOLON);
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(105);
+				match(STUFF);
+				setState(106);
+				match(EQUALTO);
+				setState(107);
+				yesnostatement();
+				setState(108);
+				match(SEMICOLON);
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -545,25 +581,25 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(97);
+			setState(112);
 			match(IF);
-			setState(98);
+			setState(113);
 			yesnostatement();
-			setState(99);
+			setState(114);
 			in_loop();
-			setState(102);
+			setState(117);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T__0) {
 				{
-				setState(100);
+				setState(115);
 				match(T__0);
-				setState(101);
+				setState(116);
 				in_loop();
 				}
 			}
 
-			setState(104);
+			setState(119);
 			match(FI);
 			}
 		}
@@ -608,20 +644,20 @@ public class SparkyParser extends Parser {
 		LoopumContext _localctx = new LoopumContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_loopum);
 		try {
-			setState(108);
+			setState(123);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(106);
+				setState(121);
 				loop_for();
 				}
 				break;
 			case WHILE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(107);
+				setState(122);
 				loop_while();
 				}
 				break;
@@ -685,47 +721,47 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110);
+			setState(125);
 			match(T__1);
-			setState(111);
+			setState(126);
 			match(LSmoothBrace);
-			setState(113);
+			setState(128);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INTEGER) | (1L << STRING) | (1L << DOUBLE) | (1L << DECIMAL) | (1L << CHAR))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << HAINA) | (1L << INTEGER) | (1L << STRING) | (1L << DOUBLE) | (1L << DECIMAL) | (1L << CHAR))) != 0)) {
 				{
-				setState(112);
+				setState(127);
 				for_declare();
 				}
 			}
 
-			setState(115);
+			setState(130);
 			match(SEMICOLON);
-			setState(117);
+			setState(132);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==STUFF || _la==NUMBER) {
 				{
-				setState(116);
+				setState(131);
 				for_expression();
 				}
 			}
 
-			setState(119);
+			setState(134);
 			match(SEMICOLON);
-			setState(121);
+			setState(136);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==STUFF) {
 				{
-				setState(120);
+				setState(135);
 				for_expr();
 				}
 			}
 
-			setState(123);
+			setState(138);
 			match(RSmoothBrace);
-			setState(124);
+			setState(139);
 			in_loop();
 			}
 		}
@@ -773,11 +809,11 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(126);
+			setState(141);
 			match(WHILE);
-			setState(127);
+			setState(142);
 			yesnostatement();
-			setState(128);
+			setState(143);
 			in_loop();
 			}
 		}
@@ -824,17 +860,17 @@ public class SparkyParser extends Parser {
 		In_loopContext _localctx = new In_loopContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_in_loop);
 		try {
-			setState(135);
+			setState(150);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LCurlyBrace:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(130);
+				setState(145);
 				match(LCurlyBrace);
-				setState(131);
+				setState(146);
 				ball();
-				setState(132);
+				setState(147);
 				match(RCurlyBrace);
 				}
 				break;
@@ -845,7 +881,7 @@ public class SparkyParser extends Parser {
 			case STUFF:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(134);
+				setState(149);
 				expression();
 				}
 				break;
@@ -895,11 +931,11 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(137);
+			setState(152);
 			match(STUFF);
-			setState(138);
+			setState(153);
 			match(EQUALTO);
-			setState(139);
+			setState(154);
 			expr();
 			}
 		}
@@ -947,11 +983,11 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(141);
+			setState(156);
 			expr();
-			setState(142);
+			setState(157);
 			match(YESNOOPERATOR);
-			setState(143);
+			setState(158);
 			expr();
 			}
 		}
@@ -998,13 +1034,13 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(145);
+			setState(160);
 			datatype();
-			setState(146);
+			setState(161);
 			match(STUFF);
-			setState(147);
+			setState(162);
 			match(EQUALTO);
-			setState(148);
+			setState(163);
 			match(NUMBER);
 			}
 		}
@@ -1052,29 +1088,29 @@ public class SparkyParser extends Parser {
 		enterRule(_localctx, 26, RULE_term);
 		int _la;
 		try {
-			setState(158);
+			setState(173);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(150);
+				setState(165);
 				match(NUMBER);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(151);
+				setState(166);
 				match(STUFF);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(152);
+				setState(167);
 				match(STUFF);
-				setState(153);
+				setState(168);
 				((TermContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !(_la==MUL || _la==DIV) ) {
@@ -1085,16 +1121,16 @@ public class SparkyParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(154);
+				setState(169);
 				term();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(155);
+				setState(170);
 				match(NUMBER);
-				setState(156);
+				setState(171);
 				((TermContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !(_la==MUL || _la==DIV) ) {
@@ -1105,7 +1141,7 @@ public class SparkyParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(157);
+				setState(172);
 				term();
 				}
 				break;
@@ -1156,22 +1192,22 @@ public class SparkyParser extends Parser {
 		enterRule(_localctx, 28, RULE_expr);
 		int _la;
 		try {
-			setState(165);
+			setState(180);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(160);
+				setState(175);
 				term();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(161);
+				setState(176);
 				term();
-				setState(162);
+				setState(177);
 				((ExprContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !(_la==PLUS || _la==MINUS) ) {
@@ -1182,7 +1218,7 @@ public class SparkyParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(163);
+				setState(178);
 				expr();
 				}
 				break;
@@ -1200,7 +1236,9 @@ public class SparkyParser extends Parser {
 	}
 
 	public static class YesnostatementContext extends ParserRuleContext {
-		public TerminalNode BOOLEANVALUE() { return getToken(SparkyParser.BOOLEANVALUE, 0); }
+		public BooleanvalueContext booleanvalue() {
+			return getRuleContext(BooleanvalueContext.class,0);
+		}
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -1231,25 +1269,26 @@ public class SparkyParser extends Parser {
 		YesnostatementContext _localctx = new YesnostatementContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_yesnostatement);
 		try {
-			setState(172);
+			setState(187);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case BOOLEANVALUE:
+			case T__7:
+			case T__8:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(167);
-				match(BOOLEANVALUE);
+				setState(182);
+				booleanvalue();
 				}
 				break;
 			case STUFF:
 			case NUMBER:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(168);
+				setState(183);
 				expr();
-				setState(169);
+				setState(184);
 				match(YESNOOPERATOR);
-				setState(170);
+				setState(185);
 				expr();
 				}
 				break;
@@ -1304,17 +1343,17 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(174);
+			setState(189);
 			match(IF);
-			setState(175);
+			setState(190);
 			yesnostatement();
-			setState(176);
+			setState(191);
 			match(T__2);
-			setState(177);
+			setState(192);
 			in_loop();
-			setState(178);
+			setState(193);
 			match(T__3);
-			setState(179);
+			setState(194);
 			in_loop();
 			}
 		}
@@ -1360,13 +1399,13 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(181);
+			setState(196);
 			match(T__4);
-			setState(182);
+			setState(197);
 			expr();
-			setState(183);
+			setState(198);
 			match(RSmoothBrace);
-			setState(184);
+			setState(199);
 			match(SEMICOLON);
 			}
 		}
@@ -1407,7 +1446,7 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(186);
+			setState(201);
 			match(T__5);
 			}
 		}
@@ -1448,7 +1487,7 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(188);
+			setState(203);
 			match(T__6);
 			}
 		}
@@ -1469,6 +1508,7 @@ public class SparkyParser extends Parser {
 		public TerminalNode DOUBLE() { return getToken(SparkyParser.DOUBLE, 0); }
 		public TerminalNode DECIMAL() { return getToken(SparkyParser.DECIMAL, 0); }
 		public TerminalNode CHAR() { return getToken(SparkyParser.CHAR, 0); }
+		public TerminalNode HAINA() { return getToken(SparkyParser.HAINA, 0); }
 		public DatatypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1495,9 +1535,59 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(190);
+			setState(205);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INTEGER) | (1L << STRING) | (1L << DOUBLE) | (1L << DECIMAL) | (1L << CHAR))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << HAINA) | (1L << INTEGER) | (1L << STRING) | (1L << DOUBLE) | (1L << DECIMAL) | (1L << CHAR))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class BooleanvalueContext extends ParserRuleContext {
+		public BooleanvalueContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_booleanvalue; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SparkyListener ) ((SparkyListener)listener).enterBooleanvalue(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SparkyListener ) ((SparkyListener)listener).exitBooleanvalue(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SparkyVisitor ) return ((SparkyVisitor<? extends T>)visitor).visitBooleanvalue(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final BooleanvalueContext booleanvalue() throws RecognitionException {
+		BooleanvalueContext _localctx = new BooleanvalueContext(_ctx, getState());
+		enterRule(_localctx, 42, RULE_booleanvalue);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(207);
+			_la = _input.LA(1);
+			if ( !(_la==T__7 || _la==T__8) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1540,12 +1630,12 @@ public class SparkyParser extends Parser {
 
 	public final YupContext yup() throws RecognitionException {
 		YupContext _localctx = new YupContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_yup);
+		enterRule(_localctx, 44, RULE_yup);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(192);
-			match(T__7);
+			setState(209);
+			match(T__9);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1581,12 +1671,12 @@ public class SparkyParser extends Parser {
 
 	public final NopeContext nope() throws RecognitionException {
 		NopeContext _localctx = new NopeContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_nope);
+		enterRule(_localctx, 46, RULE_nope);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(194);
-			match(T__8);
+			setState(211);
+			match(T__10);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1601,63 +1691,70 @@ public class SparkyParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3*\u00c7\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3+\u00d8\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
-		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\3\2\3\2\3"+
-		"\2\3\2\3\3\7\3\66\n\3\f\3\16\39\13\3\3\3\7\3<\n\3\f\3\16\3?\13\3\3\3\5"+
-		"\3B\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
-		"\4\3\4\3\4\5\4V\n\4\3\5\3\5\3\5\3\5\3\5\5\5]\n\5\3\6\3\6\3\6\3\6\3\6\3"+
-		"\7\3\7\3\7\3\7\3\7\5\7i\n\7\3\7\3\7\3\b\3\b\5\bo\n\b\3\t\3\t\3\t\5\tt"+
-		"\n\t\3\t\3\t\5\tx\n\t\3\t\3\t\5\t|\n\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\13"+
-		"\3\13\3\13\3\13\3\13\5\13\u008a\n\13\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3"+
-		"\16\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\5\17\u00a1"+
-		"\n\17\3\20\3\20\3\20\3\20\3\20\5\20\u00a8\n\20\3\21\3\21\3\21\3\21\3\21"+
-		"\5\21\u00af\n\21\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\23\3\23\3\23\3\23"+
-		"\3\23\3\24\3\24\3\25\3\25\3\26\3\26\3\27\3\27\3\30\3\30\3\30\2\2\31\2"+
-		"\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\2\5\3\2\30\31\3\2\26\27"+
-		"\3\2 $\2\u00c4\2\60\3\2\2\2\4A\3\2\2\2\6U\3\2\2\2\b\\\3\2\2\2\n^\3\2\2"+
-		"\2\fc\3\2\2\2\16n\3\2\2\2\20p\3\2\2\2\22\u0080\3\2\2\2\24\u0089\3\2\2"+
-		"\2\26\u008b\3\2\2\2\30\u008f\3\2\2\2\32\u0093\3\2\2\2\34\u00a0\3\2\2\2"+
-		"\36\u00a7\3\2\2\2 \u00ae\3\2\2\2\"\u00b0\3\2\2\2$\u00b7\3\2\2\2&\u00bc"+
-		"\3\2\2\2(\u00be\3\2\2\2*\u00c0\3\2\2\2,\u00c2\3\2\2\2.\u00c4\3\2\2\2\60"+
-		"\61\7\f\2\2\61\62\5\4\3\2\62\63\7\r\2\2\63\3\3\2\2\2\64\66\5\b\5\2\65"+
-		"\64\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28B\3\2\2\29\67\3\2\2"+
-		"\2:<\5\6\4\2;:\3\2\2\2<?\3\2\2\2=;\3\2\2\2=>\3\2\2\2>@\3\2\2\2?=\3\2\2"+
-		"\2@B\5\b\5\2A\67\3\2\2\2A=\3\2\2\2B\5\3\2\2\2CD\5*\26\2DE\7\'\2\2EF\7"+
-		"\20\2\2FG\7(\2\2GH\7\32\2\2HV\3\2\2\2IJ\5*\26\2JK\7\'\2\2KL\7\32\2\2L"+
-		"V\3\2\2\2MN\7\37\2\2NO\7\'\2\2OP\7\20\2\2PQ\7*\2\2QV\7\32\2\2RS\7\37\2"+
-		"\2ST\7\'\2\2TV\7\32\2\2UC\3\2\2\2UI\3\2\2\2UM\3\2\2\2UR\3\2\2\2V\7\3\2"+
-		"\2\2W]\5\n\6\2X]\5\f\7\2Y]\5\16\b\2Z]\5\"\22\2[]\5$\23\2\\W\3\2\2\2\\"+
-		"X\3\2\2\2\\Y\3\2\2\2\\Z\3\2\2\2\\[\3\2\2\2]\t\3\2\2\2^_\7\'\2\2_`\7\20"+
-		"\2\2`a\5\36\20\2ab\7\32\2\2b\13\3\2\2\2cd\7%\2\2de\5 \21\2eh\5\24\13\2"+
-		"fg\7\3\2\2gi\5\24\13\2hf\3\2\2\2hi\3\2\2\2ij\3\2\2\2jk\7\16\2\2k\r\3\2"+
-		"\2\2lo\5\20\t\2mo\5\22\n\2nl\3\2\2\2nm\3\2\2\2o\17\3\2\2\2pq\7\4\2\2q"+
-		"s\7\33\2\2rt\5\32\16\2sr\3\2\2\2st\3\2\2\2tu\3\2\2\2uw\7\32\2\2vx\5\30"+
-		"\r\2wv\3\2\2\2wx\3\2\2\2xy\3\2\2\2y{\7\32\2\2z|\5\26\f\2{z\3\2\2\2{|\3"+
-		"\2\2\2|}\3\2\2\2}~\7\34\2\2~\177\5\24\13\2\177\21\3\2\2\2\u0080\u0081"+
-		"\7&\2\2\u0081\u0082\5 \21\2\u0082\u0083\5\24\13\2\u0083\23\3\2\2\2\u0084"+
-		"\u0085\7\35\2\2\u0085\u0086\5\4\3\2\u0086\u0087\7\36\2\2\u0087\u008a\3"+
-		"\2\2\2\u0088\u008a\5\b\5\2\u0089\u0084\3\2\2\2\u0089\u0088\3\2\2\2\u008a"+
-		"\25\3\2\2\2\u008b\u008c\7\'\2\2\u008c\u008d\7\20\2\2\u008d\u008e\5\36"+
-		"\20\2\u008e\27\3\2\2\2\u008f\u0090\5\36\20\2\u0090\u0091\7\17\2\2\u0091"+
-		"\u0092\5\36\20\2\u0092\31\3\2\2\2\u0093\u0094\5*\26\2\u0094\u0095\7\'"+
-		"\2\2\u0095\u0096\7\20\2\2\u0096\u0097\7(\2\2\u0097\33\3\2\2\2\u0098\u00a1"+
-		"\7(\2\2\u0099\u00a1\7\'\2\2\u009a\u009b\7\'\2\2\u009b\u009c\t\2\2\2\u009c"+
-		"\u00a1\5\34\17\2\u009d\u009e\7(\2\2\u009e\u009f\t\2\2\2\u009f\u00a1\5"+
-		"\34\17\2\u00a0\u0098\3\2\2\2\u00a0\u0099\3\2\2\2\u00a0\u009a\3\2\2\2\u00a0"+
-		"\u009d\3\2\2\2\u00a1\35\3\2\2\2\u00a2\u00a8\5\34\17\2\u00a3\u00a4\5\34"+
-		"\17\2\u00a4\u00a5\t\3\2\2\u00a5\u00a6\5\36\20\2\u00a6\u00a8\3\2\2\2\u00a7"+
-		"\u00a2\3\2\2\2\u00a7\u00a3\3\2\2\2\u00a8\37\3\2\2\2\u00a9\u00af\7*\2\2"+
-		"\u00aa\u00ab\5\36\20\2\u00ab\u00ac\7\17\2\2\u00ac\u00ad\5\36\20\2\u00ad"+
-		"\u00af\3\2\2\2\u00ae\u00a9\3\2\2\2\u00ae\u00aa\3\2\2\2\u00af!\3\2\2\2"+
-		"\u00b0\u00b1\7%\2\2\u00b1\u00b2\5 \21\2\u00b2\u00b3\7\5\2\2\u00b3\u00b4"+
-		"\5\24\13\2\u00b4\u00b5\7\6\2\2\u00b5\u00b6\5\24\13\2\u00b6#\3\2\2\2\u00b7"+
-		"\u00b8\7\7\2\2\u00b8\u00b9\5\36\20\2\u00b9\u00ba\7\34\2\2\u00ba\u00bb"+
-		"\7\32\2\2\u00bb%\3\2\2\2\u00bc\u00bd\7\b\2\2\u00bd\'\3\2\2\2\u00be\u00bf"+
-		"\7\t\2\2\u00bf)\3\2\2\2\u00c0\u00c1\t\4\2\2\u00c1+\3\2\2\2\u00c2\u00c3"+
-		"\7\n\2\2\u00c3-\3\2\2\2\u00c4\u00c5\7\13\2\2\u00c5/\3\2\2\2\20\67=AU\\"+
-		"hnsw{\u0089\u00a0\u00a7\u00ae";
+		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
+		"\3\2\3\2\3\2\3\2\3\3\7\38\n\3\f\3\16\3;\13\3\3\3\7\3>\n\3\f\3\16\3A\13"+
+		"\3\3\3\7\3D\n\3\f\3\16\3G\13\3\5\3I\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
+		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4^\n\4\3\5\3\5\3\5\3"+
+		"\5\3\5\5\5e\n\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6q\n\6\3\7\3"+
+		"\7\3\7\3\7\3\7\5\7x\n\7\3\7\3\7\3\b\3\b\5\b~\n\b\3\t\3\t\3\t\5\t\u0083"+
+		"\n\t\3\t\3\t\5\t\u0087\n\t\3\t\3\t\5\t\u008b\n\t\3\t\3\t\3\t\3\n\3\n\3"+
+		"\n\3\n\3\13\3\13\3\13\3\13\3\13\5\13\u0099\n\13\3\f\3\f\3\f\3\f\3\r\3"+
+		"\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\3\17"+
+		"\3\17\5\17\u00b0\n\17\3\20\3\20\3\20\3\20\3\20\5\20\u00b7\n\20\3\21\3"+
+		"\21\3\21\3\21\3\21\5\21\u00be\n\21\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
+		"\3\23\3\23\3\23\3\23\3\23\3\24\3\24\3\25\3\25\3\26\3\26\3\27\3\27\3\30"+
+		"\3\30\3\31\3\31\3\31\2\2\32\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \""+
+		"$&(*,.\60\2\6\3\2\32\33\3\2\30\31\3\2!&\3\2\n\13\2\u00d6\2\62\3\2\2\2"+
+		"\4H\3\2\2\2\6]\3\2\2\2\bd\3\2\2\2\np\3\2\2\2\fr\3\2\2\2\16}\3\2\2\2\20"+
+		"\177\3\2\2\2\22\u008f\3\2\2\2\24\u0098\3\2\2\2\26\u009a\3\2\2\2\30\u009e"+
+		"\3\2\2\2\32\u00a2\3\2\2\2\34\u00af\3\2\2\2\36\u00b6\3\2\2\2 \u00bd\3\2"+
+		"\2\2\"\u00bf\3\2\2\2$\u00c6\3\2\2\2&\u00cb\3\2\2\2(\u00cd\3\2\2\2*\u00cf"+
+		"\3\2\2\2,\u00d1\3\2\2\2.\u00d3\3\2\2\2\60\u00d5\3\2\2\2\62\63\7\16\2\2"+
+		"\63\64\5\4\3\2\64\65\7\17\2\2\65\3\3\2\2\2\668\5\b\5\2\67\66\3\2\2\28"+
+		";\3\2\2\29\67\3\2\2\29:\3\2\2\2:I\3\2\2\2;9\3\2\2\2<>\5\6\4\2=<\3\2\2"+
+		"\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2@E\3\2\2\2A?\3\2\2\2BD\5\b\5\2CB\3\2\2"+
+		"\2DG\3\2\2\2EC\3\2\2\2EF\3\2\2\2FI\3\2\2\2GE\3\2\2\2H9\3\2\2\2H?\3\2\2"+
+		"\2I\5\3\2\2\2JK\5*\26\2KL\7)\2\2LM\7\22\2\2MN\7*\2\2NO\7\34\2\2O^\3\2"+
+		"\2\2PQ\5*\26\2QR\7)\2\2RS\7\34\2\2S^\3\2\2\2TU\7!\2\2UV\7)\2\2VW\7\22"+
+		"\2\2WX\5,\27\2XY\7\34\2\2Y^\3\2\2\2Z[\7!\2\2[\\\7)\2\2\\^\7\34\2\2]J\3"+
+		"\2\2\2]P\3\2\2\2]T\3\2\2\2]Z\3\2\2\2^\7\3\2\2\2_e\5\n\6\2`e\5\f\7\2ae"+
+		"\5\16\b\2be\5\"\22\2ce\5$\23\2d_\3\2\2\2d`\3\2\2\2da\3\2\2\2db\3\2\2\2"+
+		"dc\3\2\2\2e\t\3\2\2\2fg\7)\2\2gh\7\22\2\2hi\5\36\20\2ij\7\34\2\2jq\3\2"+
+		"\2\2kl\7)\2\2lm\7\22\2\2mn\5 \21\2no\7\34\2\2oq\3\2\2\2pf\3\2\2\2pk\3"+
+		"\2\2\2q\13\3\2\2\2rs\7\'\2\2st\5 \21\2tw\5\24\13\2uv\7\3\2\2vx\5\24\13"+
+		"\2wu\3\2\2\2wx\3\2\2\2xy\3\2\2\2yz\7\20\2\2z\r\3\2\2\2{~\5\20\t\2|~\5"+
+		"\22\n\2}{\3\2\2\2}|\3\2\2\2~\17\3\2\2\2\177\u0080\7\4\2\2\u0080\u0082"+
+		"\7\35\2\2\u0081\u0083\5\32\16\2\u0082\u0081\3\2\2\2\u0082\u0083\3\2\2"+
+		"\2\u0083\u0084\3\2\2\2\u0084\u0086\7\34\2\2\u0085\u0087\5\30\r\2\u0086"+
+		"\u0085\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0088\3\2\2\2\u0088\u008a\7\34"+
+		"\2\2\u0089\u008b\5\26\f\2\u008a\u0089\3\2\2\2\u008a\u008b\3\2\2\2\u008b"+
+		"\u008c\3\2\2\2\u008c\u008d\7\36\2\2\u008d\u008e\5\24\13\2\u008e\21\3\2"+
+		"\2\2\u008f\u0090\7(\2\2\u0090\u0091\5 \21\2\u0091\u0092\5\24\13\2\u0092"+
+		"\23\3\2\2\2\u0093\u0094\7\37\2\2\u0094\u0095\5\4\3\2\u0095\u0096\7 \2"+
+		"\2\u0096\u0099\3\2\2\2\u0097\u0099\5\b\5\2\u0098\u0093\3\2\2\2\u0098\u0097"+
+		"\3\2\2\2\u0099\25\3\2\2\2\u009a\u009b\7)\2\2\u009b\u009c\7\22\2\2\u009c"+
+		"\u009d\5\36\20\2\u009d\27\3\2\2\2\u009e\u009f\5\36\20\2\u009f\u00a0\7"+
+		"\21\2\2\u00a0\u00a1\5\36\20\2\u00a1\31\3\2\2\2\u00a2\u00a3\5*\26\2\u00a3"+
+		"\u00a4\7)\2\2\u00a4\u00a5\7\22\2\2\u00a5\u00a6\7*\2\2\u00a6\33\3\2\2\2"+
+		"\u00a7\u00b0\7*\2\2\u00a8\u00b0\7)\2\2\u00a9\u00aa\7)\2\2\u00aa\u00ab"+
+		"\t\2\2\2\u00ab\u00b0\5\34\17\2\u00ac\u00ad\7*\2\2\u00ad\u00ae\t\2\2\2"+
+		"\u00ae\u00b0\5\34\17\2\u00af\u00a7\3\2\2\2\u00af\u00a8\3\2\2\2\u00af\u00a9"+
+		"\3\2\2\2\u00af\u00ac\3\2\2\2\u00b0\35\3\2\2\2\u00b1\u00b7\5\34\17\2\u00b2"+
+		"\u00b3\5\34\17\2\u00b3\u00b4\t\3\2\2\u00b4\u00b5\5\36\20\2\u00b5\u00b7"+
+		"\3\2\2\2\u00b6\u00b1\3\2\2\2\u00b6\u00b2\3\2\2\2\u00b7\37\3\2\2\2\u00b8"+
+		"\u00be\5,\27\2\u00b9\u00ba\5\36\20\2\u00ba\u00bb\7\21\2\2\u00bb\u00bc"+
+		"\5\36\20\2\u00bc\u00be\3\2\2\2\u00bd\u00b8\3\2\2\2\u00bd\u00b9\3\2\2\2"+
+		"\u00be!\3\2\2\2\u00bf\u00c0\7\'\2\2\u00c0\u00c1\5 \21\2\u00c1\u00c2\7"+
+		"\5\2\2\u00c2\u00c3\5\24\13\2\u00c3\u00c4\7\6\2\2\u00c4\u00c5\5\24\13\2"+
+		"\u00c5#\3\2\2\2\u00c6\u00c7\7\7\2\2\u00c7\u00c8\5\36\20\2\u00c8\u00c9"+
+		"\7\36\2\2\u00c9\u00ca\7\34\2\2\u00ca%\3\2\2\2\u00cb\u00cc\7\b\2\2\u00cc"+
+		"\'\3\2\2\2\u00cd\u00ce\7\t\2\2\u00ce)\3\2\2\2\u00cf\u00d0\t\4\2\2\u00d0"+
+		"+\3\2\2\2\u00d1\u00d2\t\5\2\2\u00d2-\3\2\2\2\u00d3\u00d4\7\f\2\2\u00d4"+
+		"/\3\2\2\2\u00d5\u00d6\7\r\2\2\u00d6\61\3\2\2\2\229?EH]dpw}\u0082\u0086"+
+		"\u008a\u0098\u00af\u00b6\u00bd";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

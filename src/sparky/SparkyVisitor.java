@@ -138,6 +138,12 @@ public interface SparkyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDatatype(SparkyParser.DatatypeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SparkyParser#booleanvalue}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanvalue(SparkyParser.BooleanvalueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SparkyParser#yup}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

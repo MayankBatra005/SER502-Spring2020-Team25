@@ -219,6 +219,16 @@ public interface SparkyListener extends ParseTreeListener {
 	 */
 	void exitDatatype(SparkyParser.DatatypeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SparkyParser#booleanvalue}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanvalue(SparkyParser.BooleanvalueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SparkyParser#booleanvalue}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanvalue(SparkyParser.BooleanvalueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SparkyParser#yup}.
 	 * @param ctx the parse tree
 	 */

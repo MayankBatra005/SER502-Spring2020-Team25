@@ -51,7 +51,8 @@ public class Compiler {
 	}
 	catch (Exception e)
 	{
-		System.out.println("Wrong Input file");
+//		System.out.println("Wrong Input file" + e.p);
+		e.printStackTrace();
 	}
 
 		}

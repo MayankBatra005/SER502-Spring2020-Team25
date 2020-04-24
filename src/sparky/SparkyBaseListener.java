@@ -268,6 +268,18 @@ public class SparkyBaseListener implements SparkyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBooleanvalue(SparkyParser.BooleanvalueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBooleanvalue(SparkyParser.BooleanvalueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterYup(SparkyParser.YupContext ctx) { }
 	/**
 	 * {@inheritDoc}
