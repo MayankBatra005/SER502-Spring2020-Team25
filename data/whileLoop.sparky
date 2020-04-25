@@ -1,0 +1,6 @@
+Live
+while a<b
+{
+a=a+10;
+}
+Die

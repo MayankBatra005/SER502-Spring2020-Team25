@@ -24,6 +24,7 @@ public interface RuntimeConstantKeywords {
 	public static final String CONDITION_TRUE = "CONDITION_TRUE";
 	
 	
+	
 	public static final String IF_START = "IF_START";
 	public static final String IF_END = "IF_END";
 	public static final String ELSE_START = "ELSE_START";
@@ -48,6 +49,18 @@ public interface RuntimeConstantKeywords {
 	public static final String FOR_UPDATE_START = "FOR_UPDATE_START";
 	public static final String FOR_UPDATE_STOP = "FOR_UPDATE_STOP";
 	public static final String FOR_VARIABLE = "FOR_VARIABLE";
+	
+	// Keywords for While 
+	public static final String WHILE_BEGIN="WHILEBEGIN";
+	public static final String WHILE_END="WHILEEND";
+	public static final String CONDITION_NOT_TRUE = "CONDITIONNOTTRUE";
+	
+	/*
+		Existing keywords used for while 
+		GET , COMPARE_OPERATOR,CONDITION_NOT_TRUE, STORE, OPERATOR etc.
+
+	 */	
+	
 	
 
 }

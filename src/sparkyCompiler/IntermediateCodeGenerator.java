@@ -78,7 +78,8 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 			visit(ctx.yesnostatement());
 		}
 		
-		help.addOutput(RuntimeConstantKeywords.CONDITION_FALSE + " " + RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.ELSE_START);
+		help.addOutput(RuntimeConstantKeywords.CONDITION_FALSE + " " + RuntimeConstantKeywords.JUMP +
+				" " + RuntimeConstantKeywords.ELSE_START);
 
 		help.addOutput(RuntimeConstantKeywords.IF_START);
 		visit(ctx.in_loop(0));
@@ -110,7 +111,29 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		return null; }
 		//return visitChildren(ctx); }
 	
-	@Override public Object visitLoop_while(SparkyParser.Loop_whileContext ctx) { return visitChildren(ctx); }
+	@Override public Object visitLoop_while(SparkyParser.Loop_whileContext ctx) {
+		help.addOutput(RuntimeConstantKeywords.WHILE_BEGIN);
+		if(ctx.yesnostatement().getText().contains("yup") || ctx.yesnostatement().getText().contains("nup")) {
+			help.addOutput(RuntimeConstantKeywords.CHECK_CONDITION + " " + ctx.yesnostatement().getText());
+		}
+		else {
+			visit(ctx.yesnostatement());
+		}
+		
+		help.addOutput(RuntimeConstantKeywords.CONDITION_FALSE + " " + RuntimeConstantKeywords.JUMP +
+				" " + RuntimeConstantKeywords.WHILE_END);
+		visit(ctx.in_loop());
+		help.addOutput(RuntimeConstantKeywords.WHILE_END);
+		
+		/*
+		help.addOutput(RuntimeConstantKeywords.FOR_START);
+		visit(ctx.for_declare());
+		visit(ctx.for_expression());
+		visit(ctx.for_expr());
+		visit(ctx.in_loop());
+		help.addOutput(RuntimeConstantKeywords.FOR_STOP);
+		*/
+		return visitChildren(ctx); }
 	
 	@Override public Object visitIn_loop(SparkyParser.In_loopContext ctx) {
 		visit(ctx.ball());
