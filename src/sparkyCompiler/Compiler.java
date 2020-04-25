@@ -18,7 +18,7 @@ public class Compiler {
 	public static void main(String[] args) {
 		try {
 			
-			String inputFileName = "data/Example 1.sparky";
+			String inputFileName = "data/forLoop.sparky";
 			//String iCodeFilename;
     		
     		CharStream sourceCode = CharStreams.fromFileName(inputFileName);

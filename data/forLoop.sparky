@@ -1,0 +1,6 @@
+Live 
+int a=1; 
+int b=2; 
+for(int m=0;m<2;m=m+1)
+{a=a+1;} 
+Die
