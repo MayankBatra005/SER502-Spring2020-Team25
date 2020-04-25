@@ -8,10 +8,6 @@ public interface RuntimeConstantKeywords {
 	public static final String DECLARE = "DECLARE";
 	public static final String INT_DEFAULT = "0";
 	
-	public static final String REGISTER_A = "REG_A";
-	public static final String REGISTER_B = "REG_B";
-	public static final String REGISTER_C = "REG_C";
-	public static final String REGISTER_D = "REG_D";
 	public static final String GET = "GET";
 	public static final String OPERATOR = "OPERATOR";
 	public static final String PUSH = "PUSH";
@@ -60,7 +56,7 @@ public interface RuntimeConstantKeywords {
 		GET , COMPARE_OPERATOR,CONDITION_NOT_TRUE, STORE, OPERATOR etc.
 
 	 */	
-	
+	public static final String PRINT = "PRINT";
 	
 
 }

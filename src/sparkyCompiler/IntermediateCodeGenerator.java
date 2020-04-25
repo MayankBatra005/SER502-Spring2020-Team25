@@ -204,7 +204,11 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 	
 	@Override public Object visitTernary_operator(SparkyParser.Ternary_operatorContext ctx) { return visitChildren(ctx); }
 	
-	@Override public Object visitPrint(SparkyParser.PrintContext ctx) { return visitChildren(ctx); }
+	@Override public Object visitPrint(SparkyParser.PrintContext ctx) { 
+		
+		help.addOutput(RuntimeConstantKeywords.PRINT + " " + ctx.expr().getText());
+		return null; }
+		//return visitChildren(ctx); }
 	
 	@Override public Object visitWarna(SparkyParser.WarnaContext ctx) { return visitChildren(ctx); }
 	
