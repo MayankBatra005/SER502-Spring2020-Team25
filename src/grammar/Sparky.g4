@@ -66,7 +66,11 @@ ifte
 // removing left recursion by alpha-beta rule.
 
 term: NUMBER | STUFF | STUFF op=(MUL | DIV) term | NUMBER  op=(MUL | DIV) term;
-expr: term | term op=(PLUS | MINUS) expr;
+expr: term | term op=(PLUS | MINUS) expr | NOT expr;
+yesnostatement : booleanvalue | expr YESNOOPERATOR expr |yesnostatement ANDOROPERATOR yesnostatement;
+ANDOROPERATOR: AND|OR;
+
+
 
 term1
 : MUL term2 term1 
@@ -96,6 +100,10 @@ yesnostatement
 : BOOLEANVALUE
 | expression YESNOOPERATOR expression
 ;
+
+AND: 'and';
+OR: 'or';
+NOT:'not';
 
 //primitive types
 datatype
