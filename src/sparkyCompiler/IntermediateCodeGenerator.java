@@ -120,7 +120,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 			visit(ctx.yesnostatement());
 		}
 		
-		help.addOutput(RuntimeConstantKeywords.CONDITION_FALSE + " " + RuntimeConstantKeywords.JUMP +
+		help.addOutput(RuntimeConstantKeywords.CONDITION_NOT_TRUE + " " + RuntimeConstantKeywords.JUMP +
 				" " + RuntimeConstantKeywords.WHILE_END);
 		visit(ctx.in_loop());
 		help.addOutput(RuntimeConstantKeywords.WHILE_END);
