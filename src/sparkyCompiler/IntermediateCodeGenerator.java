@@ -1,6 +1,8 @@
 package sparkyCompiler;
 
 
+import org.antlr.v4.runtime.tree.ParseTree;
+
 /**
  * In this class methods from SparkyBaseVisitor are overloaded for intermediate course generation according to Sparky grammar.
  * @author Sayali Tanawade
@@ -202,7 +204,18 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		return null;}
 		//return visitChildren(ctx); }
 	
-	@Override public Object visitTernary_operator(SparkyParser.Ternary_operatorContext ctx) { return visitChildren(ctx); }
+	@Override public Object visitTernary_operator(SparkyParser.Ternary_operatorContext ctx) { 
+		help.addOutput(RuntimeConstantKeywords.IF_START);
+		if(ctx.yesnostatement().getText().contains("yup") || ctx.yesnostatement().getText().contains("nup")) {
+			help.addOutput(RuntimeConstantKeywords.CHECK_CONDITION + " " + ctx.yesnostatement().getText());
+		}
+		else {
+			visit(ctx.yesnostatement());
+		}
+		// visit(ctx.in_loop());
+		
+		
+		return visitChildren(ctx); }
 	
 	@Override public Object visitPrint(SparkyParser.PrintContext ctx) { 
 		

@@ -18,7 +18,8 @@ public class Compiler {
 	public static void main(String[] args) {
 		try {
 			
-			String inputFileName = "data/print.sparky";
+			String inputFileName = "data/Ternary.sparky";
+			
 			//String iCodeFilename;
     		
     		CharStream sourceCode = CharStreams.fromFileName(inputFileName);
