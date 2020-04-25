@@ -57,6 +57,7 @@ public interface RuntimeConstantKeywords {
 
 	 */	
 	public static final String PRINT = "PRINT";
+	public static final String CONDITIONNOTTRUE = "CONDITIONNOTTRUE";
 	
 
 }

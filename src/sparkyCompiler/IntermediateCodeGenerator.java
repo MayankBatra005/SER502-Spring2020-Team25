@@ -104,8 +104,8 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		help.addOutput(RuntimeConstantKeywords.FOR_START);
 		visit(ctx.for_declare());
 		visit(ctx.for_expression());
-		visit(ctx.for_expr());
 		visit(ctx.in_loop());
+		visit(ctx.for_expr());
 		help.addOutput(RuntimeConstantKeywords.FOR_STOP);
 		
 		
@@ -143,8 +143,8 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		//return visitChildren(ctx); }
 	
 	@Override public Object visitFor_expr(SparkyParser.For_exprContext ctx) {
-		help.addOutput(RuntimeConstantKeywords.FOR_UPDATE_START);
-		help.addOutput(RuntimeConstantKeywords.FOR_VARIABLE + " " + ctx.STUFF().getText());
+		//help.addOutput(RuntimeConstantKeywords.FOR_UPDATE_START);
+		//help.addOutput(RuntimeConstantKeywords.FOR_VARIABLE + " " + ctx.STUFF().getText());
 		
 		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());		
 		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(2).getText());
@@ -163,8 +163,9 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 			break;
 		}
 		help.addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
+		help.addOutput(RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.FOR_CONDITION_START);
 		
-		help.addOutput(RuntimeConstantKeywords.FOR_UPDATE_STOP);
+		//help.addOutput(RuntimeConstantKeywords.FOR_UPDATE_STOP);
 		
 		
 		return null; }
@@ -174,16 +175,16 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		visit(ctx.expr(0));
 		visit(ctx.expr(1));
 		help.addOutput(RuntimeConstantKeywords.FOR_CONDITION_START);
-		help.addOutput(RuntimeConstantKeywords.COMPARE_LHS + " " + ctx.expr(0).getText());
-		help.addOutput(RuntimeConstantKeywords.COMPARE_RHS + " " + ctx.expr(1).getText());
+		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(0).getText());
+		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr(1).getText());
 		help.addOutput(RuntimeConstantKeywords.COMPARE_OPERATOR + " " + ctx.YESNOOPERATOR().getText());
-		help.addOutput(RuntimeConstantKeywords.FOR_CONDITION_STOP);
+		help.addOutput(RuntimeConstantKeywords.CONDITIONNOTTRUE + " " + RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.FOR_STOP);
 		
 		return null; }
 		//return visitChildren(ctx); }
 	
 	@Override public Object visitFor_declare(SparkyParser.For_declareContext ctx) { 
-		help.addOutput(RuntimeConstantKeywords.FOR_INIT + " " + ctx.datatype().getChild(0).getText() +" " + ctx.STUFF().getText());
+		help.addOutput(RuntimeConstantKeywords.DECLARE + " " + ctx.datatype().getChild(0).getText() +" " + ctx.STUFF().getText());
 		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.NUMBER().getText());
 		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
 		
