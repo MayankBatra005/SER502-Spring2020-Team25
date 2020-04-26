@@ -178,13 +178,15 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(0).getText());
 		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr(1).getText());
 		help.addOutput(RuntimeConstantKeywords.COMPARE_OPERATOR + " " + ctx.YESNOOPERATOR().getText());
-		help.addOutput(RuntimeConstantKeywords.CONDITIONNOTTRUE + " " + RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.FOR_STOP);
+		help.addOutput(RuntimeConstantKeywords.CONDITIONNOTTRUE + " " + RuntimeConstantKeywords.JUMP + " " + 
+		RuntimeConstantKeywords.FOR_STOP);
 		
 		return null; }
 		//return visitChildren(ctx); }
 	
 	@Override public Object visitFor_declare(SparkyParser.For_declareContext ctx) { 
-		help.addOutput(RuntimeConstantKeywords.DECLARE + " " + ctx.datatype().getChild(0).getText() +" " + ctx.STUFF().getText());
+		help.addOutput(RuntimeConstantKeywords.DECLARE + " " + ctx.datatype().getChild(0).getText() +" " 
+	+ ctx.STUFF().getText());
 		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.NUMBER().getText());
 		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
 		

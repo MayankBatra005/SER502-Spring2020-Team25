@@ -1,6 +1,5 @@
 package sparkyCompiler;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +17,7 @@ public class Compiler {
 	public static void main(String[] args) {
 		try {
 			
-			String inputFileName = "data/forLoop.sparky";
+			String inputFileName = "data/Ternary.sparky";
 			
 			//String iCodeFilename;
     		
