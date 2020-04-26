@@ -7,7 +7,7 @@ ball: expression* | declare* expression*;
 declare:
 (datatype STUFF EQUALTO NUMBER SEMICOLON)|
 (datatype STUFF SEMICOLON)|
-(HAINA STUFF EQUALTO BOOLEANVALUE SEMICOLON)|
+(HAINA STUFF EQUALTO booleanvalue SEMICOLON)|
 (HAINA STUFF SEMICOLON)| stringdatatype STUFF EQUALTO STRINGLITERAL SEMICOLON | stringdatatype STUFF SEMICOLON;
 		
 
@@ -60,8 +60,7 @@ ifte
  : IF yesnostatement in_loop ('warna' in_loop)? FI
  ;
 
-// ternary_operator: IF yesnostatement '?' in_loop ':' in_loop;              
- ternary_operator: yesnostatement '?' in_loop ':' in_loop;              
+ ternary_operator: IF yesnostatement '?' in_loop ':' in_loop;              
 
 /*term: term MUL term2
       |term DIV term2 | NUMBER | STUFF; */
@@ -96,12 +95,9 @@ assignedstuff
 ;
 assignment
  : STUFF EQUALTO expr SEMICOLON
+  STUFF EQUALTO yesnostatement SEMICOLON
  ;
-//YESNOSTATEMENT
-yesnostatement
-: BOOLEANVALUE
-| expression YESNOOPERATOR expression
-;
+
 
 AND: 'and';
 OR: 'or';
@@ -155,7 +151,7 @@ STUFF
 ;
 
 //BOOLEANVALUE
-BOOLEANVALUE
+booleanvalue
 : 'yup'
 |'nope'
 ;
