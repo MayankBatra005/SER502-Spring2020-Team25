@@ -135,15 +135,9 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + "ADD");
 		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
 		help.addOutput(RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.FOR_CONDITION_START);
-		help.addOutput(RuntimeConstantKeywords.FOR_STOP);
-		
-		
-		
-		
-		
-		
-		return null;}
-		//return visitChildren(ctx); }
+		help.addOutput(RuntimeConstantKeywords.FOR_STOP);		
+		return null;
+		}
 	
 	@Override public Object visitLoop_while(SparkyParser.Loop_whileContext ctx) {
 		help.addOutput(RuntimeConstantKeywords.WHILE_BEGIN);
@@ -197,9 +191,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		help.addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
 		help.addOutput(RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.FOR_CONDITION_START);
 		
-		//help.addOutput(RuntimeConstantKeywords.FOR_UPDATE_STOP);
-		
-		
+
 		return null; }
 		//return visitChildren(ctx); }
 	
@@ -231,8 +223,8 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		if(ctx.expr(0) != null) {
 		visit(ctx.expr(0));
 		visit(ctx.expr(1));
-		help.addOutput(RuntimeConstantKeywords.COMPARE_LHS + " " + ctx.expr(0).getText());
-		help.addOutput(RuntimeConstantKeywords.COMPARE_RHS + " " + ctx.expr(1).getText());
+		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(0).getText());
+		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr(1).getText());
 		help.addOutput(RuntimeConstantKeywords.COMPARE_OPERATOR + " " + ctx.YESNOOPERATOR().getText());
 		}else {
 			visit(ctx.yesnostatement(0));
