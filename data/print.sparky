@@ -1,9 +1,11 @@
 Live
-int a=1; 
-int b=2;
+int a=13456; 
+int b=2345;
 char z;
+string str = "ASsndksmaszkal1!!@#$        ";
 for(int m=0;m<2;m=m+1)
 {a=a+1; 
 print(a);
-print(z);} 
+print(z);
+print(str);} 
 Die

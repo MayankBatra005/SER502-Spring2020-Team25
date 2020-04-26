@@ -18,7 +18,7 @@ public class Compiler {
 	public static void main(String[] args) {
 		try {
 			
-			String inputFileName = "data/boolean.sparky";
+			String inputFileName = "data/print.sparky";
 			
 			//String iCodeFilename;
     		

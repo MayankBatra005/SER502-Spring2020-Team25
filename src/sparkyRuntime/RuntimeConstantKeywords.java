@@ -31,8 +31,7 @@ public interface RuntimeConstantKeywords {
 	public static final String CONDITION_FALSE = "CONDITION_FALSE";
 	public static final String JUMP = "JUMP";
 	
-	public static final String COMPARE_LHS = "COMPARE_LHS";
-	public static final String COMPARE_RHS = "COMPARE_RHS";
+	
 	public static final String COMPARE_OPERATOR = "COMPARE_OPERATOR";
 	
 	

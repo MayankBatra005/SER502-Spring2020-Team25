@@ -1,8 +1,6 @@
 package sparkyCompiler;
 
 
-import org.antlr.v4.runtime.tree.ParseTree;
-
 /**
  * In this class methods from SparkyBaseVisitor are overloaded for intermediate course generation according to Sparky grammar.
  * @author Sayali Tanawade
@@ -34,15 +32,21 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 	@Override public Object visitBall(SparkyParser.BallContext ctx) {return visitChildren(ctx); }
 	
 	@Override public Object visitDeclare(SparkyParser.DeclareContext ctx) {
-		help.addOutput(RuntimeConstantKeywords.DECLARE + " " + ctx.datatype().getChild(0).getText() +" " + ctx.STUFF().getText());			
+		help.addOutput(RuntimeConstantKeywords.DECLARE + " " + ctx.getChild(0).getText() + " " + ctx.STUFF().getText());
 		
 		if (ctx.NUMBER() !=null) {
 			help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.NUMBER().getText());
 			help.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
+		} else if(ctx.getChild(0).getText().contains("string")) {
+			visit(ctx.stringdatatype());
+			help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.STRINGLITERAL().getText());
 		}
-
+		
 		return null; 		
 	}
+	
+	@Override public Object visitStringdatatype(SparkyParser.StringdatatypeContext ctx) { return visitChildren(ctx); }
+		
 	
 	@Override public Object visitExpression(SparkyParser.ExpressionContext ctx) { return visitChildren(ctx);} 
 
@@ -103,11 +107,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		return null; }
 
 	
-	@Override public Object visitLoopum(SparkyParser.LoopumContext ctx) { 
-		
-		
-		//return null;}
-		return visitChildren(ctx); }
+	@Override public Object visitLoopum(SparkyParser.LoopumContext ctx) { return visitChildren(ctx); }
 	
 	@Override public Object visitLoop_for(SparkyParser.Loop_forContext ctx) { 
 		help.addOutput(RuntimeConstantKeywords.FOR_START);
@@ -153,14 +153,6 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		visit(ctx.in_loop());
 		help.addOutput(RuntimeConstantKeywords.WHILE_END);
 		
-		/*
-		help.addOutput(RuntimeConstantKeywords.FOR_START);
-		visit(ctx.for_declare());
-		visit(ctx.for_expression());
-		visit(ctx.for_expr());
-		visit(ctx.in_loop());
-		help.addOutput(RuntimeConstantKeywords.FOR_STOP);
-		*/
 		return visitChildren(ctx); }
 	
 	@Override public Object visitIn_loop(SparkyParser.In_loopContext ctx) {
@@ -244,8 +236,6 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 			visit(ctx.yesnostatement());
 		}
 		// visit(ctx.in_loop());
-		
-		
 		return visitChildren(ctx); }
 	
 	
