@@ -49,8 +49,13 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 	
 	
 	@Override public Object visitAssignment(SparkyParser.AssignmentContext ctx) { 
-		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());		
-		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(2).getText());
+		String regexStr = "^[0-9]*$";
+		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());	
+		if(ctx.expr().getChild(2).getText().matches(regexStr)) {
+		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr().getChild(2).getText());
+		}else {
+			help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(2).getText());	
+		}
 		
 		switch(ctx.expr().getChild(1).getText()) {
 		case "+":
@@ -84,12 +89,16 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 				" " + RuntimeConstantKeywords.ELSE_START);
 
 		help.addOutput(RuntimeConstantKeywords.IF_START);
+		//help.addOutput("Testing AND OR" + " " ctx.inlo);
 		visit(ctx.in_loop(0));
 		help.addOutput(RuntimeConstantKeywords.IF_END);
+		if(ctx.in_loop(1) != null) {
 		help.addOutput(RuntimeConstantKeywords.ELSE_START);
 		visit(ctx.in_loop(1));
 		help.addOutput(RuntimeConstantKeywords.ELSE_END);
+		}
 		help.addOutput(RuntimeConstantKeywords.IFTE_END);
+		
 			
 		return null; }
 
@@ -108,10 +117,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		visit(ctx.for_expr());
 		help.addOutput(RuntimeConstantKeywords.FOR_STOP);
 		
-		
-		
 		return null; }
-		//return visitChildren(ctx); }
 	
 	@Override public Object visitLoop_while(SparkyParser.Loop_whileContext ctx) {
 		help.addOutput(RuntimeConstantKeywords.WHILE_BEGIN);
@@ -146,7 +152,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		//help.addOutput(RuntimeConstantKeywords.FOR_UPDATE_START);
 		//help.addOutput(RuntimeConstantKeywords.FOR_VARIABLE + " " + ctx.STUFF().getText());
 		
-		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());		
+		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());	
 		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(2).getText());
 		switch(ctx.expr().getChild(1).getText()) {
 		case "+":
@@ -196,11 +202,17 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 	@Override public Object visitExpr(SparkyParser.ExprContext ctx) { return visitChildren(ctx); }
 	
 	@Override public Object visitYesnostatement(SparkyParser.YesnostatementContext ctx) { 
+		if(ctx.expr(0) != null) {
 		visit(ctx.expr(0));
 		visit(ctx.expr(1));
 		help.addOutput(RuntimeConstantKeywords.COMPARE_LHS + " " + ctx.expr(0).getText());
 		help.addOutput(RuntimeConstantKeywords.COMPARE_RHS + " " + ctx.expr(1).getText());
 		help.addOutput(RuntimeConstantKeywords.COMPARE_OPERATOR + " " + ctx.YESNOOPERATOR().getText());
+		}else {
+			visit(ctx.yesnostatement(0));
+			visit(ctx.yesnostatement(1));
+			help.addOutput(RuntimeConstantKeywords.AND_OR_OPERATOR + " " + ctx.ANDOROPERATOR().getText());
+		}
 		
 		return null;}
 		//return visitChildren(ctx); }

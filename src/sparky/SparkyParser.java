@@ -19,11 +19,12 @@ public class SparkyParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, LIVE=12, DIE=13, FI=14, YESNOOPERATOR=15, EQUALTO=16, 
-		ASSEQ=17, LESS_THAN=18, MORE_THAN=19, LESS_THAN_EQ=20, MORE_THAN_EQ=21, 
-		PLUS=22, MINUS=23, MUL=24, DIV=25, SEMICOLON=26, LSmoothBrace=27, RSmoothBrace=28, 
-		LCurlyBrace=29, RCurlyBrace=30, HAINA=31, INTEGER=32, STRING=33, DOUBLE=34, 
-		DECIMAL=35, CHAR=36, IF=37, WHILE=38, STUFF=39, NUMBER=40, WS=41;
+		T__9=10, T__10=11, ANDOROPERATOR=12, AND=13, OR=14, NOT=15, LIVE=16, DIE=17, 
+		FI=18, YESNOOPERATOR=19, EQUALTO=20, ASSEQ=21, LESS_THAN=22, MORE_THAN=23, 
+		LESS_THAN_EQ=24, MORE_THAN_EQ=25, PLUS=26, MINUS=27, MUL=28, DIV=29, SEMICOLON=30, 
+		LSmoothBrace=31, RSmoothBrace=32, LCurlyBrace=33, RCurlyBrace=34, HAINA=35, 
+		INTEGER=36, STRING=37, DOUBLE=38, DECIMAL=39, CHAR=40, IF=41, WHILE=42, 
+		STUFF=43, NUMBER=44, WS=45;
 	public static final int
 		RULE_program = 0, RULE_ball = 1, RULE_declare = 2, RULE_expression = 3, 
 		RULE_assignment = 4, RULE_ifte = 5, RULE_loopum = 6, RULE_loop_for = 7, 
@@ -44,21 +45,22 @@ public class SparkyParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'warna'", "'for'", "'?'", "':'", "'print('", "'else'", "'bool'", 
-			"'yup'", "'nope'", "'true'", "'false'", "'Live'", "'Die'", "'fi'", null, 
-			"'='", "'=='", "'<'", "'>'", "'<='", "'>='", "'+'", "'-'", "'*'", "'/'", 
-			"';'", "'('", "')'", "'{'", "'}'", "'haina'", "'int'", "'string'", "'double'", 
-			"'float'", "'char'", "'if'", "'while'"
+			"'yup'", "'nope'", "'true'", "'false'", null, "'and'", "'or'", "'not'", 
+			"'Live'", "'Die'", "'fi'", null, "'='", "'=='", "'<'", "'>'", "'<='", 
+			"'>='", "'+'", "'-'", "'*'", "'/'", "';'", "'('", "')'", "'{'", "'}'", 
+			"'haina'", "'int'", "'string'", "'double'", "'float'", "'char'", "'if'", 
+			"'while'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			"LIVE", "DIE", "FI", "YESNOOPERATOR", "EQUALTO", "ASSEQ", "LESS_THAN", 
-			"MORE_THAN", "LESS_THAN_EQ", "MORE_THAN_EQ", "PLUS", "MINUS", "MUL", 
-			"DIV", "SEMICOLON", "LSmoothBrace", "RSmoothBrace", "LCurlyBrace", "RCurlyBrace", 
-			"HAINA", "INTEGER", "STRING", "DOUBLE", "DECIMAL", "CHAR", "IF", "WHILE", 
-			"STUFF", "NUMBER", "WS"
+			"ANDOROPERATOR", "AND", "OR", "NOT", "LIVE", "DIE", "FI", "YESNOOPERATOR", 
+			"EQUALTO", "ASSEQ", "LESS_THAN", "MORE_THAN", "LESS_THAN_EQ", "MORE_THAN_EQ", 
+			"PLUS", "MINUS", "MUL", "DIV", "SEMICOLON", "LSmoothBrace", "RSmoothBrace", 
+			"LCurlyBrace", "RCurlyBrace", "HAINA", "INTEGER", "STRING", "DOUBLE", 
+			"DECIMAL", "CHAR", "IF", "WHILE", "STUFF", "NUMBER", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -525,7 +527,7 @@ public class SparkyParser extends Parser {
 				setState(106);
 				match(EQUALTO);
 				setState(107);
-				yesnostatement();
+				yesnostatement(0);
 				setState(108);
 				match(SEMICOLON);
 				}
@@ -584,7 +586,7 @@ public class SparkyParser extends Parser {
 			setState(112);
 			match(IF);
 			setState(113);
-			yesnostatement();
+			yesnostatement(0);
 			setState(114);
 			in_loop();
 			setState(117);
@@ -740,7 +742,7 @@ public class SparkyParser extends Parser {
 			setState(132);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==STUFF || _la==NUMBER) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NOT) | (1L << STUFF) | (1L << NUMBER))) != 0)) {
 				{
 				setState(131);
 				for_expression();
@@ -812,7 +814,7 @@ public class SparkyParser extends Parser {
 			setState(141);
 			match(WHILE);
 			setState(142);
-			yesnostatement();
+			yesnostatement(0);
 			setState(143);
 			in_loop();
 			}
@@ -1168,6 +1170,7 @@ public class SparkyParser extends Parser {
 		}
 		public TerminalNode PLUS() { return getToken(SparkyParser.PLUS, 0); }
 		public TerminalNode MINUS() { return getToken(SparkyParser.MINUS, 0); }
+		public TerminalNode NOT() { return getToken(SparkyParser.NOT, 0); }
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1192,7 +1195,7 @@ public class SparkyParser extends Parser {
 		enterRule(_localctx, 28, RULE_expr);
 		int _la;
 		try {
-			setState(180);
+			setState(182);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
@@ -1222,6 +1225,15 @@ public class SparkyParser extends Parser {
 				expr();
 				}
 				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(180);
+				match(NOT);
+				setState(181);
+				expr();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -1246,6 +1258,13 @@ public class SparkyParser extends Parser {
 			return getRuleContext(ExprContext.class,i);
 		}
 		public TerminalNode YESNOOPERATOR() { return getToken(SparkyParser.YESNOOPERATOR, 0); }
+		public List<YesnostatementContext> yesnostatement() {
+			return getRuleContexts(YesnostatementContext.class);
+		}
+		public YesnostatementContext yesnostatement(int i) {
+			return getRuleContext(YesnostatementContext.class,i);
+		}
+		public TerminalNode ANDOROPERATOR() { return getToken(SparkyParser.ANDOROPERATOR, 0); }
 		public YesnostatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1266,34 +1285,70 @@ public class SparkyParser extends Parser {
 	}
 
 	public final YesnostatementContext yesnostatement() throws RecognitionException {
-		YesnostatementContext _localctx = new YesnostatementContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_yesnostatement);
+		return yesnostatement(0);
+	}
+
+	private YesnostatementContext yesnostatement(int _p) throws RecognitionException {
+		ParserRuleContext _parentctx = _ctx;
+		int _parentState = getState();
+		YesnostatementContext _localctx = new YesnostatementContext(_ctx, _parentState);
+		YesnostatementContext _prevctx = _localctx;
+		int _startState = 30;
+		enterRecursionRule(_localctx, 30, RULE_yesnostatement, _p);
 		try {
-			setState(187);
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(190);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__7:
 			case T__8:
-				enterOuterAlt(_localctx, 1);
 				{
-				setState(182);
+				setState(185);
 				booleanvalue();
 				}
 				break;
+			case NOT:
 			case STUFF:
 			case NUMBER:
-				enterOuterAlt(_localctx, 2);
 				{
-				setState(183);
+				setState(186);
 				expr();
-				setState(184);
+				setState(187);
 				match(YESNOOPERATOR);
-				setState(185);
+				setState(188);
 				expr();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
+			}
+			_ctx.stop = _input.LT(-1);
+			setState(197);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					if ( _parseListeners!=null ) triggerExitRuleEvent();
+					_prevctx = _localctx;
+					{
+					{
+					_localctx = new YesnostatementContext(_parentctx, _parentState);
+					pushNewRecursionContext(_localctx, _startState, RULE_yesnostatement);
+					setState(192);
+					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+					setState(193);
+					match(ANDOROPERATOR);
+					setState(194);
+					yesnostatement(2);
+					}
+					} 
+				}
+				setState(199);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -1302,7 +1357,7 @@ public class SparkyParser extends Parser {
 			_errHandler.recover(this, re);
 		}
 		finally {
-			exitRule();
+			unrollRecursionContexts(_parentctx);
 		}
 		return _localctx;
 	}
@@ -1343,17 +1398,17 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(189);
+			setState(200);
 			match(IF);
-			setState(190);
-			yesnostatement();
-			setState(191);
+			setState(201);
+			yesnostatement(0);
+			setState(202);
 			match(T__2);
-			setState(192);
+			setState(203);
 			in_loop();
-			setState(193);
+			setState(204);
 			match(T__3);
-			setState(194);
+			setState(205);
 			in_loop();
 			}
 		}
@@ -1399,13 +1454,13 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(196);
+			setState(207);
 			match(T__4);
-			setState(197);
+			setState(208);
 			expr();
-			setState(198);
+			setState(209);
 			match(RSmoothBrace);
-			setState(199);
+			setState(210);
 			match(SEMICOLON);
 			}
 		}
@@ -1446,7 +1501,7 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(201);
+			setState(212);
 			match(T__5);
 			}
 		}
@@ -1487,7 +1542,7 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(203);
+			setState(214);
 			match(T__6);
 			}
 		}
@@ -1535,7 +1590,7 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(205);
+			setState(216);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << HAINA) | (1L << INTEGER) | (1L << STRING) | (1L << DOUBLE) | (1L << DECIMAL) | (1L << CHAR))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1585,7 +1640,7 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(207);
+			setState(218);
 			_la = _input.LA(1);
 			if ( !(_la==T__7 || _la==T__8) ) {
 			_errHandler.recoverInline(this);
@@ -1634,7 +1689,7 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(209);
+			setState(220);
 			match(T__9);
 			}
 		}
@@ -1675,7 +1730,7 @@ public class SparkyParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(211);
+			setState(222);
 			match(T__10);
 			}
 		}
@@ -1690,8 +1745,23 @@ public class SparkyParser extends Parser {
 		return _localctx;
 	}
 
+	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
+		switch (ruleIndex) {
+		case 15:
+			return yesnostatement_sempred((YesnostatementContext)_localctx, predIndex);
+		}
+		return true;
+	}
+	private boolean yesnostatement_sempred(YesnostatementContext _localctx, int predIndex) {
+		switch (predIndex) {
+		case 0:
+			return precpred(_ctx, 1);
+		}
+		return true;
+	}
+
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3+\u00d8\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3/\u00e3\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -1703,58 +1773,62 @@ public class SparkyParser extends Parser {
 		"\n\t\3\t\3\t\5\t\u0087\n\t\3\t\3\t\5\t\u008b\n\t\3\t\3\t\3\t\3\n\3\n\3"+
 		"\n\3\n\3\13\3\13\3\13\3\13\3\13\5\13\u0099\n\13\3\f\3\f\3\f\3\f\3\r\3"+
 		"\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\3\17"+
-		"\3\17\5\17\u00b0\n\17\3\20\3\20\3\20\3\20\3\20\5\20\u00b7\n\20\3\21\3"+
-		"\21\3\21\3\21\3\21\5\21\u00be\n\21\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
+		"\3\17\5\17\u00b0\n\17\3\20\3\20\3\20\3\20\3\20\3\20\3\20\5\20\u00b9\n"+
+		"\20\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u00c1\n\21\3\21\3\21\3\21\7\21"+
+		"\u00c6\n\21\f\21\16\21\u00c9\13\21\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
 		"\3\23\3\23\3\23\3\23\3\23\3\24\3\24\3\25\3\25\3\26\3\26\3\27\3\27\3\30"+
-		"\3\30\3\31\3\31\3\31\2\2\32\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \""+
-		"$&(*,.\60\2\6\3\2\32\33\3\2\30\31\3\2!&\3\2\n\13\2\u00d6\2\62\3\2\2\2"+
+		"\3\30\3\31\3\31\3\31\2\3 \32\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \""+
+		"$&(*,.\60\2\6\3\2\36\37\3\2\34\35\3\2%*\3\2\n\13\2\u00e3\2\62\3\2\2\2"+
 		"\4H\3\2\2\2\6]\3\2\2\2\bd\3\2\2\2\np\3\2\2\2\fr\3\2\2\2\16}\3\2\2\2\20"+
 		"\177\3\2\2\2\22\u008f\3\2\2\2\24\u0098\3\2\2\2\26\u009a\3\2\2\2\30\u009e"+
-		"\3\2\2\2\32\u00a2\3\2\2\2\34\u00af\3\2\2\2\36\u00b6\3\2\2\2 \u00bd\3\2"+
-		"\2\2\"\u00bf\3\2\2\2$\u00c6\3\2\2\2&\u00cb\3\2\2\2(\u00cd\3\2\2\2*\u00cf"+
-		"\3\2\2\2,\u00d1\3\2\2\2.\u00d3\3\2\2\2\60\u00d5\3\2\2\2\62\63\7\16\2\2"+
-		"\63\64\5\4\3\2\64\65\7\17\2\2\65\3\3\2\2\2\668\5\b\5\2\67\66\3\2\2\28"+
+		"\3\2\2\2\32\u00a2\3\2\2\2\34\u00af\3\2\2\2\36\u00b8\3\2\2\2 \u00c0\3\2"+
+		"\2\2\"\u00ca\3\2\2\2$\u00d1\3\2\2\2&\u00d6\3\2\2\2(\u00d8\3\2\2\2*\u00da"+
+		"\3\2\2\2,\u00dc\3\2\2\2.\u00de\3\2\2\2\60\u00e0\3\2\2\2\62\63\7\22\2\2"+
+		"\63\64\5\4\3\2\64\65\7\23\2\2\65\3\3\2\2\2\668\5\b\5\2\67\66\3\2\2\28"+
 		";\3\2\2\29\67\3\2\2\29:\3\2\2\2:I\3\2\2\2;9\3\2\2\2<>\5\6\4\2=<\3\2\2"+
 		"\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2@E\3\2\2\2A?\3\2\2\2BD\5\b\5\2CB\3\2\2"+
 		"\2DG\3\2\2\2EC\3\2\2\2EF\3\2\2\2FI\3\2\2\2GE\3\2\2\2H9\3\2\2\2H?\3\2\2"+
-		"\2I\5\3\2\2\2JK\5*\26\2KL\7)\2\2LM\7\22\2\2MN\7*\2\2NO\7\34\2\2O^\3\2"+
-		"\2\2PQ\5*\26\2QR\7)\2\2RS\7\34\2\2S^\3\2\2\2TU\7!\2\2UV\7)\2\2VW\7\22"+
-		"\2\2WX\5,\27\2XY\7\34\2\2Y^\3\2\2\2Z[\7!\2\2[\\\7)\2\2\\^\7\34\2\2]J\3"+
-		"\2\2\2]P\3\2\2\2]T\3\2\2\2]Z\3\2\2\2^\7\3\2\2\2_e\5\n\6\2`e\5\f\7\2ae"+
-		"\5\16\b\2be\5\"\22\2ce\5$\23\2d_\3\2\2\2d`\3\2\2\2da\3\2\2\2db\3\2\2\2"+
-		"dc\3\2\2\2e\t\3\2\2\2fg\7)\2\2gh\7\22\2\2hi\5\36\20\2ij\7\34\2\2jq\3\2"+
-		"\2\2kl\7)\2\2lm\7\22\2\2mn\5 \21\2no\7\34\2\2oq\3\2\2\2pf\3\2\2\2pk\3"+
-		"\2\2\2q\13\3\2\2\2rs\7\'\2\2st\5 \21\2tw\5\24\13\2uv\7\3\2\2vx\5\24\13"+
-		"\2wu\3\2\2\2wx\3\2\2\2xy\3\2\2\2yz\7\20\2\2z\r\3\2\2\2{~\5\20\t\2|~\5"+
-		"\22\n\2}{\3\2\2\2}|\3\2\2\2~\17\3\2\2\2\177\u0080\7\4\2\2\u0080\u0082"+
-		"\7\35\2\2\u0081\u0083\5\32\16\2\u0082\u0081\3\2\2\2\u0082\u0083\3\2\2"+
-		"\2\u0083\u0084\3\2\2\2\u0084\u0086\7\34\2\2\u0085\u0087\5\30\r\2\u0086"+
-		"\u0085\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0088\3\2\2\2\u0088\u008a\7\34"+
-		"\2\2\u0089\u008b\5\26\f\2\u008a\u0089\3\2\2\2\u008a\u008b\3\2\2\2\u008b"+
-		"\u008c\3\2\2\2\u008c\u008d\7\36\2\2\u008d\u008e\5\24\13\2\u008e\21\3\2"+
-		"\2\2\u008f\u0090\7(\2\2\u0090\u0091\5 \21\2\u0091\u0092\5\24\13\2\u0092"+
-		"\23\3\2\2\2\u0093\u0094\7\37\2\2\u0094\u0095\5\4\3\2\u0095\u0096\7 \2"+
-		"\2\u0096\u0099\3\2\2\2\u0097\u0099\5\b\5\2\u0098\u0093\3\2\2\2\u0098\u0097"+
-		"\3\2\2\2\u0099\25\3\2\2\2\u009a\u009b\7)\2\2\u009b\u009c\7\22\2\2\u009c"+
-		"\u009d\5\36\20\2\u009d\27\3\2\2\2\u009e\u009f\5\36\20\2\u009f\u00a0\7"+
-		"\21\2\2\u00a0\u00a1\5\36\20\2\u00a1\31\3\2\2\2\u00a2\u00a3\5*\26\2\u00a3"+
-		"\u00a4\7)\2\2\u00a4\u00a5\7\22\2\2\u00a5\u00a6\7*\2\2\u00a6\33\3\2\2\2"+
-		"\u00a7\u00b0\7*\2\2\u00a8\u00b0\7)\2\2\u00a9\u00aa\7)\2\2\u00aa\u00ab"+
-		"\t\2\2\2\u00ab\u00b0\5\34\17\2\u00ac\u00ad\7*\2\2\u00ad\u00ae\t\2\2\2"+
-		"\u00ae\u00b0\5\34\17\2\u00af\u00a7\3\2\2\2\u00af\u00a8\3\2\2\2\u00af\u00a9"+
-		"\3\2\2\2\u00af\u00ac\3\2\2\2\u00b0\35\3\2\2\2\u00b1\u00b7\5\34\17\2\u00b2"+
-		"\u00b3\5\34\17\2\u00b3\u00b4\t\3\2\2\u00b4\u00b5\5\36\20\2\u00b5\u00b7"+
-		"\3\2\2\2\u00b6\u00b1\3\2\2\2\u00b6\u00b2\3\2\2\2\u00b7\37\3\2\2\2\u00b8"+
-		"\u00be\5,\27\2\u00b9\u00ba\5\36\20\2\u00ba\u00bb\7\21\2\2\u00bb\u00bc"+
-		"\5\36\20\2\u00bc\u00be\3\2\2\2\u00bd\u00b8\3\2\2\2\u00bd\u00b9\3\2\2\2"+
-		"\u00be!\3\2\2\2\u00bf\u00c0\7\'\2\2\u00c0\u00c1\5 \21\2\u00c1\u00c2\7"+
-		"\5\2\2\u00c2\u00c3\5\24\13\2\u00c3\u00c4\7\6\2\2\u00c4\u00c5\5\24\13\2"+
-		"\u00c5#\3\2\2\2\u00c6\u00c7\7\7\2\2\u00c7\u00c8\5\36\20\2\u00c8\u00c9"+
-		"\7\36\2\2\u00c9\u00ca\7\34\2\2\u00ca%\3\2\2\2\u00cb\u00cc\7\b\2\2\u00cc"+
-		"\'\3\2\2\2\u00cd\u00ce\7\t\2\2\u00ce)\3\2\2\2\u00cf\u00d0\t\4\2\2\u00d0"+
-		"+\3\2\2\2\u00d1\u00d2\t\5\2\2\u00d2-\3\2\2\2\u00d3\u00d4\7\f\2\2\u00d4"+
-		"/\3\2\2\2\u00d5\u00d6\7\r\2\2\u00d6\61\3\2\2\2\229?EH]dpw}\u0082\u0086"+
-		"\u008a\u0098\u00af\u00b6\u00bd";
+		"\2I\5\3\2\2\2JK\5*\26\2KL\7-\2\2LM\7\26\2\2MN\7.\2\2NO\7 \2\2O^\3\2\2"+
+		"\2PQ\5*\26\2QR\7-\2\2RS\7 \2\2S^\3\2\2\2TU\7%\2\2UV\7-\2\2VW\7\26\2\2"+
+		"WX\5,\27\2XY\7 \2\2Y^\3\2\2\2Z[\7%\2\2[\\\7-\2\2\\^\7 \2\2]J\3\2\2\2]"+
+		"P\3\2\2\2]T\3\2\2\2]Z\3\2\2\2^\7\3\2\2\2_e\5\n\6\2`e\5\f\7\2ae\5\16\b"+
+		"\2be\5\"\22\2ce\5$\23\2d_\3\2\2\2d`\3\2\2\2da\3\2\2\2db\3\2\2\2dc\3\2"+
+		"\2\2e\t\3\2\2\2fg\7-\2\2gh\7\26\2\2hi\5\36\20\2ij\7 \2\2jq\3\2\2\2kl\7"+
+		"-\2\2lm\7\26\2\2mn\5 \21\2no\7 \2\2oq\3\2\2\2pf\3\2\2\2pk\3\2\2\2q\13"+
+		"\3\2\2\2rs\7+\2\2st\5 \21\2tw\5\24\13\2uv\7\3\2\2vx\5\24\13\2wu\3\2\2"+
+		"\2wx\3\2\2\2xy\3\2\2\2yz\7\24\2\2z\r\3\2\2\2{~\5\20\t\2|~\5\22\n\2}{\3"+
+		"\2\2\2}|\3\2\2\2~\17\3\2\2\2\177\u0080\7\4\2\2\u0080\u0082\7!\2\2\u0081"+
+		"\u0083\5\32\16\2\u0082\u0081\3\2\2\2\u0082\u0083\3\2\2\2\u0083\u0084\3"+
+		"\2\2\2\u0084\u0086\7 \2\2\u0085\u0087\5\30\r\2\u0086\u0085\3\2\2\2\u0086"+
+		"\u0087\3\2\2\2\u0087\u0088\3\2\2\2\u0088\u008a\7 \2\2\u0089\u008b\5\26"+
+		"\f\2\u008a\u0089\3\2\2\2\u008a\u008b\3\2\2\2\u008b\u008c\3\2\2\2\u008c"+
+		"\u008d\7\"\2\2\u008d\u008e\5\24\13\2\u008e\21\3\2\2\2\u008f\u0090\7,\2"+
+		"\2\u0090\u0091\5 \21\2\u0091\u0092\5\24\13\2\u0092\23\3\2\2\2\u0093\u0094"+
+		"\7#\2\2\u0094\u0095\5\4\3\2\u0095\u0096\7$\2\2\u0096\u0099\3\2\2\2\u0097"+
+		"\u0099\5\b\5\2\u0098\u0093\3\2\2\2\u0098\u0097\3\2\2\2\u0099\25\3\2\2"+
+		"\2\u009a\u009b\7-\2\2\u009b\u009c\7\26\2\2\u009c\u009d\5\36\20\2\u009d"+
+		"\27\3\2\2\2\u009e\u009f\5\36\20\2\u009f\u00a0\7\25\2\2\u00a0\u00a1\5\36"+
+		"\20\2\u00a1\31\3\2\2\2\u00a2\u00a3\5*\26\2\u00a3\u00a4\7-\2\2\u00a4\u00a5"+
+		"\7\26\2\2\u00a5\u00a6\7.\2\2\u00a6\33\3\2\2\2\u00a7\u00b0\7.\2\2\u00a8"+
+		"\u00b0\7-\2\2\u00a9\u00aa\7-\2\2\u00aa\u00ab\t\2\2\2\u00ab\u00b0\5\34"+
+		"\17\2\u00ac\u00ad\7.\2\2\u00ad\u00ae\t\2\2\2\u00ae\u00b0\5\34\17\2\u00af"+
+		"\u00a7\3\2\2\2\u00af\u00a8\3\2\2\2\u00af\u00a9\3\2\2\2\u00af\u00ac\3\2"+
+		"\2\2\u00b0\35\3\2\2\2\u00b1\u00b9\5\34\17\2\u00b2\u00b3\5\34\17\2\u00b3"+
+		"\u00b4\t\3\2\2\u00b4\u00b5\5\36\20\2\u00b5\u00b9\3\2\2\2\u00b6\u00b7\7"+
+		"\21\2\2\u00b7\u00b9\5\36\20\2\u00b8\u00b1\3\2\2\2\u00b8\u00b2\3\2\2\2"+
+		"\u00b8\u00b6\3\2\2\2\u00b9\37\3\2\2\2\u00ba\u00bb\b\21\1\2\u00bb\u00c1"+
+		"\5,\27\2\u00bc\u00bd\5\36\20\2\u00bd\u00be\7\25\2\2\u00be\u00bf\5\36\20"+
+		"\2\u00bf\u00c1\3\2\2\2\u00c0\u00ba\3\2\2\2\u00c0\u00bc\3\2\2\2\u00c1\u00c7"+
+		"\3\2\2\2\u00c2\u00c3\f\3\2\2\u00c3\u00c4\7\16\2\2\u00c4\u00c6\5 \21\4"+
+		"\u00c5\u00c2\3\2\2\2\u00c6\u00c9\3\2\2\2\u00c7\u00c5\3\2\2\2\u00c7\u00c8"+
+		"\3\2\2\2\u00c8!\3\2\2\2\u00c9\u00c7\3\2\2\2\u00ca\u00cb\7+\2\2\u00cb\u00cc"+
+		"\5 \21\2\u00cc\u00cd\7\5\2\2\u00cd\u00ce\5\24\13\2\u00ce\u00cf\7\6\2\2"+
+		"\u00cf\u00d0\5\24\13\2\u00d0#\3\2\2\2\u00d1\u00d2\7\7\2\2\u00d2\u00d3"+
+		"\5\36\20\2\u00d3\u00d4\7\"\2\2\u00d4\u00d5\7 \2\2\u00d5%\3\2\2\2\u00d6"+
+		"\u00d7\7\b\2\2\u00d7\'\3\2\2\2\u00d8\u00d9\7\t\2\2\u00d9)\3\2\2\2\u00da"+
+		"\u00db\t\4\2\2\u00db+\3\2\2\2\u00dc\u00dd\t\5\2\2\u00dd-\3\2\2\2\u00de"+
+		"\u00df\7\f\2\2\u00df/\3\2\2\2\u00e0\u00e1\7\r\2\2\u00e1\61\3\2\2\2\23"+
+		"9?EH]dpw}\u0082\u0086\u008a\u0098\u00af\u00b8\u00c0\u00c7";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

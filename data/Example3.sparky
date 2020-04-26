@@ -2,7 +2,7 @@ Live
 int a=9; 
 int b=1;
 int d; 
-if a>2 
+if yup 
 {d=a+b;} 
 warna 
 {d=a-b;} 

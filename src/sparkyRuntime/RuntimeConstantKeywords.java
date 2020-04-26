@@ -58,6 +58,7 @@ public interface RuntimeConstantKeywords {
 	 */	
 	public static final String PRINT = "PRINT";
 	public static final String CONDITIONNOTTRUE = "CONDITIONNOTTRUE";
+	public static final String AND_OR_OPERATOR = "AND_OR_OPERATOR";
 	
 
 }
