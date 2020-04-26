@@ -1,0 +1,4 @@
+Live
+int a=9;
+a>8 ? { d= a+b;} : {d=a-b;}
+Die

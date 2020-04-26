@@ -1,6 +1,7 @@
 package sparkyRuntime;
-
-
+/**
+ * 
+ */
 public class DataTypes {
 	
 	Object value;
@@ -15,7 +16,7 @@ public class DataTypes {
 	public String checkDataType() {
 		try {
 			int i = (Integer)value;
-			return "INTEGER";
+			return "int";
 		}
 		catch(ClassCastException fu) {
 			return checkBoolean();

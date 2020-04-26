@@ -3,12 +3,20 @@ package sparkyRuntime;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Stack;
+
 public class IntermediateCodeReader {
 	
 	IntermediateCodeReader() throws Exception{
 		program();
 	}
-	public void program() throws Exception {
+	
+	/**
+	 * Program function reads the Intermediate code file line by line.
+	 * Variables are stored in Hashmap having value of different data types.
+	 * To handle this we created class Datatypes.
+	 * @throws Exception
+	 */
+	private void program() throws Exception {
 		
 		File file = new File("C:\\Users\\raj\\Sparky.txt");
 		FileReader fileReader = null;
@@ -23,20 +31,35 @@ public class IntermediateCodeReader {
 		String content;
 		HashMap<String, DataTypes> map = new HashMap<String, DataTypes>();
 		Stack<DataTypes> local = new Stack<DataTypes>();
+		Stack<String> forVariable = new Stack<String>();
+		int counter = 0;
 		try {
 			
 		while((content=read.readLine())!=null) {
 			String[] line = content.split(" ");
 			DataTypes value;
-			if(line[0].equals("DECLARE")) {				
-				if(line.length<5) {
-					//value = setValueDataTypes(line[1]);
-					map.put(line[2], null);
+			
+			if(line[0].equals("DECLARE")) {
+				//If variable name is already present.
+				if(map.containsKey(line[2])) {
+					throw new Exception("Variable "+line[2]+" is already declared.");
 				}
+				//If variable is declared without definition.
+				if(line.length<5) {
+					map.put(line[2], null);
+					if(counter!=0) {
+						forVariable.push(line[2]);
+					}
+				}
+				//If variable is declared with definition.
 				else {
+					
 					value = setValueDataTypes(line[4]);
 					if(line[1].equals(value.checkDataType())) {
 						map.put(line[2], value);
+						if(counter!=0) {
+							forVariable.push(line[2]);
+						}
 					}
 					else {
 						
@@ -45,59 +68,149 @@ public class IntermediateCodeReader {
 					}
 				}
 			}
+			
 			else if(line[0].equals("STORE")) {
 				value = setValueDataTypes(line[1]);
 				local.push(value);
 			}
+			
 			else if(line[0].equals("PUSH")) {
-				DataTypes mapvar = map.get(line[1]);
-				DataTypes localvar = local.pop();
-				if(mapvar==null || mapvar.checkDataType().equals(localvar.checkDataType())) {
-					map.put(line[1], localvar);
+				if(!map.containsKey(line[1])) {
+					throw new Exception("Variable " +line[1] +" might not have been declared.");
 				}
-				else {
-					throw new Exception("Datatype mismatch while assignment");
+				else {			
+					DataTypes mapvar = map.get(line[1]);
+					DataTypes localvar = local.pop();
+					if(mapvar==null || mapvar.checkDataType().equals(localvar.checkDataType())) {
+						map.put(line[1], localvar);					
+					}
+					else {
+						throw new Exception("Datatype mismatch while assignment");
 					
+					}
 				}
 			}
 			
 			else if(line[0].equals("GET")) {
-				local.push(map.get(line[1]));
-				System.out.println(map.get(line[1]));
+				if(!map.containsKey(line[1])) {
+					throw new Exception("Variable " +line[1] +" might not have been declared.");
+				}
+				else {
+					local.push(map.get(line[1]));
+				}				
 			}
+			
 			else if(line[0].equals("OPERATOR")) {
 				operator(line[1], local);
 			}
-			else if(line[0].equals("COMPARE")) {
+			
+			else if(line[0].equals("COMPARE_OPERATOR")) {
 				compare(line[1], local);
 			}
+			
 			else if(line[0].equals("AND")) {
 				Boolean decand = local.pop().Boolean();
 				DataTypes outand = new DataTypes(decand.equals(local.pop().Boolean()) ? decand : false);
 				local.push(outand);
 			}
+			
 			else if(line[0].equals("OR")) {
 				Boolean decor = local.pop().Boolean();
 				DataTypes outor = new DataTypes(decor.equals(local.pop().Boolean()) ? decor : true);
 				local.push(outor);
 			}
+			
 			else if(line[0].equals("NOT")) {
 				Boolean decnot = local.pop().Boolean();
 				DataTypes outnot = new DataTypes(decnot.equals(true) ? false : true);
 				local.push(outnot);
 			}
-			else if(line[0].equals("ComparisionNotTrue") && local.pop().Boolean().equals(false)) {
+			
+			else if(line[0].equals("CONDITIONNOTTRUE") && !local.pop().Boolean()) {
 				if(line[2].equals("LABELELSE")) {
-					while((content=read.readLine())!=null && !line[0].equals("LABELELSE")){
-						line = content.split(" ");						
+					while((content=read.readLine())!=null){
+						line = content.split(" ");	
+						if(line[0].equals("LABELELSE")) {
+							break;
+						}
 					}
 				}
-				else if(line[2].equals("WHILESCOPEEND")) {
-					while((content=read.readLine())!=null && !line[0].equals("WHILESCOPEEND")){
-						line = content.split(" ");						
+				else if(line[2].equals("WHILEEND")) {
+					while((content=read.readLine())!=null){
+						line = content.split(" ");	
+						if(line[0].equals("WHILEEND")) {
+							break;
+						}
+					}
+				}
+				else if(line[2].equals("FOR_STOP")) {
+					while((content=read.readLine())!=null){
+						line = content.split(" ");	
+						if(line[0].equals("FOR_STOP")) {
+							break;
+						}
+					}
+					counter = 0;
+					while(!forVariable.empty()) {
+						map.remove(forVariable.pop());
 					}
 				}
 			}
+			
+			else if(line[0].equals("FOR_START")) {			
+				if(counter==0) {
+					counter = counter+1;
+				}
+				
+			}
+			
+			else if(line[0].equals("FOR_STOP")) {
+				System.out.println("raja");
+				counter = 0;
+				while(forVariable.empty()) {
+					map.remove(forVariable.pop());
+				}
+			}
+			
+			else if(line[0].equals("JUMP")) {			
+				if(line[1].equals("FOR_CONDITION_START")) {
+					file = new File("C:\\Users\\raj\\Sparky.txt");
+					fileReader = null;
+					try {
+						fileReader = new FileReader(file);
+					}
+					catch(FileNotFoundException fi) {
+						System.out.println("Error in reading the file");
+						fi.printStackTrace();
+					}
+					read = new BufferedReader(fileReader);
+					while((content=read.readLine())!=null){
+						line = content.split(" ");	
+						if(line[0].equals("FOR_CONDITION_START")) {
+							break;
+						}
+					}
+				}
+				else if(line[1].equals("WHILEBEGIN")) {
+					file = new File("C:\\Users\\raj\\Sparky.txt");
+					fileReader = null;
+					try {
+						fileReader = new FileReader(file);
+					}
+					catch(FileNotFoundException fi) {
+						System.out.println("Error in reading the file");
+						fi.printStackTrace();
+					}
+					read = new BufferedReader(fileReader);
+					while((content=read.readLine())!=null){
+						line = content.split(" ");	
+						if(line[0].equals("WHILEBEGIN")) {
+							break;
+						}
+					}
+				}
+			}
+			
 			else if(line[0].equals("PRINT")) {			
 				System.out.println(local.pop().toString());
 			}
@@ -109,7 +222,8 @@ public class IntermediateCodeReader {
 		}
 		
 	}
-
+	
+	//Checks the datatype of input and creates an object of class DataTypes.
 	private DataTypes setValueDataTypes(String string) {
 		if(isInt(string)) {
 			return new DataTypes(Integer.parseInt(string));
@@ -144,7 +258,8 @@ public class IntermediateCodeReader {
 			return false;
 		}
 	}
-
+	
+	//Compares the 2 input and pushes the boolean result in stack.
 	private void compare(String comparison, Stack<DataTypes> local) throws Exception {
 		
 		DataTypes locop2 = local.pop();
@@ -155,11 +270,11 @@ public class IntermediateCodeReader {
 				outcome = new DataTypes(locop2.toString().equals(locop1.toString()) ? true : false);
 				local.push(outcome);
 			}
-			else if(comparison.equals("LESS_THAN") && locop1.checkDataType().equals("INTEGER")) {
+			else if(comparison.equals("<") && locop1.checkDataType().equals("int")) {
 				outcome = new DataTypes(locop2.Integer()>locop1.Integer() ? true : false);
 				local.push(outcome);
 			}
-			else if(comparison.equals("MORE_THAN") && locop1.checkDataType().equals("INTEGER")) {
+			else if(comparison.equals(">") && locop1.checkDataType().equals("int")) {
 				outcome = new DataTypes(locop2.Integer()<locop1.Integer() ? true : false);
 				local.push(outcome);
 			}
@@ -172,12 +287,13 @@ public class IntermediateCodeReader {
 		}
 		
 	}
-
+	
+	//Performs Arithmetic operation on inputs and pushes the result in stack.
 	private void operator(String operation, Stack<DataTypes> local) throws Exception {
 		DataTypes locop2 = local.pop();
 		DataTypes locop1 = local.pop();
 		DataTypes outcome;
-		if(locop1.checkDataType().equals(locop2.checkDataType()) && locop1.checkDataType().equals("INTEGER")) {
+		if(locop1.checkDataType().equals(locop2.checkDataType()) && locop1.checkDataType().equals("int")) {
 			if(operation.equals("ADD")) {
 				outcome = new DataTypes(locop1.Integer()+locop2.Integer());
 				local.push(outcome);
