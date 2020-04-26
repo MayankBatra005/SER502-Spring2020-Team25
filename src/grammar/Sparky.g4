@@ -1,6 +1,4 @@
 grammar Sparky;
-
-
 program: LIVE ball DIE;
 ball: expression* | declare* expression*;
 
@@ -29,23 +27,11 @@ ifte
 
 loopum : loop_for|loop_while | loop_for_range;
 loop_for: 'for' LSmoothBrace for_declare? ';' for_expression? ';' for_expr? RSmoothBrace in_loop;
-
-
-										
-										  
-																														
 loop_while
  : WHILE yesnostatement in_loop
  ;
  
  loop_for_range: 'for'  STUFF 'in' 'range' LSmoothBrace NUMBER COMMA NUMBER RSmoothBrace LCurlyBrace in_loop RCurlyBrace;
-  
- 
- 
-	
-												  
- 
- 
  
 in_loop: LCurlyBrace ball RCurlyBrace| expression;												
 for_expr: STUFF EQUALTO expr;
@@ -56,10 +42,6 @@ term: NUMBER | STUFF | STUFF op=(MUL | DIV) term | NUMBER  op=(MUL | DIV) term;
 expr: term | term op=(PLUS | MINUS) expr | NOT expr;
 yesnostatement : booleanvalue | expr YESNOOPERATOR expr |yesnostatement ANDOROPERATOR yesnostatement;
 ANDOROPERATOR: AND|OR;
-					  
-												   
-		  
-								 
 									   
 AND: 'and';
 OR: 'or';
@@ -67,103 +49,11 @@ NOT:'not';
 
 
 ternary_operator: yesnostatement '?' in_loop ':' in_loop;
-		 
-		 
-		 
-		   
-
-
-							   
 			   
 print:'print' LSmoothBrace expr RSmoothBrace SEMICOLON;
-
-
 LIVE: 'Live';
 DIE: 'Die';
 FI: 'fi';
-
-
-			   
-				 
-				 
-				 
-				  
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-							  
-
-
-							  
-		   
-			 
-
-
-		  
-			  
-
-
-				
-
-
-
-
-				   
-				   
-				  
-				  
-
-				
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 YESNOOPERATOR: ASSEQ| LESS_THAN| MORE_THAN | LESS_THAN_EQ | MORE_THAN_EQ ;
@@ -212,13 +102,6 @@ WHILE : 'while';
 STUFF:[a-zA-Z_] [a-zA-Z_0-9]*;
 
 NUMBER:[0-9]+;
-
-
-
-
-
-
-
 
 
 WS: [ \t\r\n] -> skip;
