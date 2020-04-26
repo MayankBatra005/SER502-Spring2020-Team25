@@ -8,7 +8,7 @@ declare:
 (datatype STUFF EQUALTO NUMBER SEMICOLON)|
 (datatype STUFF SEMICOLON)|
 (HAINA STUFF EQUALTO BOOLEANVALUE SEMICOLON)|
-(HAINA STUFF SEMICOLON);
+(HAINA STUFF SEMICOLON)| stringdatatype STUFF EQUALTO STRINGLITERAL SEMICOLON | stringdatatype STUFF SEMICOLON;
 		
 
 /*
@@ -109,15 +109,18 @@ NOT:'not';
 datatype
 :  
 | INTEGER 
-| STRING 
 | DOUBLE 
 | DECIMAL 
 | CHAR
-| HAINA
 ;
-
+stringdatatype: STRING;
 HAINA: 'haina';
 haina:'bool';
+
+
+
+
+
 
 print:'print('expr')' SEMICOLON;
 
@@ -239,6 +242,10 @@ LESS_THAN_EQ
 MORE_THAN_EQ 
 : '>='
 ;
+
+DQ: '"';
+
+STRINGLITERAL: DQ (~["\\\r\n])* DQ;
 
 WS
 : [ \t\r\n\f]+ -> skip
