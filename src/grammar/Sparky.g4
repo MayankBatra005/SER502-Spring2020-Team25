@@ -122,7 +122,8 @@ haina:'bool';
 
 
 
-print:'print('expr')' SEMICOLON;
+print:'print' LSmoothBrace expr RSmoothBrace SEMICOLON;
+
 
 INTEGER
 : 'int'
