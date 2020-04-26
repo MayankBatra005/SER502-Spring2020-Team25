@@ -66,6 +66,12 @@ public interface SparkyVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLoop_while(SparkyParser.Loop_whileContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SparkyParser#loop_for_range}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoop_for_range(SparkyParser.Loop_for_rangeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SparkyParser#in_loop}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -137,6 +143,12 @@ public interface SparkyVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDatatype(SparkyParser.DatatypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link SparkyParser#stringdatatype}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringdatatype(SparkyParser.StringdatatypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SparkyParser#booleanvalue}.
 	 * @param ctx the parse tree

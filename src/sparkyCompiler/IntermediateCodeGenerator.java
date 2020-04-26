@@ -119,6 +119,32 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		
 		return null; }
 	
+	@Override public Object visitLoop_for_range(SparkyParser.Loop_for_rangeContext ctx) { 
+		help.addOutput(RuntimeConstantKeywords.FOR_START);
+		help.addOutput(RuntimeConstantKeywords.DECLARE + " int " + ctx.STUFF().getText());
+		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.NUMBER(0));
+		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
+		help.addOutput(RuntimeConstantKeywords.FOR_CONDITION_START);
+		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.STUFF().getText());
+		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.NUMBER(1));
+		help.addOutput(RuntimeConstantKeywords.COMPARE_OPERATOR + " " + "<");
+		help.addOutput(RuntimeConstantKeywords.CONDITIONNOTTRUE + " " + RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.FOR_STOP);
+		visit(ctx.in_loop());
+		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.STUFF().getText());
+		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.NUMBER(0));
+		help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + "ADD");
+		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
+		help.addOutput(RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.FOR_CONDITION_START);
+		help.addOutput(RuntimeConstantKeywords.FOR_STOP);
+		
+		
+		
+		
+		
+		
+		return null;}
+		//return visitChildren(ctx); }
+	
 	@Override public Object visitLoop_while(SparkyParser.Loop_whileContext ctx) {
 		help.addOutput(RuntimeConstantKeywords.WHILE_BEGIN);
 		if(ctx.yesnostatement().getText().contains("yup") || ctx.yesnostatement().getText().contains("nup")) {
@@ -153,7 +179,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		//help.addOutput(RuntimeConstantKeywords.FOR_VARIABLE + " " + ctx.STUFF().getText());
 		
 		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());	
-		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(2).getText());
+		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr().getChild(2).getText());
 		switch(ctx.expr().getChild(1).getText()) {
 		case "+":
 			help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.ADDITION);

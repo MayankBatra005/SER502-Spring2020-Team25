@@ -31,7 +31,7 @@ loop_while
  : WHILE yesnostatement in_loop
  ;
  
- loop_for_range: 'for'  STUFF 'in' 'range' LSmoothBrace NUMBER COMMA NUMBER RSmoothBrace LCurlyBrace in_loop RCurlyBrace;
+ loop_for_range: 'for'  STUFF 'in' 'range' LSmoothBrace NUMBER COMMA NUMBER RSmoothBrace in_loop;
  
 in_loop: LCurlyBrace ball RCurlyBrace| expression;												
 for_expr: STUFF EQUALTO expr;

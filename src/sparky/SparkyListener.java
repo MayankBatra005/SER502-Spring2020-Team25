@@ -99,6 +99,16 @@ public interface SparkyListener extends ParseTreeListener {
 	 */
 	void exitLoop_while(SparkyParser.Loop_whileContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SparkyParser#loop_for_range}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoop_for_range(SparkyParser.Loop_for_rangeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SparkyParser#loop_for_range}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoop_for_range(SparkyParser.Loop_for_rangeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SparkyParser#in_loop}.
 	 * @param ctx the parse tree
 	 */
@@ -218,6 +228,16 @@ public interface SparkyListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDatatype(SparkyParser.DatatypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SparkyParser#stringdatatype}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringdatatype(SparkyParser.StringdatatypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SparkyParser#stringdatatype}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringdatatype(SparkyParser.StringdatatypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SparkyParser#booleanvalue}.
 	 * @param ctx the parse tree

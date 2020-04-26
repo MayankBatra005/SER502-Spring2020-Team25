@@ -124,6 +124,18 @@ public class SparkyBaseListener implements SparkyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLoop_for_range(SparkyParser.Loop_for_rangeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLoop_for_range(SparkyParser.Loop_for_rangeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIn_loop(SparkyParser.In_loopContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -263,6 +275,18 @@ public class SparkyBaseListener implements SparkyListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDatatype(SparkyParser.DatatypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStringdatatype(SparkyParser.StringdatatypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStringdatatype(SparkyParser.StringdatatypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
