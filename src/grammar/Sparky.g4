@@ -60,7 +60,8 @@ ifte
  : IF yesnostatement in_loop ('warna' in_loop)? FI
  ;
 
- ternary_operator: IF yesnostatement '?' in_loop ':' in_loop;              
+// ternary_operator: IF yesnostatement '?' in_loop ':' in_loop;              
+ ternary_operator: yesnostatement '?' in_loop ':' in_loop;              
 
 /*term: term MUL term2
       |term DIV term2 | NUMBER | STUFF; */
