@@ -38,13 +38,14 @@ e1
 ;
 
 
-loopum : loop_for|loop_while;
+loopum : loop_for|loop_while | loop_for_range;
 
 loop_for: 'for' LSmoothBrace for_declare? ';' for_expression? ';' for_expr? RSmoothBrace in_loop;
 for_expr: STUFF EQUALTO expr;
 for_expression :expr YESNOOPERATOR expr;
 for_declare:datatype STUFF EQUALTO NUMBER;
 
+loop_for_range: 'for'  STUFF 'in' 'range' LSmoothBrace NUMBER COMMA NUMBER RSmoothBrace LCurlyBrace in_loop RCurlyBrace;
 
 loop_while
  : WHILE yesnostatement in_loop
