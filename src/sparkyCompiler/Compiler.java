@@ -23,64 +23,64 @@ public class Compiler {
 			if (args.length > 0) {
 				String inputFileName = args[0];
 
-			 //String inputFileName = "data/print.sparky";
-	
-			CharStream sourceCode = CharStreams.fromFileName(inputFileName);
-			SparkyLexer lx = new SparkyLexer(sourceCode);
-			CommonTokenStream tokenStream = new CommonTokenStream(lx);
-			SparkyParser parser = new SparkyParser(tokenStream);
-			ParseTree parseTree = parser.program();
+				// String inputFileName = "data/print.sparky";
 
-			IntermediateCodeGenerator iCodeGen = new IntermediateCodeGenerator();
-			iCodeGen.visit(parseTree);
+				CharStream sourceCode = CharStreams.fromFileName(inputFileName);
+				SparkyLexer lx = new SparkyLexer(sourceCode);
+				CommonTokenStream tokenStream = new CommonTokenStream(lx);
+				SparkyParser parser = new SparkyParser(tokenStream);
+				ParseTree parseTree = parser.program();
 
-			List<String> iCodeArray = Arrays.asList(iCodeGen.getOutput().split("\\n"));
+				IntermediateCodeGenerator iCodeGen = new IntermediateCodeGenerator();
+				iCodeGen.visit(parseTree);
 
-			try {
+				List<String> iCodeArray = Arrays.asList(iCodeGen.getOutput().split("\\n"));
 
-				File iCodeFile = new File(inputFileName.replace("sparky", "sparkyic"));
-				BufferedWriter bufferWriter = null;
-				FileWriter fileWriter = null;
-				if (iCodeArray.size() > 1) {
-					try {
-						if (iCodeFile.exists()) {
-							iCodeFile.delete();
-							iCodeFile.createNewFile();
-						} else {
-							iCodeFile.createNewFile();
-						}
+				try {
 
-						fileWriter = new FileWriter(iCodeFile);
-						bufferWriter = new BufferedWriter(fileWriter);
-						for(int i=0; i<iCodeArray.size();i++){
-							bufferWriter.write(iCodeArray.get(i)+ " " + "\n");
-						}
-						
-					} catch (IOException e) {
-						e.printStackTrace();
-
-					} finally {
+					File iCodeFile = new File(inputFileName.replace("sparky", "sparkyic"));
+					BufferedWriter bufferWriter = null;
+					FileWriter fileWriter = null;
+					if (iCodeArray.size() > 1) {
 						try {
-							if (bufferWriter != null)
-								bufferWriter.close();
-							if (fileWriter != null)
-								fileWriter.close();
+							if (iCodeFile.exists()) {
+								iCodeFile.delete();
+								iCodeFile.createNewFile();
+							} else {
+								iCodeFile.createNewFile();
+							}
 
-						} catch (IOException ex) {
-							ex.printStackTrace();
+							fileWriter = new FileWriter(iCodeFile);
+							bufferWriter = new BufferedWriter(fileWriter);
+							for (int i = 0; i < iCodeArray.size(); i++) {
+								bufferWriter.write(iCodeArray.get(i) + " " + "\n");
+							}
+
+						} catch (IOException e) {
+							e.printStackTrace();
+
+						} finally {
+							try {
+								if (bufferWriter != null)
+									bufferWriter.close();
+								if (fileWriter != null)
+									fileWriter.close();
+
+							} catch (IOException ex) {
+								ex.printStackTrace();
+							}
 						}
 					}
 				}
-			}
 
-			catch (Exception e) {
-				e.printStackTrace();
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-		}
 		} catch (Exception e) {
-		System.out.println("Input filename is incorrect");
+			System.out.println("Input filename is incorrect");
 			e.printStackTrace();
 		}
 	}
 
-}	
+}
