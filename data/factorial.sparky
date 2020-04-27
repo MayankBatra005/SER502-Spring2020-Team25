@@ -1,0 +1,7 @@
+Live
+int res = 1;
+int n=5;
+for (int i=2; i<=n; i=i+1) 
+{res=res*i;}
+print(res);
+Die

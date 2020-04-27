@@ -54,28 +54,52 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 	
 	@Override public Object visitAssignment(SparkyParser.AssignmentContext ctx) { 
 		String regexStr = "^[0-9]*$";
-		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());	
-		if(ctx.expr().getChild(2).getText().matches(regexStr)) {
-		help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr().getChild(2).getText());
+		//help.addOutput("Testing assgmnt*******" + " " + ctx.expr().getChildCount());
+		if(ctx.expr().getChildCount()==1) {
+			if(ctx.expr().getChild(0).getText().matches(regexStr)) {
+				help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr().getChild(0).getText());
+			}else {
+			help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());
+			}
+			help.addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
 		}else {
-			help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(2).getText());	
+			help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());
+			if(ctx.expr().getChild(2).getText().matches(regexStr)) {
+				help.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr().getChild(2).getText());
+				switch(ctx.expr().getChild(1).getText()) {
+				case "+":
+					help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.ADDITION);
+					break;
+				case "-":
+					help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.SUBTRACTION);
+					break;
+				case "*":
+					help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.MULTIPLICATION);
+					break;
+				case "/":
+					help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.DIVSION);
+					break;
+				}
+				help.addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
+			}else {
+				help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(2).getText());
+				switch(ctx.expr().getChild(1).getText()) {
+				case "+":
+					help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.ADDITION);
+					break;
+				case "-":
+					help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.SUBTRACTION);
+					break;
+				case "*":
+					help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.MULTIPLICATION);
+					break;
+				case "/":
+					help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.DIVSION);
+					break;
+				}
+				help.addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
+			}
 		}
-		
-		switch(ctx.expr().getChild(1).getText()) {
-		case "+":
-			help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.ADDITION);
-			break;
-		case "-":
-			help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.SUBTRACTION);
-			break;
-		case "*":
-			help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.MULTIPLICATION);
-			break;
-		case "/":
-			help.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.DIVSION);
-			break;
-		}
-		help.addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
 		
 		return null; }
 	

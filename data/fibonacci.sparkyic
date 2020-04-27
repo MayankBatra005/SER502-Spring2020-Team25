@@ -1,0 +1,34 @@
+DECLARE int count 
+STORE 7 
+PUSH count 
+DECLARE int counter 
+STORE 1 
+PUSH counter 
+DECLARE int firstFib 
+STORE 1 
+PUSH firstFib 
+DECLARE int secondFib 
+STORE 1 
+PUSH secondFib 
+DECLARE int sum 
+WHILEBEGIN 
+GET counter 
+STORE count 
+COMPARE_OPERATOR <= 
+CONDITIONNOTTRUE JUMP WHILEEND 
+GET firstFib 
+PRINT 
+GET firstFib 
+GET secondFib 
+OPERATOR ADD 
+PUSH sum 
+GET secondFib 
+PUSH firstFib 
+GET sum 
+PUSH secondFib 
+GET counter 
+STORE 1 
+OPERATOR ADD 
+PUSH counter 
+JUMP WHILEBEGIN 
+WHILEEND 

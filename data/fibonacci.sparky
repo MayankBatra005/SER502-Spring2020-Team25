@@ -1,0 +1,15 @@
+Live
+int count = 7;
+int counter =1;
+int firstFib=1;
+int secondFib=1;
+int sum;
+while counter<=count
+{
+print(firstFib);
+sum=firstFib+secondFib;
+firstFib = secondFib;
+secondFib=sum;
+counter=counter+1;
+}
+Die
