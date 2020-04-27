@@ -27,9 +27,9 @@ public class DataTypes {
 	private String checkBoolean() {
 		try {
 			Boolean bo = (Boolean) value;
-			return "BOOLEAN";
+			return "bool";
 		} catch (ClassCastException fu) {
-			return "STRING";
+			return "string";
 		}
 	}
 

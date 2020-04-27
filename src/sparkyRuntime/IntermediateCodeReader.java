@@ -261,6 +261,9 @@ public class IntermediateCodeReader {
 				}
 
 				else if (line[0].equals("PRINT")) {
+					if(local.isEmpty()) {
+						throw new Exception("Nothing to Print.");
+					}
 					System.out.println(local.pop().toString());
 				}
 			}
@@ -317,8 +320,15 @@ public class IntermediateCodeReader {
 			} else if (comparison.equals("<") && locop1.checkDataType().equals("int")) {
 				outcome = new DataTypes(locop2.Integer() > locop1.Integer() ? true : false);
 				local.push(outcome);
-			} else if (comparison.equals(">") && locop1.checkDataType().equals("int")) {
+			}
+			else if (comparison.equals("<=") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer() >= locop1.Integer() ? true : false);
+				local.push(outcome);
+			}else if (comparison.equals(">") && locop1.checkDataType().equals("int")) {
 				outcome = new DataTypes(locop2.Integer() < locop1.Integer() ? true : false);
+				local.push(outcome);
+			} else if (comparison.equals(">=") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer() <= locop1.Integer() ? true : false);
 				local.push(outcome);
 			} else {
 				throw new Exception("Incorrect Datatype while comparison");
