@@ -10,7 +10,7 @@ import java.util.Stack;
 
 public class IntermediateCodeReader {
 
-	IntermediateCodeReader() throws Exception {
+	public IntermediateCodeReader() throws Exception {
 		program();
 	}
 
