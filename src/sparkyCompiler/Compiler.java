@@ -14,15 +14,19 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import sparky.SparkyLexer;
 import sparky.SparkyParser;
+import sparkyRuntime.IntermediateCodeReader;
 
 public class Compiler {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception 
+	{
+		String inputIcfile=null;
+		
 		try {
 
 			if (args.length > 0) {
 				String inputFileName = args[0];
-
+				inputIcfile=args[0];
 				// String inputFileName = "data/print.sparky";
 
 				CharStream sourceCode = CharStreams.fromFileName(inputFileName);
@@ -81,6 +85,18 @@ public class Compiler {
 			System.out.println("Input filename is incorrect");
 			e.printStackTrace();
 		}
+		if (inputIcfile != null) {
+			executeRuntime(inputIcfile + "ic");
+		}else {
+			
+			System.out.println("Error File not created ");
+		}
+	}
+	
+	public static void executeRuntime(String filename) throws Exception
+	{
+		new IntermediateCodeReader(filename);
+		
 	}
 
 }

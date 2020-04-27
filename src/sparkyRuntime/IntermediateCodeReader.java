@@ -5,13 +5,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Stack;
 
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+
 public class IntermediateCodeReader {
 
-	IntermediateCodeReader() throws Exception {
-		program();
+	public IntermediateCodeReader(String filename) throws Exception {
+		program(filename);
 	}
 
 	/**
@@ -21,9 +25,26 @@ public class IntermediateCodeReader {
 	 * 
 	 * @throws Exception
 	 */
-	private void program() throws Exception {
-
-		File file = new File("C:\\Users\\raj\\Sparky.txt");
+	
+	private void saveToTextFile(String filename) throws Exception 
+	{
+		String basePath = new File("").getAbsolutePath()+"\\data";
+		String path=basePath+"\\"+filename;
+		 CharStream code = CharStreams.fromFileName(path);
+		
+		 
+		 PrintWriter out = new PrintWriter(basePath+"/Sparky.txt");
+		 out.println(code.toString());
+		 out.close();
+		 		
+	}
+	
+	private void program(String filename) throws Exception {
+		
+		saveToTextFile(filename);
+		String basePath = new File("").getAbsolutePath()+"\\data";
+		
+		File file = new File(basePath+"\\Sparky.txt");
 		FileReader fileReader = null;
 		try {
 			fileReader = new FileReader(file);
