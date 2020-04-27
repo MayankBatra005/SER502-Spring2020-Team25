@@ -156,7 +156,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		help.addOutput( RuntimeConstantKeywords.JUMP +" "+RuntimeConstantKeywords.WHILE_BEGIN);
 		help.addOutput(RuntimeConstantKeywords.WHILE_END);
 		
-		return visitChildren(ctx); }
+		return null; }
 	
 	@Override public Object visitIn_loop(SparkyParser.In_loopContext ctx) {
 		visit(ctx.ball());

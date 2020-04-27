@@ -2,5 +2,7 @@ Live
 while a<b
 {
 a=a+10;
+print(a);
+b=50-10;
 }
 Die
