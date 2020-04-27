@@ -1,11 +1,14 @@
 package sparkyCompiler;
 
 
+import Model.IntermediateCodeWriter;
+
 /**
  * In this class methods from SparkyBaseVisitor are overloaded for intermediate course generation according to Sparky grammar.
- * @author Sayali Tanawade
+ * @author Sayali Tanawade 
+ * @author Mayank Batra
  * @since April-20-2020
- * @version 1.0
+ * @version 2.0
  */
 
 import sparky.SparkyBaseVisitor;
@@ -13,18 +16,19 @@ import sparky.SparkyParser;
 import sparkyRuntime.RuntimeConstantKeywords;
 
 public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
-	
+	/*
 	private class Helper {
         private String icOutput = "";
         private void addOutput(String output) {
             this.icOutput += output + "\n";
         }
     }
+    */
 	
-	private Helper help = new Helper();
+	private IntermediateCodeWriter help = IntermediateCodeWriter.getInstance();
 	
 	public String getOutput() {
-		return help.icOutput;
+		return help.getIcOutput();
 	}
 	
 	@Override public Object visitProgram(SparkyParser.ProgramContext ctx) { return visitChildren(ctx); }
