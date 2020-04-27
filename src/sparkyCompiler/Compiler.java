@@ -28,8 +28,12 @@ public class Compiler {
 			if (args.length > 0) {
 				String inputFileName = args[0];
 				inputIcfile=args[0];
+				
+				// Remove path and just pass the arguments
+				// argument should have the complete path 
+				// or in the current working directory
 				// String inputFileName = "data/print.sparky";
-String path="data/"+inputIcfile;
+				String path="data/"+inputIcfile;
 				CharStream sourceCode = CharStreams.fromFileName(path);
 				SparkyLexer lx = new SparkyLexer(sourceCode);
 				CommonTokenStream tokenStream = new CommonTokenStream(lx);
