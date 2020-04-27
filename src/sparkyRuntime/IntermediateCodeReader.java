@@ -1,5 +1,3 @@
-package sparkyRuntime;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Stack;
@@ -33,6 +31,8 @@ public class IntermediateCodeReader {
 		Stack<DataTypes> local = new Stack<DataTypes>();
 		Stack<String> forVariable = new Stack<String>();
 		int counter = 0;
+		Stack<String> whileVariable = new Stack<String>();
+		int counter1 = 0;
 		try {
 			
 		while((content=read.readLine())!=null) {
@@ -50,6 +50,9 @@ public class IntermediateCodeReader {
 					if(counter!=0) {
 						forVariable.push(line[2]);
 					}
+					if(counter1!=0) {
+						whileVariable.push(line[2]);
+					}
 				}
 				//If variable is declared with definition.
 				else {
@@ -59,6 +62,9 @@ public class IntermediateCodeReader {
 						map.put(line[2], value);
 						if(counter!=0) {
 							forVariable.push(line[2]);
+						}
+						if(counter1!=0) {
+							whileVariable.push(line[2]);
 						}
 					}
 					else {
@@ -108,29 +114,32 @@ public class IntermediateCodeReader {
 				compare(line[1], local);
 			}
 			
-			else if(line[0].equals("AND")) {
-				Boolean decand = local.pop().Boolean();
-				DataTypes outand = new DataTypes(decand.equals(local.pop().Boolean()) ? decand : false);
-				local.push(outand);
+			else if(line[0].equals("AND_OR_OPERATOR")) {
+				if(line[1].equals("and")) {
+					Boolean decand = local.pop().Boolean();
+					DataTypes outand = new DataTypes(decand.equals(local.pop().Boolean()) ? decand : false);
+					local.push(outand);
+				}
+			
+				else if(line[1].equals("or")) {
+					Boolean decor = local.pop().Boolean();
+					DataTypes outor = new DataTypes(decor.equals(local.pop().Boolean()) ? decor : true);
+					local.push(outor);
+				}
+			
+				else if(line[1].equals("not")) {
+					Boolean decnot = local.pop().Boolean();
+					DataTypes outnot = new DataTypes(decnot.equals(true) ? false : true);
+					local.push(outnot);
+				}
 			}
 			
-			else if(line[0].equals("OR")) {
-				Boolean decor = local.pop().Boolean();
-				DataTypes outor = new DataTypes(decor.equals(local.pop().Boolean()) ? decor : true);
-				local.push(outor);
-			}
-			
-			else if(line[0].equals("NOT")) {
-				Boolean decnot = local.pop().Boolean();
-				DataTypes outnot = new DataTypes(decnot.equals(true) ? false : true);
-				local.push(outnot);
-			}
-			
-			else if(line[0].equals("CONDITIONNOTTRUE") && !local.pop().Boolean()) {
-				if(line[2].equals("LABELELSE")) {
+			else if(line[0].equals("CONDITION_FALSE") && !local.pop().Boolean()) {
+				
+				if(line[2].equals("ELSE_START")) {
 					while((content=read.readLine())!=null){
 						line = content.split(" ");	
-						if(line[0].equals("LABELELSE")) {
+						if(line[0].equals("ELSE_START")) {
 							break;
 						}
 					}
@@ -141,6 +150,10 @@ public class IntermediateCodeReader {
 						if(line[0].equals("WHILEEND")) {
 							break;
 						}
+					}
+					counter1 = 0;
+					while(!whileVariable.empty()) {
+						map.remove(whileVariable.pop());
 					}
 				}
 				else if(line[2].equals("FOR_STOP")) {
@@ -164,15 +177,33 @@ public class IntermediateCodeReader {
 				
 			}
 			
-			else if(line[0].equals("FOR_STOP")) {
-				System.out.println("raja");
-				counter = 0;
-				while(forVariable.empty()) {
-					map.remove(forVariable.pop());
+			else if(line[0].equals("IF_END")) {			
+				while((content=read.readLine())!=null){
+					line = content.split(" ");	
+					if(line[0].equals("ELSE_END")) {
+						break;
+					}
 				}
+				
 			}
 			
-			else if(line[0].equals("JUMP")) {			
+			else if(line[0].equals("WHILEBEGIN")) {			
+				if(counter1==0) {
+					counter1 = counter1+1;
+				}
+				
+			}
+			
+//			else if(line[0].equals("FOR_STOP")) {
+//				System.out.println("raja");
+//				counter = 0;
+//				while(forVariable.empty()) {
+//					map.remove(forVariable.pop());
+//				}
+//			}
+			
+			else if(line[0].equals("JUMP")) {
+				
 				if(line[1].equals("FOR_CONDITION_START")) {
 					file = new File("C:\\Users\\raj\\Sparky.txt");
 					fileReader = null;
@@ -223,7 +254,7 @@ public class IntermediateCodeReader {
 		
 	}
 	
-	//Checks the datatype of input and creates an object of class DataTypes.
+	//Checks the data type of input and creates an object of class DataTypes.
 	private DataTypes setValueDataTypes(String string) {
 		if(isInt(string)) {
 			return new DataTypes(Integer.parseInt(string));
@@ -266,7 +297,7 @@ public class IntermediateCodeReader {
 		DataTypes locop1 = local.pop();
 		DataTypes outcome;
 		if(locop1.checkDataType().equals(locop2.checkDataType())) {
-			if(comparison.equals("ASSEQ")) {
+			if(comparison.equals("==")) {
 				outcome = new DataTypes(locop2.toString().equals(locop1.toString()) ? true : false);
 				local.push(outcome);
 			}
