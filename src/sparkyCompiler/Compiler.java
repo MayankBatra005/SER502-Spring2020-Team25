@@ -30,7 +30,7 @@ public class Compiler {
 				inputIcfile=args[0];
 				// String inputFileName = "data/print.sparky";
 
-				CharStream sourceCode = CharStreams.fromFileName(inputFileName);
+				CharStream sourceCode = CharStreams.fromFileName("data/"+inputFileName);
 				SparkyLexer lx = new SparkyLexer(sourceCode);
 				CommonTokenStream tokenStream = new CommonTokenStream(lx);
 				SparkyParser parser = new SparkyParser(tokenStream);
@@ -97,6 +97,7 @@ public class Compiler {
 	public static void executeRuntime(String filename) throws Exception
 	{
 		new IntermediateCodeReader(filename);
+		System.out.println("call to runtime");
 		
 
 	}
