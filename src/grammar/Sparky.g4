@@ -106,6 +106,6 @@ NUMBER:[0-9]+;
 
 WS: [ \t\r\n] -> skip;
 
-booleanvalue: 'yup' | 'nope'; 
+booleanvalue: 'yup' | 'nup'; 
 yup:'true';
-nope:'false';
+nup:'false';
