@@ -38,7 +38,7 @@ public class Compiler {
 
 			try {
 
-				File iCodeFile = new File(inputFileName);
+				File iCodeFile = new File(inputFileName.replace("sparky", "sparkyic"));
 				BufferedWriter bufferWriter = null;
 				FileWriter fileWriter = null;
 				if (iCodeArray.size() > 1) {
@@ -50,7 +50,7 @@ public class Compiler {
 							iCodeFile.createNewFile();
 						}
 
-						fileWriter = new FileWriter(inputFileName.replace("sparky", "sparkyic"));
+						fileWriter = new FileWriter(iCodeFile);
 						bufferWriter = new BufferedWriter(fileWriter);
 						for(int i=0; i<iCodeArray.size();i++){
 							bufferWriter.write(iCodeArray.get(i)+ " " + "\n");
