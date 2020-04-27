@@ -29,8 +29,8 @@ public class Compiler {
 				String inputFileName = args[0];
 				inputIcfile=args[0];
 				// String inputFileName = "data/print.sparky";
-
-				CharStream sourceCode = CharStreams.fromFileName("data/"+inputFileName);
+String path="data/"+inputIcfile;
+				CharStream sourceCode = CharStreams.fromFileName(path);
 				SparkyLexer lx = new SparkyLexer(sourceCode);
 				CommonTokenStream tokenStream = new CommonTokenStream(lx);
 				SparkyParser parser = new SparkyParser(tokenStream);
@@ -42,8 +42,8 @@ public class Compiler {
 				List<String> iCodeArray = Arrays.asList(iCodeGen.getOutput().split("\\n"));
 
 				try {
-
-					File iCodeFile = new File(inputFileName.replace("sparky", "sparkyic"));
+					String basePath = new File("").getAbsolutePath()+"\\data\\";
+					File iCodeFile = new File(basePath+inputFileName.replace("sparky", "sparkyic"));
 					BufferedWriter bufferWriter = null;
 					FileWriter fileWriter = null;
 					if (iCodeArray.size() > 1) {
@@ -87,7 +87,7 @@ public class Compiler {
 			e.printStackTrace();
 		}
 		if (inputIcfile != null) {
-			executeRuntime(inputIcfile + "ic");
+			executeRuntime(inputIcfile+"ic");
 		}else {
 			
 			System.out.println("Error File not created ");
