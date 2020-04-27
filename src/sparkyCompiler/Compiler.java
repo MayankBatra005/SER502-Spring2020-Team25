@@ -18,10 +18,11 @@ import sparkyRuntime.IntermediateCodeReader;
 
 public class Compiler {
 
+
 	public static void main(String[] args) throws Exception 
 	{
 		String inputIcfile=null;
-		
+
 		try {
 
 			if (args.length > 0) {
@@ -97,6 +98,7 @@ public class Compiler {
 	{
 		new IntermediateCodeReader(filename);
 		
+
 	}
 
 }
