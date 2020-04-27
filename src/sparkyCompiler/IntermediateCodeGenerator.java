@@ -16,15 +16,7 @@ import sparky.SparkyParser;
 import sparkyRuntime.RuntimeConstantKeywords;
 
 public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
-	/*
-	private class Helper {
-        private String icOutput = "";
-        private void addOutput(String output) {
-            this.icOutput += output + "\n";
-        }
-    }
-    */
-	
+		
 	private IntermediateCodeWriter help = IntermediateCodeWriter.getInstance();
 	
 	public String getOutput() {
