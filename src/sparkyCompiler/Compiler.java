@@ -14,10 +14,11 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import sparky.SparkyLexer;
 import sparky.SparkyParser;
+import sparkyRuntime.IntermediateCodeReader;
 
 public class Compiler {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		try {
 
 			if (args.length > 0) {
@@ -81,6 +82,7 @@ public class Compiler {
 			System.out.println("Input filename is incorrect");
 			e.printStackTrace();
 		}
+		new IntermediateCodeReader();
 	}
 
 }
