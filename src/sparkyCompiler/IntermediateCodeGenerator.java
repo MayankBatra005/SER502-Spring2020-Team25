@@ -257,9 +257,11 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		return null; }
 	
 	
-	@Override public Object visitPrint(SparkyParser.PrintContext ctx) { 
-		
-		help.addOutput(RuntimeConstantKeywords.PRINT + " " + ctx.expr().getText());
+        @Override public Object visitPrint(SparkyParser.PrintContext ctx) { 
+		//get a print
+		help.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getText());
+		help.addOutput(RuntimeConstantKeywords.PRINT);
+	
 		return null; }
 		//return visitChildren(ctx); }
 	
