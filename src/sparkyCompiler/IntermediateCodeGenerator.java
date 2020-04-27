@@ -80,6 +80,8 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		return null; }
 	
 	
+	
+	
 	@Override public Object visitIfte(SparkyParser.IfteContext ctx) {
 		help.addOutput(RuntimeConstantKeywords.IFTE_START);
 		if(ctx.yesnostatement().getText().contains("yup") || ctx.yesnostatement().getText().contains("nup")) {
@@ -151,7 +153,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		help.addOutput(RuntimeConstantKeywords.CONDITION_NOT_TRUE + " " + RuntimeConstantKeywords.JUMP +
 				" " + RuntimeConstantKeywords.WHILE_END);
 		visit(ctx.in_loop());
-		help.addOutput(RuntimeConstantKeywords.WHILE_END);
+		
 		
 		return visitChildren(ctx); }
 	
@@ -228,15 +230,30 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		//return visitChildren(ctx); }
 	
 	@Override public Object visitTernary_operator(SparkyParser.Ternary_operatorContext ctx) { 
-		help.addOutput(RuntimeConstantKeywords.IF_START);
+		help.addOutput(RuntimeConstantKeywords.IFTE_START);
 		if(ctx.yesnostatement().getText().contains("yup") || ctx.yesnostatement().getText().contains("nup")) {
 			help.addOutput(RuntimeConstantKeywords.CHECK_CONDITION + " " + ctx.yesnostatement().getText());
 		}
 		else {
 			visit(ctx.yesnostatement());
 		}
-		// visit(ctx.in_loop());
-		return visitChildren(ctx); }
+		
+		help.addOutput(RuntimeConstantKeywords.CONDITION_FALSE + " " + RuntimeConstantKeywords.JUMP +
+				" " + RuntimeConstantKeywords.ELSE_START);
+
+		help.addOutput(RuntimeConstantKeywords.IF_START);
+		//help.addOutput("Testing AND OR" + " " ctx.inlo);
+		visit(ctx.in_loop(0));
+		help.addOutput(RuntimeConstantKeywords.IF_END);
+		if(ctx.in_loop(1) != null) {
+		help.addOutput(RuntimeConstantKeywords.ELSE_START);
+		visit(ctx.in_loop(1));
+		help.addOutput(RuntimeConstantKeywords.ELSE_END);
+		}
+		help.addOutput(RuntimeConstantKeywords.IFTE_END);
+		
+			
+		return null; }
 	
 	
 	@Override public Object visitPrint(SparkyParser.PrintContext ctx) { 
