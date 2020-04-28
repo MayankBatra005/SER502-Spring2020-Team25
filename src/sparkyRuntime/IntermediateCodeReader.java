@@ -106,10 +106,35 @@ public class IntermediateCodeReader {
 					}
 				}
 
-				else if (line[0].equals("STORE")) {
+				else if(line[0].equals("STORE")) {
+				if(line[1].charAt(0)!='"') {
 					value = setValueDataTypes(line[1]);
 					local.push(value);
 				}
+				else if(line[1].charAt(0)=='"') {
+					String output="";
+			        int count=0;
+			        for(int i=1; i<line.length; i++){
+			            if(i==1 && line[i].length()!=1){
+			                output+=line[i].substring(1, line[i].length())+" ";
+			                count=1;
+			            }
+			            else if(i==line.length-1 && line[i].length()!=1){
+			                output+=line[i].substring(0, line[i].length()-1);
+			            }
+			            else if(i!=1 && i!=line.length-1){
+			                if(count==0 && i==2){
+			                    output+= " " + line[i] + " ";
+			                }
+			                else{
+			                    output+=line[i] + " ";
+			                }
+			            }
+			        }
+			        value = setValueDataTypes(output);
+					local.push(value);
+				}
+			}
 
 				else if (line[0].equals("PUSH")) {
 					if (!map.containsKey(line[1])) {
@@ -282,11 +307,16 @@ public class IntermediateCodeReader {
 
 	// Checks the data type of input and creates an object of class DataTypes.
 	private DataTypes setValueDataTypes(String string) {
-		if (isInt(string)) {
+		if(isInt(string)) {
 			return new DataTypes(Integer.parseInt(string));
-		} else if (isbool(string)) {
+		}
+		else if(isdouble(string)) {
+			return new DataTypes(Double.parseDouble(string));
+		}
+		else if(isbool(string)) {
 			return new DataTypes(Boolean.parseBoolean(string));
-		} else {
+		}
+		else {
 			return new DataTypes(string);
 		}
 	}
@@ -295,79 +325,140 @@ public class IntermediateCodeReader {
 		try {
 			int a = Integer.parseInt(strin);
 			return true;
-		} catch (NumberFormatException fk) {
+		}
+		catch(NumberFormatException fk) {
 			return false;
 		}
 	}
-
+	
+	private boolean isdouble(String strin) {
+		try {
+			double d = Double.parseDouble(strin);
+			return true;
+		}
+		catch(NumberFormatException fk) {
+			return false;
+		}
+	}
+	
 	private boolean isbool(String string) {
 		try {
 			Boolean bo = Boolean.parseBoolean(string);
-			if (!bo && !string.equalsIgnoreCase("FALSE")) {
-				return false;
-			}
-			return true;
-		} catch (NumberFormatException fk) {
+        	if(!bo && !string.equalsIgnoreCase("FALSE")) {
+        		 return false;
+        	}
+            return true;
+		}
+		catch(NumberFormatException fk) {
 			return false;
 		}
 	}
-
-	// Compares the 2 input and pushes the boolean result in stack.
+	
+	//Compares the 2 input and pushes the boolean result in stack.
 	private void compare(String comparison, Stack<DataTypes> local) throws Exception {
-
+		
 		DataTypes locop2 = local.pop();
 		DataTypes locop1 = local.pop();
 		DataTypes outcome;
-		if (locop1.checkDataType().equals(locop2.checkDataType())) {
-			if (comparison.equals("==")) {
+		if(locop1.checkDataType().equals(locop2.checkDataType())) {
+			if(comparison.equals("==")) {
 				outcome = new DataTypes(locop2.toString().equals(locop1.toString()) ? true : false);
 				local.push(outcome);
-			} else if (comparison.equals("<") && locop1.checkDataType().equals("int")) {
-				outcome = new DataTypes(locop2.Integer() > locop1.Integer() ? true : false);
+			}
+			else if(comparison.equals("<") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer()>locop1.Integer() ? true : false);
 				local.push(outcome);
 			}
-			else if (comparison.equals("<=") && locop1.checkDataType().equals("int")) {
-				outcome = new DataTypes(locop2.Integer() >= locop1.Integer() ? true : false);
+			else if(comparison.equals("<") && locop1.checkDataType().equals("double")) {
+				outcome = new DataTypes(locop2.Double()>locop1.Double() ? true : false);
 				local.push(outcome);
-			}else if (comparison.equals(">") && locop1.checkDataType().equals("int")) {
-				outcome = new DataTypes(locop2.Integer() < locop1.Integer() ? true : false);
+			}
+			else if(comparison.equals("<=") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer()>=locop1.Integer() ? true : false);
 				local.push(outcome);
-			} else if (comparison.equals(">=") && locop1.checkDataType().equals("int")) {
-				outcome = new DataTypes(locop2.Integer() <= locop1.Integer() ? true : false);
+			}
+			else if(comparison.equals("<=") && locop1.checkDataType().equals("double")) {
+				outcome = new DataTypes(locop2.Double()>=locop1.Double() ? true : false);
 				local.push(outcome);
-			} else {
+			}
+			else if(comparison.equals(">") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer()<locop1.Integer() ? true : false);
+				local.push(outcome);
+			}
+			else if(comparison.equals(">") && locop1.checkDataType().equals("double")) {
+				outcome = new DataTypes(locop2.Double()<locop1.Double() ? true : false);
+				local.push(outcome);
+			}
+			else if(comparison.equals(">=") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer()<=locop1.Integer() ? true : false);
+				local.push(outcome);
+			}
+			else if(comparison.equals(">=") && locop1.checkDataType().equals("double")) {
+				outcome = new DataTypes(locop2.Double()<=locop1.Double() ? true : false);
+				local.push(outcome);
+			}
+			else {
 				throw new Exception("Incorrect Datatype while comparison");
 			}
-		} else {
+		}
+		else {
 			throw new Exception("Datatype mismatch while comparison");
 		}
-
+		
 	}
-
-	// Performs Arithmetic operation on inputs and pushes the result in stack.
+	
+	//Performs Arithmetic operation on inputs and pushes the result in stack.
 	private void operator(String operation, Stack<DataTypes> local) throws Exception {
 		DataTypes locop2 = local.pop();
 		DataTypes locop1 = local.pop();
 		DataTypes outcome;
-		if (locop1.checkDataType().equals(locop2.checkDataType()) && locop1.checkDataType().equals("int")) {
-			if (operation.equals("ADD")) {
-				outcome = new DataTypes(locop1.Integer() + locop2.Integer());
+		if(locop1.checkDataType().equals(locop2.checkDataType()) && locop1.checkDataType().equals("int")) {
+			if(operation.equals("ADD")) {
+				outcome = new DataTypes(locop1.Integer()+locop2.Integer());
 				local.push(outcome);
-			} else if (operation.equals("SUBTRACT")) {
-				outcome = new DataTypes(locop1.Integer() - locop2.Integer());
+			}
+			else if(operation.equals("SUBTRACT")) {
+				outcome = new DataTypes(locop1.Integer()-locop2.Integer());
 				local.push(outcome);
-			} else if (operation.equals("MULTIPLY")) {
-				outcome = new DataTypes(locop1.Integer() * locop2.Integer());
+			}
+			else if(operation.equals("MULTIPLY")) {
+				outcome = new DataTypes(locop1.Integer()*locop2.Integer());
 				local.push(outcome);
-			} else if (operation.equals("DIVIDE")) {
-				if (locop2.Integer() != 0) {
-					outcome = new DataTypes(locop1.Integer() / locop2.Integer());
+			}
+			else if(operation.equals("DIVIDE")) {
+				if(locop2.Integer()!=0){
+					outcome = new DataTypes(locop1.Integer()/locop2.Integer());
 					local.push(outcome);
-				} else {
+				}
+				else {
 					throw new Exception("Denominator can't be zero.");
 				}
 			}
-		} else {
+		}
+		else if(locop1.checkDataType().equals(locop2.checkDataType()) && locop1.checkDataType().equals("double")) {
+			if(operation.equals("ADD")) {
+				outcome = new DataTypes(locop1.Double()+locop2.Double());
+				local.push(outcome);
+			}
+			else if(operation.equals("SUBTRACT")) {
+				outcome = new DataTypes(locop1.Double()-locop2.Double());
+				local.push(outcome);
+			}
+			else if(operation.equals("MULTIPLY")) {
+				outcome = new DataTypes(locop1.Double()*locop2.Double());
+				local.push(outcome);
+			}
+			else if(operation.equals("DIVIDE")) {
+				if(locop2.Integer()!=0){
+					outcome = new DataTypes(locop1.Double()/locop2.Double());
+					local.push(outcome);
+				}
+				else {
+					throw new Exception("Denominator can't be zero.");
+				}
+			}
+		}
+		else {
 			throw new Exception("Datatype of both the variables should be same.");
 		}
 	}
