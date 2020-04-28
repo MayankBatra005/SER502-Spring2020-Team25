@@ -220,7 +220,8 @@ public class IntermediateCodeReader {
 				else if (line[0].equals("JUMP")) {
 
 					if (line[1].equals("FOR_CONDITION_START")) {
-						read = new BufferedReader(new StringReader(filename));
+						fileContent = readFromICFile(filename);
+						read = new BufferedReader(new StringReader(fileContent));
 						while ((content = read.readLine()) != null) {
 							line = content.split(" ");
 							if (line[0].equals("FOR_CONDITION_START")) {
@@ -228,7 +229,8 @@ public class IntermediateCodeReader {
 							}
 						}
 					} else if (line[1].equals("WHILEBEGIN")) {
-						read = new BufferedReader(new StringReader(filename));
+						fileContent = readFromICFile(filename);
+						read = new BufferedReader(new StringReader(fileContent));
 						while ((content = read.readLine()) != null) {
 							line = content.split(" ");
 							if (line[0].equals("WHILEBEGIN")) {
