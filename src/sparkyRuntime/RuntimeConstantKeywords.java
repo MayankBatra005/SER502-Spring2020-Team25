@@ -44,7 +44,6 @@ public interface RuntimeConstantKeywords {
 	// Keywords for While
 	public static final String WHILE_BEGIN = "WHILEBEGIN";
 	public static final String WHILE_END = "WHILEEND";
-	public static final String CONDITION_NOT_TRUE = "CONDITIONNOTTRUE";
 
 	/*
 	 * Existing keywords used for while GET , COMPARE_OPERATOR,CONDITION_NOT_TRUE,
@@ -52,7 +51,6 @@ public interface RuntimeConstantKeywords {
 	 * 
 	 */
 	public static final String PRINT = "PRINT";
-	public static final String CONDITIONNOTTRUE = "CONDITIONNOTTRUE";
 	public static final String AND_OR_OPERATOR = "AND_OR_OPERATOR";
 
 }

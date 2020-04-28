@@ -1,6 +1,9 @@
 Live
+int a=20;
+int b=40;
 while a<b
 {
-a=a+10;
+a=a+5;
+print(a);
 }
 Die
