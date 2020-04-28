@@ -13,9 +13,9 @@ public interface RuntimeConstantKeywords {
 	public static final String PUSH = "PUSH";
 
 	public static final String ADDITION = "ADD";
-	public static final String SUBTRACTION = "SUB";
-	public static final String MULTIPLICATION = "MUL";
-	public static final String DIVSION = "DIV";
+	public static final String SUBTRACTION = "SUBTRACT";
+	public static final String MULTIPLICATION = "MULTIPLY";
+	public static final String DIVSION = "DIVIDE";
 	public static final String BOOLEAN = "YESNO";
 	public static final String CONDITION_TRUE = "CONDITION_TRUE";
 

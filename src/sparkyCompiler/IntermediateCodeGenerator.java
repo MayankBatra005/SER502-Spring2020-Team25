@@ -46,6 +46,8 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 			visit(ctx.stringdatatype());
 			IntermediateCodeWriter.getInstance()
 					.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.STRINGLITERAL().getText());
+			IntermediateCodeWriter.getInstance()
+			.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
 		}
 
 		return null;
