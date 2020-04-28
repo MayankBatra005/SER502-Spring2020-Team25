@@ -45,7 +45,7 @@ public class IntermediateCodeReader {
 	private String readFromICFile(String filename) throws IOException {
 		String intermediateCode;
 		CharStream code = CharStreams.fromFileName(filename);
-		PrintWriter writer = new PrintWriter(filename.replace("sparkyic", "output"), "UTF-8");
+	//	PrintWriter writer = new PrintWriter(filename.replace("sparkyic", "output"), "UTF-8");
 
 		intermediateCode = (code.toString().replaceAll("\r", ""));
 		/*
@@ -60,7 +60,7 @@ public class IntermediateCodeReader {
 		// writer.println("Output of the program ");
 		// writer.println(runtime.getOutputData());
 
-		writer.close();
+		// writer.close();
 		return intermediateCode;
 	}
 
