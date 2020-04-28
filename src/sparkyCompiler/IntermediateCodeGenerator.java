@@ -274,8 +274,6 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 	@Override
 	public Object visitYesnostatement(SparkyParser.YesnostatementContext ctx) {
 		if (ctx.expr(0) != null) {
-			visit(ctx.expr(0));
-			visit(ctx.expr(1));
 			IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(0).getText());
 			if (ctx.expr(1).getText().matches(regexStr)) {
 				IntermediateCodeWriter.getInstance()

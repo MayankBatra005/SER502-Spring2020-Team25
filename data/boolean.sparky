@@ -1,9 +1,11 @@
 Live
 int a=9;
 int b=2;
-if a==9 and b==2
-{b=b+a;}
+if a>9 and b==2
+{b=b+a;
+print(b);}
 warna
-{a=a+5;}
+{a=a+5;
+print(a);}
 fi
 Die

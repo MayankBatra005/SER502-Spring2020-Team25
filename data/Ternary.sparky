@@ -1,4 +1,6 @@
 Live
 int a=9;
-a>8 ? { d= a+b;} : {d=a-b;}
+int b=1;
+int d;
+a>8 ? { d=a+b; print(d);} : {d=a-b; print(d);}
 Die
