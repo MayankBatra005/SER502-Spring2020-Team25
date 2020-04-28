@@ -1,14 +1,9 @@
 package sparkyRuntime;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
+import java.io.StringReader;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Stack;
 
 import org.antlr.v4.runtime.CharStream;
@@ -17,8 +12,7 @@ import org.antlr.v4.runtime.CharStreams;
 public class IntermediateCodeReader {
 
 	public IntermediateCodeReader(String filename) throws Exception {
-		// program(filename);
-		program2(filename);
+		program(filename);
 	}
 
 	/**
@@ -29,21 +23,6 @@ public class IntermediateCodeReader {
 	 * @throws Exception
 	 */
 
-	private void saveToTextFile(String filename) throws Exception {
-		String basePath = new File("").getAbsolutePath() + "\\data";
-		String path = basePath + "\\" + filename;
-		// change 5
-		// CharStream code = CharStreams.fromFileName(path);
-		CharStream code = CharStreams.fromFileName(filename);
-
-		// change 3
-		// PrintWriter out = new PrintWriter(basePath+"/Sparky.txt");
-		PrintWriter out = new PrintWriter("Sparky.txt");
-		out.println(code.toString());
-		out.close();
-
-	}
-
 	private String readFromICFile(String filename) throws IOException {
 		String intermediateCode;
 		CharStream code = CharStreams.fromFileName(filename);
@@ -51,89 +30,10 @@ public class IntermediateCodeReader {
 		return intermediateCode;
 	}
 
-	private List<String> intermediateCodeAsList(String intermediateCode) {
-
-		List<String> intermediateCodeAsList = Arrays.asList(intermediateCode.split("\\n"));
-
-		for (int i = 0; i < intermediateCodeAsList.size(); i++) {
-			System.out.println("reading in progress for" + i + " " + intermediateCodeAsList.get(i));
-		}
-		return intermediateCodeAsList;
-
-	}
-
-	public void program2(String filename) throws Exception {
-
-		String content = readFromICFile(filename);
-		System.out.println(content);
-		int counter = 0;
-		List<String> intermediateCode = intermediateCodeAsList(content);
-
-		while (counter < intermediateCode.size()) {
-			String operator = intermediateCode.get(counter);
-
-			if (operator.contains("DECLARE")) {
-				LogicImplementation.getInstance().declareLogic();
-			} else if (operator.contains("GET")) {
-				LogicImplementation.getInstance().getLogic();
-			} else if (operator.contains("STORE")) {
-				LogicImplementation.getInstance().storeLogic();
-			} else if (operator.contains("PUSH")) {
-				LogicImplementation.getInstance().pushLogic();
-			} else if (operator.contains("PRINT")) {
-				LogicImplementation.getInstance().printLogic();
-			} else if (operator.contains("COMPARE_OPERATOR")) {
-				LogicImplementation.getInstance().compareOperatorLogic();
-			} else if (operator.contains("COMPARE_OPERATOR")) {
-				LogicImplementation.getInstance().compareOperatorLogic();
-			} else if (operator.contains("AND_OR_OPERATOR")) {
-				LogicImplementation.getInstance().andOrOperatorLogic();
-			} else if (operator.contains("IFTE_START")) {
-				LogicImplementation.getInstance().ifThenElseLogic();
-			} else if (operator.contains("OPERATOR")) {
-				LogicImplementation.getInstance().operatorLogic();
-			}
-			// conditionFalseLogic check with jump conditions
-			else if (operator.contains("CONDITION_FALSE")) {
-				LogicImplementation.getInstance().conditionFalseLogic();
-			} else if (operator.contains("ELSE_START")) {
-				LogicImplementation.getInstance().elseStartLogic();
-			} else if (operator.contains("WHILEEND")) {
-				LogicImplementation.getInstance().whileEndLogic();
-			} else if (operator.contains("FOR_STOP")) {
-				LogicImplementation.getInstance().forStopLogic();
-			} else if (operator.contains("IF_END")) {
-				LogicImplementation.getInstance().ifEndLogic();
-			} else if (operator.contains("WHILEBEGIN")) {
-				LogicImplementation.getInstance().whileBeginLogic();
-			}
-			// There could be a problem, Need to check on Jump Line statements
-			else if (operator.contains("JUMP")) {
-				LogicImplementation.getInstance().jumpLogic();
-			} else {
-				System.out.println("Un expected issue " + operator);
-			}
-			counter++;
-		}
-
-	}
-
 	private void program(String filename) throws Exception {
-
-		saveToTextFile(filename);
-		// String basePath = new File("").getAbsolutePath()+"\\data";
-		String basePath = new File("").getAbsolutePath();
-		// change 4
-		// File file = new File(basePath+"\\Sparky.txt");
-		File file = new File("Sparky.txt");
-		FileReader fileReader = null;
-		try {
-			fileReader = new FileReader(file);
-		} catch (FileNotFoundException fi) {
-			System.out.println("Error in reading the file");
-			fi.printStackTrace();
-		}
-		BufferedReader read = new BufferedReader(fileReader);
+		
+		String fileContent = readFromICFile(filename);
+		BufferedReader read = new BufferedReader(new StringReader(fileContent));
 		String content;
 		HashMap<String, DataTypes> map = new HashMap<String, DataTypes>();
 		Stack<DataTypes> local = new Stack<DataTypes>();
@@ -317,26 +217,10 @@ public class IntermediateCodeReader {
 
 				}
 
-				// else if(line[0].equals("FOR_STOP")) {
-				// System.out.println("raja");
-				// counter = 0;
-				// while(forVariable.empty()) {
-				// map.remove(forVariable.pop());
-				// }
-				// }
-
 				else if (line[0].equals("JUMP")) {
 
 					if (line[1].equals("FOR_CONDITION_START")) {
-						file = new File(basePath + "\\Sparky.txt");
-						fileReader = null;
-						try {
-							fileReader = new FileReader(file);
-						} catch (FileNotFoundException fi) {
-							System.out.println("Error in reading the file");
-							fi.printStackTrace();
-						}
-						read = new BufferedReader(fileReader);
+						read = new BufferedReader(new StringReader(filename));
 						while ((content = read.readLine()) != null) {
 							line = content.split(" ");
 							if (line[0].equals("FOR_CONDITION_START")) {
@@ -344,15 +228,7 @@ public class IntermediateCodeReader {
 							}
 						}
 					} else if (line[1].equals("WHILEBEGIN")) {
-						file = new File(basePath + "\\Sparky.txt");
-						fileReader = null;
-						try {
-							fileReader = new FileReader(file);
-						} catch (FileNotFoundException fi) {
-							System.out.println("Error in reading the file");
-							fi.printStackTrace();
-						}
-						read = new BufferedReader(fileReader);
+						read = new BufferedReader(new StringReader(filename));
 						while ((content = read.readLine()) != null) {
 							line = content.split(" ");
 							if (line[0].equals("WHILEBEGIN")) {
@@ -392,7 +268,7 @@ public class IntermediateCodeReader {
 
 	private boolean isInt(String strin) {
 		try {
-			int a = Integer.parseInt(strin);
+			Integer.parseInt(strin);
 			return true;
 		} catch (NumberFormatException fk) {
 			return false;
@@ -401,7 +277,7 @@ public class IntermediateCodeReader {
 
 	private boolean isdouble(String strin) {
 		try {
-			double d = Double.parseDouble(strin);
+			Double.parseDouble(strin);
 			return true;
 		} catch (NumberFormatException fk) {
 			return false;
