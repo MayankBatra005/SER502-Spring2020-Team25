@@ -14,6 +14,8 @@ import java.util.Stack;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 
+import Model.IntermediateCodeWriter;
+
 
 
 public class IntermediateCodeReader {
@@ -75,11 +77,35 @@ public class IntermediateCodeReader {
 		Stack<String> whileVariable = new Stack<String>();
 		
 		List<String> intermediateCode=intermediateCodeAsList(content);
-		counter=intermediateCode.size();
-		while (counter!=0)
+		
+		
+		while (counter<intermediateCode.size())
 		{
+			String operator=intermediateCode.get(counter);		
 			
-			// calling the logic class
+			if (operator.contains("DECLARE"))
+			{
+				LogicImplementation.getInstance()
+				.declareLogic();
+			}else if(operator.contains("GET")) {
+				LogicImplementation.getInstance()
+				.getLogic();
+			}
+			else if(operator.contains("STORE")) {
+				LogicImplementation.getInstance()
+				.storeLogic();
+			}
+			else if(operator.contains("PUSH")) {
+				LogicImplementation.getInstance()
+				.pushLogic();
+			}
+			else if(operator.contains("PRINT")) {
+				LogicImplementation.getInstance()
+				.printLogic();
+			}
+			else {
+				System.out.println("Un expected issue"+operator);
+			}
 			counter++;
 		}
 	

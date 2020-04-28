@@ -32,27 +32,76 @@ public class LogicImplementation {
 	Stack<String> whileVariable = new Stack<String>();
 
 	public void declareLogic() {
+		
+		System.out.println("Inside declare ");
 
 	}
 
 	public void storeLogic() {
-
+		System.out.println("Inside store ");
+	}
+	
+	public void pushLogic() {
+		System.out.println("Inside push ");
 	}
 
 	public void getLogic() {
-
+		System.out.println("Inside get");
 	}
 
 	public void whileLogic() {
-
+		System.out.println("Inside while ");
 	}
 
 	public void forLogic() {
-
+		System.out.println("Inside for");
 	}
 
 	public void ifThenElseLogic() {
-
+		System.out.println("Inside if then else");
 	}
 
+	public void printLogic() {
+		System.out.println("Inside print ");
+	}
+	
+	public void compareOperatorLogic() {
+		System.out.println("Inside COMPARE_OPERATOR ");
+	}
+
+	
+	public void andOrOperatorLogic() {
+		System.out.println("Inside AND_OR_OPERATOR ");
+	}
+	
+	public void conditionFalseLogic() {
+		System.out.println("Inside CONDITION_FALSE ");
+	}
+
+	
+	public void operatorLogic() {
+		System.out.println("Inside OPERATOR ");
+	}
+
+	public void ifEndLogic() {
+		System.out.println("Inside IF_END ");
+	}
+
+	
+	public void elseStartLogic() {
+		System.out.println("Inside ELSE_START  ");
+	}
+
+	
+	public void elseEndLogic() {
+		System.out.println("Inside ELSE_END ");
+	}
+
+	
+	public void ifthenElseEndLogic() {
+		System.out.println("Inside IFTE_END  ");
+	}
+	
+
+	
 }
