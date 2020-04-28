@@ -1,7 +1,7 @@
 Live 
-int a; 
-int b=0; 
+int a=1; 
+int b=2; 
 for m in range(1,5) 
-{a=a+1;} 
-print (d); 
+{a=a+1;
+print(a);} 
 Die
