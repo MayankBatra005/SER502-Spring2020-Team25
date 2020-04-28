@@ -19,6 +19,7 @@
 - ANTLR
 - Eclipse
 - Git
+- ANT
 
 ## Directions/instructions to install your language
 ## Directions/instructions to build and run your language (compiler/runtime).
@@ -34,7 +35,8 @@ Steps after importing the project into Eclipse:
 8. Save the source code at this location with extension .sparky
 9. Run the command prompt at this location 
 10. provide the command as follows:
-JAVA -jar Compiler.jar <Name of file>.sparky
+JAVA -jar Compiler.jar filename.sparky
 
 ## ONE LINE of bash script that builds the compiler and ONE LINE that runs the runtime.
+JAVA -jar Compiler.jar filename.sparky
 ## Link to the YouTube video
