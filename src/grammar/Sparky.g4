@@ -85,15 +85,12 @@ STRINGLITERAL: DQ (~["\\\r\n])* DQ;
 
 HAINA: 'haina';
 haina:'bool';
-datatype: INTEGER| DOUBLE | DECIMAL | CHAR | HAINA;
+datatype: INTEGER| DOUBLE | HAINA;
 stringdatatype: STRING;
 
 INTEGER: 'int';
 STRING: 'string';
 DOUBLE: 'double';
-DECIMAL: 'float';
-CHAR : 'char';
-
 
 IF : 'if';
 
