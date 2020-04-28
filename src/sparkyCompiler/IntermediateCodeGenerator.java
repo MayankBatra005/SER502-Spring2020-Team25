@@ -47,7 +47,7 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 			IntermediateCodeWriter.getInstance()
 					.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.STRINGLITERAL().getText());
 			IntermediateCodeWriter.getInstance()
-			.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
+					.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
 		}
 
 		return null;
@@ -64,69 +64,68 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 	}
 
 	@Override
-	public Object visitAssignment(SparkyParser.AssignmentContext ctx) {
-		// IntermediateCodeWriter.getInstance().addOutput("Testing assgmnt*******" + " "
-		// + ctx.expr().getChildCount());
-		if (ctx.expr().getChildCount() == 1) {
-			if (ctx.expr().getChild(0).getText().matches(regexStr)) {
+	public Object visitExpr(SparkyParser.ExprContext ctx) {
+
+		if (ctx.getChildCount() == 1) {
+			if (ctx.getChild(0).getText().matches(regexStr)) {
 				IntermediateCodeWriter.getInstance()
-						.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr().getChild(0).getText());
+						.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.getChild(0).getText());
 			} else {
+
 				IntermediateCodeWriter.getInstance()
-						.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());
+						.addOutput(RuntimeConstantKeywords.GET + " " + ctx.term().getChild(0).getText());
+
+				if (ctx.term().getChild(2).getText().matches(regexStr)) {
+					IntermediateCodeWriter.getInstance().addOutput(
+							RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.term().getChild(2).getText());
+				} else {
+					IntermediateCodeWriter.getInstance()
+							.addOutput(RuntimeConstantKeywords.GET + " " + ctx.term().getChild(2).getText());
+				}
+				getArithmaticOperator(ctx.term().getChild(1).getText());
 			}
-			IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
 		} else {
 			IntermediateCodeWriter.getInstance()
-					.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());
-			if (ctx.expr().getChild(2).getText().matches(regexStr)) {
+					.addOutput(RuntimeConstantKeywords.GET + " " + ctx.getChild(0).getText());
+			if (ctx.getChild(2).getText().matches(regexStr)) {
 				IntermediateCodeWriter.getInstance()
-						.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr().getChild(2).getText());
-				switch (ctx.expr().getChild(1).getText()) {
-				case "+":
-					IntermediateCodeWriter.getInstance()
-							.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.ADDITION);
-					break;
-				case "-":
-					IntermediateCodeWriter.getInstance()
-							.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.SUBTRACTION);
-					break;
-				case "*":
-					IntermediateCodeWriter.getInstance()
-							.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.MULTIPLICATION);
-					break;
-				case "/":
-					IntermediateCodeWriter.getInstance()
-							.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.DIVSION);
-					break;
-				}
-				IntermediateCodeWriter.getInstance()
-						.addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
+						.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.getChild(2).getText());
 			} else {
 				IntermediateCodeWriter.getInstance()
-						.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(2).getText());
-				switch (ctx.expr().getChild(1).getText()) {
-				case "+":
-					IntermediateCodeWriter.getInstance()
-							.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.ADDITION);
-					break;
-				case "-":
-					IntermediateCodeWriter.getInstance()
-							.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.SUBTRACTION);
-					break;
-				case "*":
-					IntermediateCodeWriter.getInstance()
-							.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.MULTIPLICATION);
-					break;
-				case "/":
-					IntermediateCodeWriter.getInstance()
-							.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.DIVSION);
-					break;
-				}
-				IntermediateCodeWriter.getInstance()
-						.addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
+						.addOutput(RuntimeConstantKeywords.GET + " " + ctx.getChild(2).getText());
 			}
+			getArithmaticOperator(ctx.getChild(1).getText());
 		}
+		return null;
+	}
+
+	public void getArithmaticOperator(String operator) {
+		switch (operator) {
+		case "+":
+			IntermediateCodeWriter.getInstance()
+					.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.ADDITION);
+			break;
+		case "-":
+			IntermediateCodeWriter.getInstance()
+					.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.SUBTRACTION);
+			break;
+		case "*":
+			IntermediateCodeWriter.getInstance()
+					.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.MULTIPLICATION);
+			break;
+		case "/":
+			IntermediateCodeWriter.getInstance()
+					.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.DIVSION);
+			break;
+		}
+	}
+
+	@Override
+	public Object visitAssignment(SparkyParser.AssignmentContext ctx) {
+//		 IntermediateCodeWriter.getInstance().addOutput("Testing assgmnt*******" + " "
+//		 + ctx.expr().getChildCount());
+		visit(ctx.expr());
+		IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
 
 		return null;
 	}
@@ -186,13 +185,13 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 				.addOutput(RuntimeConstantKeywords.INSTRUCTION_PUSH + " " + ctx.STUFF().getText());
 		IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.FOR_CONDITION_START);
 		IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.GET + " " + ctx.STUFF().getText());
-		if(ctx.NUMBER(1).getText().matches(regexStr)) {
-			IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.NUMBER(1));
-			} else {
-				IntermediateCodeWriter.getInstance()
-				.addOutput(RuntimeConstantKeywords.GET + " " + ctx.NUMBER(1));
-			}
-		
+		if (ctx.NUMBER(1).getText().matches(regexStr)) {
+			IntermediateCodeWriter.getInstance()
+					.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.NUMBER(1));
+		} else {
+			IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.GET + " " + ctx.NUMBER(1));
+		}
+
 		IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.COMPARE_OPERATOR + " " + "<");
 		IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.CONDITION_FALSE + " "
 				+ RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.FOR_STOP);
@@ -245,24 +244,9 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 				.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr().getChild(0).getText());
 		IntermediateCodeWriter.getInstance()
 				.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr().getChild(2).getText());
-		switch (ctx.expr().getChild(1).getText()) {
-		case "+":
-			IntermediateCodeWriter.getInstance()
-					.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.ADDITION);
-			break;
-		case "-":
-			IntermediateCodeWriter.getInstance()
-					.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.SUBTRACTION);
-			break;
-		case "*":
-			IntermediateCodeWriter.getInstance()
-					.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.MULTIPLICATION);
-			break;
-		case "/":
-			IntermediateCodeWriter.getInstance()
-					.addOutput(RuntimeConstantKeywords.OPERATOR + " " + RuntimeConstantKeywords.DIVSION);
-			break;
-		}
+
+		getArithmaticOperator(ctx.expr().getChild(1).getText());
+
 		IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.PUSH + " " + ctx.STUFF().getText());
 		IntermediateCodeWriter.getInstance()
 				.addOutput(RuntimeConstantKeywords.JUMP + " " + RuntimeConstantKeywords.FOR_CONDITION_START);
@@ -277,14 +261,13 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 		visit(ctx.expr(1));
 		IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.FOR_CONDITION_START);
 		IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(0).getText());
-		if(ctx.expr(1).getText().matches(regexStr)) {
+		if (ctx.expr(1).getText().matches(regexStr)) {
 			IntermediateCodeWriter.getInstance()
 					.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr(1).getText());
-			} else {
-				IntermediateCodeWriter.getInstance()
-				.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(1).getText());
-			}
-		
+		} else {
+			IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(1).getText());
+		}
+
 		IntermediateCodeWriter.getInstance()
 				.addOutput(RuntimeConstantKeywords.COMPARE_OPERATOR + " " + ctx.YESNOOPERATOR().getText());
 		IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.CONDITION_FALSE + " "
@@ -313,22 +296,17 @@ public class IntermediateCodeGenerator extends SparkyBaseVisitor<Object> {
 	}
 
 	@Override
-	public Object visitExpr(SparkyParser.ExprContext ctx) {
-		return visitChildren(ctx);
-	}
-
-	@Override
 	public Object visitYesnostatement(SparkyParser.YesnostatementContext ctx) {
 		if (ctx.expr(0) != null) {
 			visit(ctx.expr(0));
 			visit(ctx.expr(1));
 			IntermediateCodeWriter.getInstance().addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(0).getText());
-			if(ctx.expr(1).getText().matches(regexStr)) {
-			IntermediateCodeWriter.getInstance()
-					.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr(1).getText());
+			if (ctx.expr(1).getText().matches(regexStr)) {
+				IntermediateCodeWriter.getInstance()
+						.addOutput(RuntimeConstantKeywords.INSTRUCTION_STORE + " " + ctx.expr(1).getText());
 			} else {
 				IntermediateCodeWriter.getInstance()
-				.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(1).getText());
+						.addOutput(RuntimeConstantKeywords.GET + " " + ctx.expr(1).getText());
 			}
 			IntermediateCodeWriter.getInstance()
 					.addOutput(RuntimeConstantKeywords.COMPARE_OPERATOR + " " + ctx.YESNOOPERATOR().getText());
