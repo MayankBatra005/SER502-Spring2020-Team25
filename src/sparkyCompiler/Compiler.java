@@ -101,7 +101,7 @@ public class Compiler {
 	public static void executeRuntime(String filename) throws Exception
 	{
 		new IntermediateCodeReader(filename);
-		System.out.println("call to runtime");
+	//	System.out.println("call to runtime");
 		
 
 	}
