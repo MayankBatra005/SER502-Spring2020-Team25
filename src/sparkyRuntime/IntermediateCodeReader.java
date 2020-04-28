@@ -6,17 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
-
-import Model.IntermediateCodeWriter;
-
-
 
 public class IntermediateCodeReader {
 
@@ -60,7 +56,7 @@ public class IntermediateCodeReader {
 		List<String> intermediateCodeAsList = Arrays.asList(intermediateCode.split("\\n"));
 
 		for (int i = 0; i < intermediateCodeAsList.size(); i++) {
-			System.out.println("reading in progress for"+i+" " + intermediateCodeAsList.get(i));
+			System.out.println("reading in progress for" + i + " " + intermediateCodeAsList.get(i));
 		}
 		return intermediateCodeAsList;
 
@@ -70,67 +66,56 @@ public class IntermediateCodeReader {
 
 		String content = readFromICFile(filename);
 		System.out.println(content);
-		HashMap<String, DataTypes> map = new HashMap<String, DataTypes>();
-		Stack<DataTypes> local = new Stack<DataTypes>();
-		Stack<String> forVariable = new Stack<String>();
 		int counter = 0;
-		Stack<String> whileVariable = new Stack<String>();
-		
-		List<String> intermediateCode=intermediateCodeAsList(content);
-		
-		
-		while (counter<intermediateCode.size())
-		{
-			String operator=intermediateCode.get(counter);		
-			
-			if (operator.contains("DECLARE"))
-			{
-				LogicImplementation.getInstance()
-				.declareLogic();
-			}else if(operator.contains("GET")) {
-				LogicImplementation.getInstance()
-				.getLogic();
+		List<String> intermediateCode = intermediateCodeAsList(content);
+
+		while (counter < intermediateCode.size()) {
+			String operator = intermediateCode.get(counter);
+
+			if (operator.contains("DECLARE")) {
+				LogicImplementation.getInstance().declareLogic();
+			} else if (operator.contains("GET")) {
+				LogicImplementation.getInstance().getLogic();
+			} else if (operator.contains("STORE")) {
+				LogicImplementation.getInstance().storeLogic();
+			} else if (operator.contains("PUSH")) {
+				LogicImplementation.getInstance().pushLogic();
+			} else if (operator.contains("PRINT")) {
+				LogicImplementation.getInstance().printLogic();
+			} else if (operator.contains("COMPARE_OPERATOR")) {
+				LogicImplementation.getInstance().compareOperatorLogic();
+			} else if (operator.contains("COMPARE_OPERATOR")) {
+				LogicImplementation.getInstance().compareOperatorLogic();
+			} else if (operator.contains("AND_OR_OPERATOR")) {
+				LogicImplementation.getInstance().andOrOperatorLogic();
+			} else if (operator.contains("IFTE_START")) {
+				LogicImplementation.getInstance().ifThenElseLogic();
+			} else if (operator.contains("OPERATOR")) {
+				LogicImplementation.getInstance().operatorLogic();
 			}
-			else if(operator.contains("STORE")) {
-				LogicImplementation.getInstance()
-				.storeLogic();
+			// conditionFalseLogic check with jump conditions
+			else if (operator.contains("CONDITION_FALSE")) {
+				LogicImplementation.getInstance().conditionFalseLogic();
+			} else if (operator.contains("ELSE_START")) {
+				LogicImplementation.getInstance().elseStartLogic();
+			} else if (operator.contains("WHILEEND")) {
+				LogicImplementation.getInstance().whileEndLogic();
+			} else if (operator.contains("FOR_STOP")) {
+				LogicImplementation.getInstance().forStopLogic();
+			} else if (operator.contains("IF_END")) {
+				LogicImplementation.getInstance().ifEndLogic();
+			} else if (operator.contains("WHILEBEGIN")) {
+				LogicImplementation.getInstance().whileBeginLogic();
 			}
-			else if(operator.contains("PUSH")) {
-				LogicImplementation.getInstance()
-				.pushLogic();
-			}
-			else if(operator.contains("PRINT")) {
-				LogicImplementation.getInstance()
-				.printLogic();
-			}else if(operator.contains("COMPARE_OPERATOR")) {
-				LogicImplementation.getInstance()
-				.compareOperatorLogic();
-			}
-			else if(operator.contains("COMPARE_OPERATOR")) {
-				LogicImplementation.getInstance()
-				.compareOperatorLogic();
-			}else if(operator.contains("AND_OR_OPERATOR")) {
-				LogicImplementation.getInstance()
-				.andOrOperatorLogic();
-			}else if(operator.contains("IFTE_START")) {
-				LogicImplementation.getInstance()
-				.ifThenElseLogic();
-			}
-			else if(operator.contains("OPERATOR")) {
-				LogicImplementation.getInstance()
-				.operatorLogic();
-			}
-			//	conditionFalseLogic
-			else if(operator.contains("CONDITION_FALSE")) {
-				LogicImplementation.getInstance()
-				.conditionFalseLogic();
-			}
-			else {
-				System.out.println("Un expected issue"+operator);
+			// There could be a problem, Need to check on Jump Line statements
+			else if (operator.contains("JUMP")) {
+				LogicImplementation.getInstance().jumpLogic();
+			} else {
+				System.out.println("Un expected issue " + operator);
 			}
 			counter++;
 		}
-	
+
 	}
 
 	private void program(String filename) throws Exception {
