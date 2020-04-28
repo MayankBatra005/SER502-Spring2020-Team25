@@ -102,6 +102,28 @@ public class IntermediateCodeReader {
 			else if(operator.contains("PRINT")) {
 				LogicImplementation.getInstance()
 				.printLogic();
+			}else if(operator.contains("COMPARE_OPERATOR")) {
+				LogicImplementation.getInstance()
+				.compareOperatorLogic();
+			}
+			else if(operator.contains("COMPARE_OPERATOR")) {
+				LogicImplementation.getInstance()
+				.compareOperatorLogic();
+			}else if(operator.contains("AND_OR_OPERATOR")) {
+				LogicImplementation.getInstance()
+				.andOrOperatorLogic();
+			}else if(operator.contains("IFTE_START")) {
+				LogicImplementation.getInstance()
+				.ifThenElseLogic();
+			}
+			else if(operator.contains("OPERATOR")) {
+				LogicImplementation.getInstance()
+				.operatorLogic();
+			}
+			//	conditionFalseLogic
+			else if(operator.contains("CONDITION_FALSE")) {
+				LogicImplementation.getInstance()
+				.conditionFalseLogic();
 			}
 			else {
 				System.out.println("Un expected issue"+operator);
