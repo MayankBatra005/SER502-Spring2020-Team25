@@ -16,7 +16,8 @@ public class DataTypes {
 	
 	public String checkDataType() {
 		try {
-			int i = (Integer)value;
+			@SuppressWarnings("unused")
+			int i =(Integer)value;
 			return "int";
 		}
 		catch(ClassCastException fu) {
@@ -26,6 +27,7 @@ public class DataTypes {
 	
 	private String checkDouble() {
 		try {
+			@SuppressWarnings("unused")
 			Double i = (Double)value;
 			return "double";
 		}
@@ -36,6 +38,7 @@ public class DataTypes {
 
 	private String checkBoolean() {
 		try {
+			@SuppressWarnings("unused")
 			Boolean bo = (Boolean)value;
 			return "BOOLEAN";
 		}
