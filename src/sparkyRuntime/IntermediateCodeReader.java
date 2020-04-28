@@ -6,11 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
+
+
 
 public class IntermediateCodeReader {
 
@@ -45,23 +49,19 @@ public class IntermediateCodeReader {
 	private String readFromICFile(String filename) throws IOException {
 		String intermediateCode;
 		CharStream code = CharStreams.fromFileName(filename);
-	//	PrintWriter writer = new PrintWriter(filename.replace("sparkyic", "output"), "UTF-8");
-
 		intermediateCode = (code.toString().replaceAll("\r", ""));
-		/*
-		 * List<String> runtime = Arrays.asList(intermediateCode.split("\\n"));
-		 * 
-		 * for ( int i = 0;i<runtime.size();i++) {
-		 * System.out.println("reading in progress "+runtime.get(i)); }
-		 * 
-		 */
-		// runtime.execute();
-		// System.out.println("Output of the program \n"+runtime.getOutputData());
-		// writer.println("Output of the program ");
-		// writer.println(runtime.getOutputData());
-
-		// writer.close();
 		return intermediateCode;
+	}
+
+	private List<String> intermediateCodeAsList(String intermediateCode) {
+
+		List<String> intermediateCodeAsList = Arrays.asList(intermediateCode.split("\\n"));
+
+		for (int i = 0; i < intermediateCodeAsList.size(); i++) {
+			System.out.println("reading in progress for"+i+" " + intermediateCodeAsList.get(i));
+		}
+		return intermediateCodeAsList;
+
 	}
 
 	public void program2(String filename) throws Exception {
@@ -73,242 +73,16 @@ public class IntermediateCodeReader {
 		Stack<String> forVariable = new Stack<String>();
 		int counter = 0;
 		Stack<String> whileVariable = new Stack<String>();
-		int counter1 = 0;
-
-		try {
-
-			while (content != null) {
-				String[] line = content.split(" ");
-				DataTypes value;
-
-				if (line[0].equals("DECLARE")) {
-					// If variable name is already present.
-					if (map.containsKey(line[2])) {
-						throw new Exception("Variable " + line[2] + " is already declared.");
-					}
-					// If variable is declared without definition.
-					if (line.length < 5) {
-						map.put(line[2], null);
-						if (counter != 0) {
-							forVariable.push(line[2]);
-						}
-						if (counter1 != 0) {
-							whileVariable.push(line[2]);
-						}
-					}
-					// If variable is declared with definition.
-					else {
-
-						value = setValueDataTypes(line[4]);
-						if (line[1].equals(value.checkDataType())) {
-							map.put(line[2], value);
-							if (counter != 0) {
-								forVariable.push(line[2]);
-							}
-							if (counter1 != 0) {
-								whileVariable.push(line[2]);
-							}
-						} else {
-
-							throw new Exception("Datatype Mismatch during Variable declaration");
-
-						}
-					}
-				}
-
-				else if (line[0].equals("STORE")) {
-					if (line[1].charAt(0) != '"') {
-						value = setValueDataTypes(line[1]);
-						local.push(value);
-					} else if (line[1].charAt(0) == '"') {
-						String output = "";
-						int count = 0;
-						for (int i = 1; i < line.length; i++) {
-							if (i == 1 && line[i].length() != 1) {
-								output += line[i].substring(1, line[i].length()) + " ";
-								count = 1;
-							} else if (i == line.length - 1 && line[i].length() != 1) {
-								output += line[i].substring(0, line[i].length() - 1);
-							} else if (i != 1 && i != line.length - 1) {
-								if (count == 0 && i == 2) {
-									output += " " + line[i] + " ";
-								} else {
-									output += line[i] + " ";
-								}
-							}
-						}
-						value = setValueDataTypes(output);
-						local.push(value);
-					}
-				}
-
-				else if (line[0].equals("PUSH")) {
-					if (!map.containsKey(line[1])) {
-						throw new Exception("Variable " + line[1] + " might not have been declared.");
-					} else {
-						DataTypes mapvar = map.get(line[1]);
-						DataTypes localvar = local.pop();
-						if (mapvar == null || mapvar.checkDataType().equals(localvar.checkDataType())) {
-							map.put(line[1], localvar);
-						} else {
-							throw new Exception("Datatype mismatch while assignment");
-
-						}
-					}
-				}
-
-				else if (line[0].equals("GET")) {
-					if (!map.containsKey(line[1])) {
-						throw new Exception("Variable " + line[1] + " might not have been declared.");
-					} else {
-						local.push(map.get(line[1]));
-					}
-				}
-
-				else if (line[0].equals("OPERATOR")) {
-					operator(line[1], local);
-				}
-
-				else if (line[0].equals("COMPARE_OPERATOR")) {
-					compare(line[1], local);
-				}
-
-				else if (line[0].equals("AND_OR_OPERATOR")) {
-					if (line[1].equals("and")) {
-						Boolean decand = local.pop().Boolean();
-						DataTypes outand = new DataTypes(decand.equals(local.pop().Boolean()) ? decand : false);
-						local.push(outand);
-					}
-
-					else if (line[1].equals("or")) {
-						Boolean decor = local.pop().Boolean();
-						DataTypes outor = new DataTypes(decor.equals(local.pop().Boolean()) ? decor : true);
-						local.push(outor);
-					}
-
-					else if (line[1].equals("not")) {
-						Boolean decnot = local.pop().Boolean();
-						DataTypes outnot = new DataTypes(decnot.equals(true) ? false : true);
-						local.push(outnot);
-					}
-				}
-
-				else if (line[0].equals("CONDITION_FALSE") && !local.pop().Boolean()) {
-
-					if (line[2].equals("ELSE_START")) {
-						while (content != null) {
-							line = content.split(" ");
-							if (line[0].equals("ELSE_START")) {
-								break;
-							}
-						}
-					} else if (line[2].equals("WHILEEND")) {
-						while (content != null) {
-							line = content.split(" ");
-							if (line[0].equals("WHILEEND")) {
-								break;
-							}
-						}
-						counter1 = 0;
-						while (!whileVariable.empty()) {
-							map.remove(whileVariable.pop());
-						}
-					} else if (line[2].equals("FOR_STOP")) {
-						while (content != null) {
-							line = content.split(" ");
-							if (line[0].equals("FOR_STOP")) {
-								break;
-							}
-						}
-						counter = 0;
-						while (!forVariable.empty()) {
-							map.remove(forVariable.pop());
-						}
-					}
-				}
-
-				else if (line[0].equals("FOR_START")) {
-					if (counter == 0) {
-						counter = counter + 1;
-					}
-
-				}
-
-				else if (line[0].equals("IF_END")) {
-					while (content != null) {
-						line = content.split(" ");
-						if (line[0].equals("ELSE_END")) {
-							break;
-						}
-					}
-
-				}
-
-				else if (line[0].equals("WHILEBEGIN")) {
-					if (counter1 == 0) {
-						counter1 = counter1 + 1;
-					}
-
-				}
-
-				// else if(line[0].equals("FOR_STOP")) {
-				// System.out.println("raja");
-				// counter = 0;
-				// while(forVariable.empty()) {
-				// map.remove(forVariable.pop());
-				// }
-				// }
-
-				else if (line[0].equals("JUMP")) {
-
-					if (line[1].equals("FOR_CONDITION_START")) {
-						// file = new File(basePath+"\\Sparky.txt");
-						// fileReader = null;
-						// try {
-						//// fileReader = new FileReader(file);
-						// } catch (FileNotFoundException fi) {
-						// System.out.println("Error in reading the file");
-						// fi.printStackTrace();
-						// }
-						// read = new BufferedReader(fileReader);
-						while (content != null) {
-							line = content.split(" ");
-							if (line[0].equals("FOR_CONDITION_START")) {
-								break;
-							}
-						}
-					} else if (line[1].equals("WHILEBEGIN")) {
-						// file = new File(basePath+"\\Sparky.txt");
-						// fileReader = null;
-						// try {
-						// fileReader = new FileReader(file);
-						// } catch (FileNotFoundException fi) {
-						// System.out.println("Error in reading the file");
-						// fi.printStackTrace();
-						// }
-						// read = new BufferedReader(fileReader);
-						while (content != null) {
-							line = content.split(" ");
-							if (line[0].equals("WHILEBEGIN")) {
-								break;
-							}
-						}
-					}
-				}
-
-				else if (line[0].equals("PRINT")) {
-					if (local.isEmpty()) {
-						// throw new Exception("Nothing to Print.");
-					}
-					System.out.println(local.pop().toString());
-				}
-			}
+		
+		List<String> intermediateCode=intermediateCodeAsList(content);
+		counter=intermediateCode.size();
+		while (counter!=0)
+		{
+			
+			// calling the logic class
+			counter++;
 		}
-
-		catch (IOException fu) {
-			fu.printStackTrace();
-		}
-
+	
 	}
 
 	private void program(String filename) throws Exception {
