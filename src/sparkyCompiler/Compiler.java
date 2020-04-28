@@ -18,23 +18,21 @@ import sparkyRuntime.IntermediateCodeReader;
 
 public class Compiler {
 
-
-	public static void main(String[] args) throws Exception 
-	{
-		String inputIcfile=null;
+	public static void main(String[] args) throws Exception {
+		String inputIcfile = null;
 
 		try {
 
 			if (args.length > 0) {
 				String inputFileName = args[0];
-				inputIcfile=args[0];
-				
+				inputIcfile = args[0];
+
 				// Remove path and just pass the arguments
-				// argument should have the complete path 
+				// argument should have the complete path
 				// or in the current working directory
 				// String inputFileName = "data/print.sparky";
 				// changed
-		//		String path="data/"+inputIcfile;
+				// String path="data/"+inputIcfile;
 				CharStream sourceCode = CharStreams.fromFileName(inputFileName);
 				SparkyLexer lx = new SparkyLexer(sourceCode);
 				CommonTokenStream tokenStream = new CommonTokenStream(lx);
@@ -47,9 +45,10 @@ public class Compiler {
 				List<String> iCodeArray = Arrays.asList(iCodeGen.getOutput().split("\\n"));
 
 				try {
-			//		String basePath = new File("").getAbsolutePath()+"\\data\\";
-			//		changed		
-			//		File iCodeFile = new File(basePath+inputFileName.replace("sparky", "sparkyic"));		
+					// String basePath = new File("").getAbsolutePath()+"\\data\\";
+					// changed
+					// File iCodeFile = new File(basePath+inputFileName.replace("sparky",
+					// "sparkyic"));
 					File iCodeFile = new File(inputFileName.replace("sparky", "sparkyic"));
 					BufferedWriter bufferWriter = null;
 					FileWriter fileWriter = null;
@@ -94,18 +93,18 @@ public class Compiler {
 			e.printStackTrace();
 		}
 		if (inputIcfile != null) {
-			executeRuntime(inputIcfile+"ic");
-		}else {
-			
+			System.out.println("File path " + inputIcfile + "ic");
+			executeRuntime(inputIcfile + "ic");
+
+		} else {
+
 			System.out.println("Error File not created ");
 		}
 	}
-	
-	public static void executeRuntime(String filename) throws Exception
-	{
+
+	public static void executeRuntime(String filename) throws Exception {
 		new IntermediateCodeReader(filename);
-	//	System.out.println("call to runtime");
-		
+		// System.out.println("call to runtime");
 
 	}
 

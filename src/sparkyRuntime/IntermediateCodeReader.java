@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 import org.antlr.v4.runtime.CharStream;
@@ -15,7 +17,8 @@ import org.antlr.v4.runtime.CharStreams;
 public class IntermediateCodeReader {
 
 	public IntermediateCodeReader(String filename) throws Exception {
-		program(filename);
+		// program(filename);
+		program2(filename);
 	}
 
 	/**
@@ -25,30 +28,103 @@ public class IntermediateCodeReader {
 	 * 
 	 * @throws Exception
 	 */
-	
-	private void saveToTextFile(String filename) throws Exception 
-	{
-		String basePath = new File("").getAbsolutePath()+"\\data";
-		String path=basePath+"\\"+filename;
+
+	private void saveToTextFile(String filename) throws Exception {
+		String basePath = new File("").getAbsolutePath() + "\\data";
+		String path = basePath + "\\" + filename;
 		// change 5
 		// CharStream code = CharStreams.fromFileName(path);
-		 CharStream code = CharStreams.fromFileName(filename);
-		
-		 // change 3
-		 //PrintWriter out = new PrintWriter(basePath+"/Sparky.txt");
-		 PrintWriter out = new PrintWriter("Sparky.txt");
-		 out.println(code.toString());
-		 out.close();
-		 		
+		CharStream code = CharStreams.fromFileName(filename);
+
+		// change 3
+		// PrintWriter out = new PrintWriter(basePath+"/Sparky.txt");
+		PrintWriter out = new PrintWriter("Sparky.txt");
+		out.println(code.toString());
+		out.close();
+
 	}
-	
+
+	private String readFromICFile(String filename) throws IOException {
+		String intermediateCode;
+		CharStream code = CharStreams.fromFileName(filename);
+		intermediateCode = (code.toString().replaceAll("\r", ""));
+		return intermediateCode;
+	}
+
+	private List<String> intermediateCodeAsList(String intermediateCode) {
+
+		List<String> intermediateCodeAsList = Arrays.asList(intermediateCode.split("\\n"));
+
+		for (int i = 0; i < intermediateCodeAsList.size(); i++) {
+			System.out.println("reading in progress for" + i + " " + intermediateCodeAsList.get(i));
+		}
+		return intermediateCodeAsList;
+
+	}
+
+	public void program2(String filename) throws Exception {
+
+		String content = readFromICFile(filename);
+		System.out.println(content);
+		int counter = 0;
+		List<String> intermediateCode = intermediateCodeAsList(content);
+
+		while (counter < intermediateCode.size()) {
+			String operator = intermediateCode.get(counter);
+
+			if (operator.contains("DECLARE")) {
+				LogicImplementation.getInstance().declareLogic();
+			} else if (operator.contains("GET")) {
+				LogicImplementation.getInstance().getLogic();
+			} else if (operator.contains("STORE")) {
+				LogicImplementation.getInstance().storeLogic();
+			} else if (operator.contains("PUSH")) {
+				LogicImplementation.getInstance().pushLogic();
+			} else if (operator.contains("PRINT")) {
+				LogicImplementation.getInstance().printLogic();
+			} else if (operator.contains("COMPARE_OPERATOR")) {
+				LogicImplementation.getInstance().compareOperatorLogic();
+			} else if (operator.contains("COMPARE_OPERATOR")) {
+				LogicImplementation.getInstance().compareOperatorLogic();
+			} else if (operator.contains("AND_OR_OPERATOR")) {
+				LogicImplementation.getInstance().andOrOperatorLogic();
+			} else if (operator.contains("IFTE_START")) {
+				LogicImplementation.getInstance().ifThenElseLogic();
+			} else if (operator.contains("OPERATOR")) {
+				LogicImplementation.getInstance().operatorLogic();
+			}
+			// conditionFalseLogic check with jump conditions
+			else if (operator.contains("CONDITION_FALSE")) {
+				LogicImplementation.getInstance().conditionFalseLogic();
+			} else if (operator.contains("ELSE_START")) {
+				LogicImplementation.getInstance().elseStartLogic();
+			} else if (operator.contains("WHILEEND")) {
+				LogicImplementation.getInstance().whileEndLogic();
+			} else if (operator.contains("FOR_STOP")) {
+				LogicImplementation.getInstance().forStopLogic();
+			} else if (operator.contains("IF_END")) {
+				LogicImplementation.getInstance().ifEndLogic();
+			} else if (operator.contains("WHILEBEGIN")) {
+				LogicImplementation.getInstance().whileBeginLogic();
+			}
+			// There could be a problem, Need to check on Jump Line statements
+			else if (operator.contains("JUMP")) {
+				LogicImplementation.getInstance().jumpLogic();
+			} else {
+				System.out.println("Un expected issue " + operator);
+			}
+			counter++;
+		}
+
+	}
+
 	private void program(String filename) throws Exception {
-		
+
 		saveToTextFile(filename);
 		// String basePath = new File("").getAbsolutePath()+"\\data";
 		String basePath = new File("").getAbsolutePath();
 		// change 4
-		//File file = new File(basePath+"\\Sparky.txt");
+		// File file = new File(basePath+"\\Sparky.txt");
 		File file = new File("Sparky.txt");
 		FileReader fileReader = null;
 		try {
@@ -106,35 +182,31 @@ public class IntermediateCodeReader {
 					}
 				}
 
-				else if(line[0].equals("STORE")) {
-				if(line[1].charAt(0)!='"') {
-					value = setValueDataTypes(line[1]);
-					local.push(value);
+				else if (line[0].equals("STORE")) {
+					if (line[1].charAt(0) != '"') {
+						value = setValueDataTypes(line[1]);
+						local.push(value);
+					} else if (line[1].charAt(0) == '"') {
+						String output = "";
+						int count = 0;
+						for (int i = 1; i < line.length; i++) {
+							if (i == 1 && line[i].length() != 1) {
+								output += line[i].substring(1, line[i].length()) + " ";
+								count = 1;
+							} else if (i == line.length - 1 && line[i].length() != 1) {
+								output += line[i].substring(0, line[i].length() - 1);
+							} else if (i != 1 && i != line.length - 1) {
+								if (count == 0 && i == 2) {
+									output += " " + line[i] + " ";
+								} else {
+									output += line[i] + " ";
+								}
+							}
+						}
+						value = setValueDataTypes(output);
+						local.push(value);
+					}
 				}
-				else if(line[1].charAt(0)=='"') {
-					String output="";
-			        int count=0;
-			        for(int i=1; i<line.length; i++){
-			            if(i==1 && line[i].length()!=1){
-			                output+=line[i].substring(1, line[i].length())+" ";
-			                count=1;
-			            }
-			            else if(i==line.length-1 && line[i].length()!=1){
-			                output+=line[i].substring(0, line[i].length()-1);
-			            }
-			            else if(i!=1 && i!=line.length-1){
-			                if(count==0 && i==2){
-			                    output+= " " + line[i] + " ";
-			                }
-			                else{
-			                    output+=line[i] + " ";
-			                }
-			            }
-			        }
-			        value = setValueDataTypes(output);
-					local.push(value);
-				}
-			}
 
 				else if (line[0].equals("PUSH")) {
 					if (!map.containsKey(line[1])) {
@@ -256,7 +328,7 @@ public class IntermediateCodeReader {
 				else if (line[0].equals("JUMP")) {
 
 					if (line[1].equals("FOR_CONDITION_START")) {
-						file = new File(basePath+"\\Sparky.txt");
+						file = new File(basePath + "\\Sparky.txt");
 						fileReader = null;
 						try {
 							fileReader = new FileReader(file);
@@ -272,7 +344,7 @@ public class IntermediateCodeReader {
 							}
 						}
 					} else if (line[1].equals("WHILEBEGIN")) {
-						file = new File(basePath+"\\Sparky.txt");
+						file = new File(basePath + "\\Sparky.txt");
 						fileReader = null;
 						try {
 							fileReader = new FileReader(file);
@@ -291,7 +363,7 @@ public class IntermediateCodeReader {
 				}
 
 				else if (line[0].equals("PRINT")) {
-					if(local.isEmpty()) {
+					if (local.isEmpty()) {
 						throw new Exception("Nothing to Print.");
 					}
 					System.out.println(local.pop().toString());
@@ -307,16 +379,13 @@ public class IntermediateCodeReader {
 
 	// Checks the data type of input and creates an object of class DataTypes.
 	private DataTypes setValueDataTypes(String string) {
-		if(isInt(string)) {
+		if (isInt(string)) {
 			return new DataTypes(Integer.parseInt(string));
-		}
-		else if(isdouble(string)) {
+		} else if (isdouble(string)) {
 			return new DataTypes(Double.parseDouble(string));
-		}
-		else if(isbool(string)) {
+		} else if (isbool(string)) {
 			return new DataTypes(Boolean.parseBoolean(string));
-		}
-		else {
+		} else {
 			return new DataTypes(string);
 		}
 	}
@@ -325,140 +394,117 @@ public class IntermediateCodeReader {
 		try {
 			int a = Integer.parseInt(strin);
 			return true;
-		}
-		catch(NumberFormatException fk) {
+		} catch (NumberFormatException fk) {
 			return false;
 		}
 	}
-	
+
 	private boolean isdouble(String strin) {
 		try {
 			double d = Double.parseDouble(strin);
 			return true;
-		}
-		catch(NumberFormatException fk) {
+		} catch (NumberFormatException fk) {
 			return false;
 		}
 	}
-	
+
 	private boolean isbool(String string) {
 		try {
 			Boolean bo = Boolean.parseBoolean(string);
-        	if(!bo && !string.equalsIgnoreCase("FALSE")) {
-        		 return false;
-        	}
-            return true;
-		}
-		catch(NumberFormatException fk) {
+			if (!bo && !string.equalsIgnoreCase("FALSE")) {
+				return false;
+			}
+			return true;
+		} catch (NumberFormatException fk) {
 			return false;
 		}
 	}
-	
-	//Compares the 2 input and pushes the boolean result in stack.
+
+	// Compares the 2 input and pushes the boolean result in stack.
 	private void compare(String comparison, Stack<DataTypes> local) throws Exception {
-		
+
 		DataTypes locop2 = local.pop();
 		DataTypes locop1 = local.pop();
 		DataTypes outcome;
-		if(locop1.checkDataType().equals(locop2.checkDataType())) {
-			if(comparison.equals("==")) {
+		if (locop1.checkDataType().equals(locop2.checkDataType())) {
+			if (comparison.equals("==")) {
 				outcome = new DataTypes(locop2.toString().equals(locop1.toString()) ? true : false);
 				local.push(outcome);
-			}
-			else if(comparison.equals("<") && locop1.checkDataType().equals("int")) {
-				outcome = new DataTypes(locop2.Integer()>locop1.Integer() ? true : false);
+			} else if (comparison.equals("<") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer() > locop1.Integer() ? true : false);
 				local.push(outcome);
-			}
-			else if(comparison.equals("<") && locop1.checkDataType().equals("double")) {
-				outcome = new DataTypes(locop2.Double()>locop1.Double() ? true : false);
+			} else if (comparison.equals("<") && locop1.checkDataType().equals("double")) {
+				outcome = new DataTypes(locop2.Double() > locop1.Double() ? true : false);
 				local.push(outcome);
-			}
-			else if(comparison.equals("<=") && locop1.checkDataType().equals("int")) {
-				outcome = new DataTypes(locop2.Integer()>=locop1.Integer() ? true : false);
+			} else if (comparison.equals("<=") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer() >= locop1.Integer() ? true : false);
 				local.push(outcome);
-			}
-			else if(comparison.equals("<=") && locop1.checkDataType().equals("double")) {
-				outcome = new DataTypes(locop2.Double()>=locop1.Double() ? true : false);
+			} else if (comparison.equals("<=") && locop1.checkDataType().equals("double")) {
+				outcome = new DataTypes(locop2.Double() >= locop1.Double() ? true : false);
 				local.push(outcome);
-			}
-			else if(comparison.equals(">") && locop1.checkDataType().equals("int")) {
-				outcome = new DataTypes(locop2.Integer()<locop1.Integer() ? true : false);
+			} else if (comparison.equals(">") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer() < locop1.Integer() ? true : false);
 				local.push(outcome);
-			}
-			else if(comparison.equals(">") && locop1.checkDataType().equals("double")) {
-				outcome = new DataTypes(locop2.Double()<locop1.Double() ? true : false);
+			} else if (comparison.equals(">") && locop1.checkDataType().equals("double")) {
+				outcome = new DataTypes(locop2.Double() < locop1.Double() ? true : false);
 				local.push(outcome);
-			}
-			else if(comparison.equals(">=") && locop1.checkDataType().equals("int")) {
-				outcome = new DataTypes(locop2.Integer()<=locop1.Integer() ? true : false);
+			} else if (comparison.equals(">=") && locop1.checkDataType().equals("int")) {
+				outcome = new DataTypes(locop2.Integer() <= locop1.Integer() ? true : false);
 				local.push(outcome);
-			}
-			else if(comparison.equals(">=") && locop1.checkDataType().equals("double")) {
-				outcome = new DataTypes(locop2.Double()<=locop1.Double() ? true : false);
+			} else if (comparison.equals(">=") && locop1.checkDataType().equals("double")) {
+				outcome = new DataTypes(locop2.Double() <= locop1.Double() ? true : false);
 				local.push(outcome);
-			}
-			else {
+			} else {
 				throw new Exception("Incorrect Datatype while comparison");
 			}
-		}
-		else {
+		} else {
 			throw new Exception("Datatype mismatch while comparison");
 		}
-		
+
 	}
-	
-	//Performs Arithmetic operation on inputs and pushes the result in stack.
+
+	// Performs Arithmetic operation on inputs and pushes the result in stack.
 	private void operator(String operation, Stack<DataTypes> local) throws Exception {
 		DataTypes locop2 = local.pop();
 		DataTypes locop1 = local.pop();
 		DataTypes outcome;
-		if(locop1.checkDataType().equals(locop2.checkDataType()) && locop1.checkDataType().equals("int")) {
-			if(operation.equals("ADD")) {
-				outcome = new DataTypes(locop1.Integer()+locop2.Integer());
+		if (locop1.checkDataType().equals(locop2.checkDataType()) && locop1.checkDataType().equals("int")) {
+			if (operation.equals("ADD")) {
+				outcome = new DataTypes(locop1.Integer() + locop2.Integer());
 				local.push(outcome);
-			}
-			else if(operation.equals("SUBTRACT")) {
-				outcome = new DataTypes(locop1.Integer()-locop2.Integer());
+			} else if (operation.equals("SUBTRACT")) {
+				outcome = new DataTypes(locop1.Integer() - locop2.Integer());
 				local.push(outcome);
-			}
-			else if(operation.equals("MULTIPLY")) {
-				outcome = new DataTypes(locop1.Integer()*locop2.Integer());
+			} else if (operation.equals("MULTIPLY")) {
+				outcome = new DataTypes(locop1.Integer() * locop2.Integer());
 				local.push(outcome);
-			}
-			else if(operation.equals("DIVIDE")) {
-				if(locop2.Integer()!=0){
-					outcome = new DataTypes(locop1.Integer()/locop2.Integer());
+			} else if (operation.equals("DIVIDE")) {
+				if (locop2.Integer() != 0) {
+					outcome = new DataTypes(locop1.Integer() / locop2.Integer());
 					local.push(outcome);
-				}
-				else {
+				} else {
 					throw new Exception("Denominator can't be zero.");
 				}
 			}
-		}
-		else if(locop1.checkDataType().equals(locop2.checkDataType()) && locop1.checkDataType().equals("double")) {
-			if(operation.equals("ADD")) {
-				outcome = new DataTypes(locop1.Double()+locop2.Double());
+		} else if (locop1.checkDataType().equals(locop2.checkDataType()) && locop1.checkDataType().equals("double")) {
+			if (operation.equals("ADD")) {
+				outcome = new DataTypes(locop1.Double() + locop2.Double());
 				local.push(outcome);
-			}
-			else if(operation.equals("SUBTRACT")) {
-				outcome = new DataTypes(locop1.Double()-locop2.Double());
+			} else if (operation.equals("SUBTRACT")) {
+				outcome = new DataTypes(locop1.Double() - locop2.Double());
 				local.push(outcome);
-			}
-			else if(operation.equals("MULTIPLY")) {
-				outcome = new DataTypes(locop1.Double()*locop2.Double());
+			} else if (operation.equals("MULTIPLY")) {
+				outcome = new DataTypes(locop1.Double() * locop2.Double());
 				local.push(outcome);
-			}
-			else if(operation.equals("DIVIDE")) {
-				if(locop2.Integer()!=0){
-					outcome = new DataTypes(locop1.Double()/locop2.Double());
+			} else if (operation.equals("DIVIDE")) {
+				if (locop2.Integer() != 0) {
+					outcome = new DataTypes(locop1.Double() / locop2.Double());
 					local.push(outcome);
-				}
-				else {
+				} else {
 					throw new Exception("Denominator can't be zero.");
 				}
 			}
-		}
-		else {
+		} else {
 			throw new Exception("Datatype of both the variables should be same.");
 		}
 	}
