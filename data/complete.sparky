@@ -1,0 +1,20 @@
+Live
+int a=9; 
+int b=0; 
+int c; 
+int e=5; 
+int f=0; 
+int g=0; 
+string str= "ASsndksmaszkal1!!@#$        "; 
+a==9? {b=b+1;}:{a=a+5;} 
+for(int m=0;m<2;m=m+1)
+{g=g+1;} 
+print (a);
+print (b);
+print (c);
+print (e);
+print (f);
+print (g);
+print (str);
+print (m);
+Die

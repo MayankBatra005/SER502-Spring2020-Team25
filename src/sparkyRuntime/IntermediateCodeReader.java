@@ -392,7 +392,8 @@ public class IntermediateCodeReader {
 
 	private boolean isInt(String strin) {
 		try {
-			int a = Integer.parseInt(strin);
+//			int a =
+					Integer.parseInt(strin);
 			return true;
 		} catch (NumberFormatException fk) {
 			return false;
@@ -401,7 +402,8 @@ public class IntermediateCodeReader {
 
 	private boolean isdouble(String strin) {
 		try {
-			double d = Double.parseDouble(strin);
+//			double d = 
+					Double.parseDouble(strin);
 			return true;
 		} catch (NumberFormatException fk) {
 			return false;

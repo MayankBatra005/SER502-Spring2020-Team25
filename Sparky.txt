@@ -1,0 +1,9 @@
+DECLARE int a 
+STORE 13456 
+PUSH a 
+DECLARE int b 
+STORE 2345 
+PUSH b 
+GET a 
+PRINT 
+
