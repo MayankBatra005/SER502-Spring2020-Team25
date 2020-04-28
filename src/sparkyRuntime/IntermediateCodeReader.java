@@ -226,7 +226,7 @@ public class IntermediateCodeReader {
 				else if (line[0].equals("JUMP")) {
 
 					if (line[1].equals("FOR_CONDITION_START")) {
-						file = new File("C:\\Users\\raj\\Sparky.txt");
+						file = new File(basePath+"\\Sparky.txt");
 						fileReader = null;
 						try {
 							fileReader = new FileReader(file);
@@ -242,7 +242,7 @@ public class IntermediateCodeReader {
 							}
 						}
 					} else if (line[1].equals("WHILEBEGIN")) {
-						file = new File("C:\\Users\\raj\\Sparky.txt");
+						file = new File(basePath+"\\Sparky.txt");
 						fileReader = null;
 						try {
 							fileReader = new FileReader(file);
