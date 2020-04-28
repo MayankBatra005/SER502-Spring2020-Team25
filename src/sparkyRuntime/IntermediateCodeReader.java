@@ -30,10 +30,13 @@ public class IntermediateCodeReader {
 	{
 		String basePath = new File("").getAbsolutePath()+"\\data";
 		String path=basePath+"\\"+filename;
-		 CharStream code = CharStreams.fromFileName(path);
+		// change 5
+		// CharStream code = CharStreams.fromFileName(path);
+		 CharStream code = CharStreams.fromFileName(filename);
 		
-		 
-		 PrintWriter out = new PrintWriter(basePath+"/Sparky.txt");
+		 // change 3
+		 //PrintWriter out = new PrintWriter(basePath+"/Sparky.txt");
+		 PrintWriter out = new PrintWriter("Sparky.txt");
 		 out.println(code.toString());
 		 out.close();
 		 		
@@ -42,9 +45,11 @@ public class IntermediateCodeReader {
 	private void program(String filename) throws Exception {
 		
 		saveToTextFile(filename);
-		String basePath = new File("").getAbsolutePath()+"\\data";
-		
-		File file = new File(basePath+"\\Sparky.txt");
+		// String basePath = new File("").getAbsolutePath()+"\\data";
+		String basePath = new File("").getAbsolutePath();
+		// change 4
+		//File file = new File(basePath+"\\Sparky.txt");
+		File file = new File("Sparky.txt");
 		FileReader fileReader = null;
 		try {
 			fileReader = new FileReader(file);

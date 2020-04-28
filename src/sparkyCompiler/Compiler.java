@@ -33,8 +33,9 @@ public class Compiler {
 				// argument should have the complete path 
 				// or in the current working directory
 				// String inputFileName = "data/print.sparky";
-				String path="data/"+inputIcfile;
-				CharStream sourceCode = CharStreams.fromFileName(path);
+				// changed
+		//		String path="data/"+inputIcfile;
+				CharStream sourceCode = CharStreams.fromFileName(inputFileName);
 				SparkyLexer lx = new SparkyLexer(sourceCode);
 				CommonTokenStream tokenStream = new CommonTokenStream(lx);
 				SparkyParser parser = new SparkyParser(tokenStream);
@@ -46,8 +47,10 @@ public class Compiler {
 				List<String> iCodeArray = Arrays.asList(iCodeGen.getOutput().split("\\n"));
 
 				try {
-					String basePath = new File("").getAbsolutePath()+"\\data\\";
-					File iCodeFile = new File(basePath+inputFileName.replace("sparky", "sparkyic"));
+			//		String basePath = new File("").getAbsolutePath()+"\\data\\";
+			//		changed		
+			//		File iCodeFile = new File(basePath+inputFileName.replace("sparky", "sparkyic"));		
+					File iCodeFile = new File(inputFileName.replace("sparky", "sparkyic"));
 					BufferedWriter bufferWriter = null;
 					FileWriter fileWriter = null;
 					if (iCodeArray.size() > 1) {
