@@ -19,7 +19,7 @@ public class IntermediateCodeReader {
 	 * Program function reads the Intermediate code file line by line. Variables are
 	 * stored in Hashmap having value of different data types. To handle this we
 	 * created class Datatypes.
-	 * @author Rahul Jain
+	 * @author Rahul Jain, Mayank Batra
  	 * @since April-15-2020
  	 * @version 1.0
 	 * @throws Exception

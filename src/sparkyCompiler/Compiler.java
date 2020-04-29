@@ -16,6 +16,13 @@ import sparky.SparkyLexer;
 import sparky.SparkyParser;
 import sparkyRuntime.IntermediateCodeReader;
 
+/**
+ * This purpose of this class is to serve as the main executable 
+ * @author Sayali Tanawade , Mayank Batra
+ * @since April-27-2020
+ * @version 1.0
+ */
+
 public class Compiler {
 
 	public static void main(String[] args) throws Exception {
