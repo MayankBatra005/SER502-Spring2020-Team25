@@ -1,0 +1,5 @@
+# gitignore for .project and .class files
+
+*.project
+*.class
+/bin/

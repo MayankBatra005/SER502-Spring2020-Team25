@@ -1,5 +1,0 @@
-IF (YUP)   
-THEN {x=3;}   
-ELSE   
-{x=4;}   
-FI;

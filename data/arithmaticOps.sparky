@@ -1,0 +1,13 @@
+Live
+int a=40;
+int b=8;
+int result;
+result=a+b;
+print(result);
+result=a-b;
+print(result);
+result=a*b;
+print(result);
+result=a/b;
+print(result);
+Die
