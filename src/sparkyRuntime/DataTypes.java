@@ -1,7 +1,10 @@
 package sparkyRuntime;
 
 /**
- * 
+ * Purpose of this class is to store variable values as an object.
+ * @author Rahul Jain
+ * @since April-15-2020
+ * @version 1.0
  */
 public class DataTypes {
 	
