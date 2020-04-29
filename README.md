@@ -27,3 +27,4 @@ https://github.com/MayankBatra005/SER502-Spring2020-Team25/blob/master/doc/Insta
 ## ONE LINE of bash script that builds the compiler and ONE LINE that runs the runtime.
 JAVA -jar Compiler.jar filename.sparky
 ## Link to the YouTube video
+https://www.youtube.com/watch?v=AR0z2Ma4xh8
