@@ -25,11 +25,22 @@ Sayali
 
 Plan for next weeks:
 Week 2: April 10 - April 17
-We will start:
-	- Implementing intermidiate code generation logic.
-	- Update grammar if minor changes are required.
-	- Implement creating tokens.
-	- Test intermidiate code and token generation.
-	- Implement runtime environment.
+Mayank - 
+	- Implemented Grammar for (while loop)
+	- Created the code for Ternary operator, while loop in intermediate code generation 
+	- Implemented Run time to handle sparkyic code 
+	- Implemented the complete project integration ( Grammar , Intermediate Code generator and Runtime Environment)
+	- Implemented Design Patterns in the Code to improve the performance of the system
+	- Fixed many bugs 
+	- Created Documentation (Sparky Documentation of the project)
+Rahul 
+	- Implemented Run time class(IntermediateCodeReader.java) to read the Intermediate code and           coumpute the output. 
+	- Implemented code for handling Run time Exceptions.
+	- Integeration Testing and Bug Fixing.
+
+Rishika- Wrote all the grammar except while loop.
+        -Fixed bugs
+        -Implemented print function in Intermediate Code generation file.
+
 
 
