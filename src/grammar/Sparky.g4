@@ -1,3 +1,10 @@
+/*
+Copyright (c) 2020
+author- Rishika Bera
+Version-1.0
+Purpose- Grammar of the language created.
+*/
+
 grammar Sparky;
 program: LIVE ball DIE;
 ball: expression* | declare* expression*;
