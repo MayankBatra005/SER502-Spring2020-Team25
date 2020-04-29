@@ -33,6 +33,9 @@ Mayank -
 	- Implemented Design Patterns in the Code to improve the performance of the system
 	- Fixed many bugs 
 	- Created Documentation (Sparky Documentation of the project)
-
+Rahul 
+	- Implemented Run time class(IntermediateCodeReader.java) to read the Intermediate code and coumpute the output. 
+	- Implemented code for handling Run time Exceptions.
+	- Integeration Testing and Bug Fixing.
 
 
