@@ -1,6 +1,7 @@
 # SER502-Spring2020-Team-25
 
 ## Language Name: Sparky
+![Sparky](https://user-images.githubusercontent.com/37073720/81738741-08d93000-944f-11ea-97bc-b321c9fb9ed0.png)
 
 ## Course Information
 - **Instructor**: Dr. Ajay Bansal
