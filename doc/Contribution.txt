@@ -26,16 +26,28 @@ Sayali
 Plan for next weeks:
 Week 2: April 10 - April 17
 Mayank - 
-	- Implemented Grammar for ( Ternary operator  and while loop)
+	- Implemented Grammar for (while loop)
 	- Created the code for Ternary operator, while loop in intermediate code generation 
 	- Implemented Run time to handle sparkyic code 
 	- Implemented the complete project integration ( Grammar , Intermediate Code generator and Runtime Environment)
 	- Implemented Design Patterns in the Code to improve the performance of the system
 	- Fixed many bugs 
 	- Created Documentation (Sparky Documentation of the project)
-Rahul 
+Rahul -
 	- Implemented Run time class(IntermediateCodeReader.java) to read the Intermediate code and coumpute the output. 
 	- Implemented code for handling Run time Exceptions.
 	- Integeration Testing and Bug Fixing.
 
+Rishika- 
+  -Wrote all the grammar except while loop.
+  -Fixed bugs
+  -Implemented print function in Intermediate Code generation file.
+  -created powerpoint presentation.
+
+Sayali -
+- Generated lexer and parser files using antlr.
+- Implementation of Compiler main class to read source code and create parse tree.
+- Implementation of intermediate code generator class.
+- Created sample programs for arithmetic operator, Fibonacci series, factorial, if-then-else loop etc.
+- Bug fixes in intermediate code logic and sample codes.
 
